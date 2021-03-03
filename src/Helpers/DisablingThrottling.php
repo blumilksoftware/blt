@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-namespace KrzysztofRewak\Larahat\Helpers;
+namespace Blumilk\BLT\Helpers;
 
-use KrzysztofRewak\Larahat\Laravel;
+use Blumilk\BLT\LaravelContracts;
+use Closure;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 trait DisablingThrottling
 {
@@ -14,9 +17,9 @@ trait DisablingThrottling
     public function disableThrottling(): void
     {
         app()->instance(
-            Laravel::THROTTLING_MIDDLEWARE_CLASS,
-            new class {
-                public function handle($request, $next)
+            LaravelContracts::THROTTLING_MIDDLEWARE_CLASS,
+            new class() {
+                public function handle(Request $request, Closure $next): Response
                 {
                     return $next($request);
                 }

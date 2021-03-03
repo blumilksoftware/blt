@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace KrzysztofRewak\Larahat\Helpers;
+namespace Blumilk\BLT\Helpers;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

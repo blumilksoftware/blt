@@ -2,18 +2,21 @@
 
 declare(strict_types=1);
 
-namespace KrzysztofRewak\Larahat;
+namespace Blumilk\BLT\Extensions;
 
 use Behat\Testwork\ServiceContainer\Extension;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
+use Blumilk\BLT\Bootstrapping\LaravelBootstrapper;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class BehatExtension implements Extension
+class LaravelApplicationBehatExtension implements Extension
 {
+    protected const CONFIG_KEY = "laravel";
+
     public function getConfigKey(): string
     {
-        return "laravel";
+        return static::CONFIG_KEY;
     }
 
     public function initialize(ExtensionManager $extensionManager): void
@@ -25,11 +28,12 @@ class BehatExtension implements Extension
         $builder->children()->scalarNode("env")->defaultValue(".env.behat");
     }
 
-    public function load(ContainerBuilder $container, array $config): void
+    public function load(ContainerBuilder $container, array $config = []): void
     {
-        $app = require_once $this->getBasePath($container, "/bootstrap/app.php");
-        $app->loadEnvironmentFrom($config["env"]);
-        $app->make(Laravel::CONSOLE_KERNEL_INTERFACE)->bootstrap();
+        $laravelBooter = new LaravelBootstrapper();
+        $laravelBooter->setBasePath($container->getParameter("paths.base"));
+        $laravelBooter->setEnvironmentFile($config["env"] ?? ".env.behat");
+        $laravelBooter->boot();
     }
 
     public function process(ContainerBuilder $container): void

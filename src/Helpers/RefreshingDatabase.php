@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace KrzysztofRewak\Larahat\Helpers;
+namespace Blumilk\BLT\Helpers;
 
-use KrzysztofRewak\Larahat\Laravel;
+use Blumilk\BLT\LaravelContracts;
 
 trait RefreshingDatabase
 {
@@ -13,6 +13,6 @@ trait RefreshingDatabase
      */
     public function refreshDatabase(): void
     {
-        app(Laravel::CONSOLE_KERNEL_INTERFACE)->call("migrate:fresh");
+        app(LaravelContracts::CONSOLE_KERNEL_INTERFACE)->call("migrate:fresh");
     }
 }

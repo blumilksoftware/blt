@@ -1,9 +1,10 @@
 version: "3.7"
 
 services:
-  composer:
-    container_name: larahat-composer
+  php:
+    image: ghcr.io/blumilksoftware/php:8.0.2.1
+    container_name: behat-toolbox-php
     working_dir: /application
-    image: library/composer:2.0.7
+    user: ${CURRENT_UID}
     volumes:
       - .:/application
