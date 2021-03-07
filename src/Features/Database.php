@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Blumilk\BLT\Helpers;
+namespace Blumilk\BLT\Features;
 
+use Behat\Behat\Context\Context;
 use Blumilk\BLT\LaravelContracts;
 
-trait RefreshingDatabase
+class Database implements Context
 {
     /**
-     * @beforeScenario
+     * @Given there's refreshed database
      */
     public function refreshDatabase(): void
     {
