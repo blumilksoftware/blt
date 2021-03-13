@@ -30,10 +30,10 @@ class LaravelApplicationBehatExtension implements Extension
 
     public function load(ContainerBuilder $container, array $config = []): void
     {
-        $laravelBooter = new LaravelBootstrapper();
-        $laravelBooter->setBasePath($container->getParameter("paths.base"));
-        $laravelBooter->setEnvironmentFile($config["env"] ?? ".env.behat");
-        $laravelBooter->boot();
+        $bootstrap = new LaravelBootstrapper();
+        $bootstrap->setBasePath($container->getParameter("paths.base"));
+        $bootstrap->setEnvironmentFile($config["env"] ?? ".env.behat");
+        $bootstrap->boot();
     }
 
     public function process(ContainerBuilder $container): void

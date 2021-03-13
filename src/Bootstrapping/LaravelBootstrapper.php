@@ -18,7 +18,7 @@ class LaravelBootstrapper
         $app = require "{$this->basePath}/bootstrap/app.php";
         $app->loadEnvironmentFrom($this->environmentFile);
 
-        $app->afterBootstrapping(LaravelContracts::LOAD_CONFIGURATION, function ($app): void {
+        $app->afterBootstrapping(LaravelContracts::LOAD_CONFIGURATION_CLASS, function ($app): void {
             $app["env"] = $this->environmentType;
             foreach ($this->configOverrides as $key => $value) {
                 $app->make("config")->set($key, $value);
