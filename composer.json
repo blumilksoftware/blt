@@ -1,22 +1,31 @@
 {
-  "name": "krzysztofrewak/larahat",
-  "description": "Extremly simple Laravel Behat extension",
+  "name": "blumilksoftware/behat-laravel-toolbox",
+  "description": "Behat + Laravel toolbox",
   "type": "library",
-  "require": {
-    "php": "^7.4.4|^8.0",
-    "behat/behat": "^3.8",
-    "symfony/http-foundation": "^5.2"
-  },
   "license": "MIT",
   "authors": [
     {
       "name": "Krzysztof Rewak",
-      "email": "krzysztof.rewak@gmail.com"
+      "email": "krzysztof.rewak@blumilk.pl"
     }
   ],
+  "require": {
+    "php": "^8.0",
+    "behat/behat": "^3.8.1",
+    "phpunit/phpunit": "^9",
+    "symfony/http-foundation": "^5.2.3",
+    "illuminate/support": "^8.32",
+    "illuminate/http": "^8.32"
+  },
+  "require-dev": {
+    "blumilksoftware/codestyle": "^0.1.1"
+  },
   "autoload": {
     "psr-4": {
-      "KrzysztofRewak\\Larahat\\": "src/"
+      "Blumilk\\BLT\\": "src/"
     }
+  },
+  "scripts": {
+    "ecs": "./vendor/bin/ecs check"
   }
 }
