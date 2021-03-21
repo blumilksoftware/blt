@@ -4,25 +4,30 @@ declare(strict_types=1);
 
 namespace Blumilk\BLT\Features\Traits;
 
-use Blumilk\BLT\LaravelContracts;
+use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 trait Database
 {
+    use Application;
+
     /**
      * @Given there's refreshed database
+     * @throws BindingResolutionException
      */
     public function refreshDatabase(bool $seed = false): void
     {
         $command = "migrate:fresh";
         $command .= $seed ? " --seed" : "";
 
-        app(LaravelContracts::CONSOLE_KERNEL_INTERFACE)->call($command);
+        $this->getContainer()->make(Kernel::class)->call($command);
     }
 
     /**
      * @Given there's refreshed and seeded database
+     * @throws BindingResolutionException
      */
-    public function refreshDatabaseWithSeeding(bool $seed = false): void
+    public function refreshDatabaseWithSeeding(): void
     {
         $this->refreshDatabase(true);
     }

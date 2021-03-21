@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Bootstrapping;
 
 use Blumilk\BLT\LaravelContracts;
+use Illuminate\Contracts\Console\Kernel;
 
 class LaravelBootstrapper
 {
@@ -15,17 +16,19 @@ class LaravelBootstrapper
 
     public function boot(): void
     {
-        $app = require "{$this->basePath}/bootstrap/app.php";
+        $app = require $this->getBootstrapFilePath();
         $app->loadEnvironmentFrom($this->environmentFile);
 
-        $app->afterBootstrapping(LaravelContracts::LOAD_CONFIGURATION_CLASS, function ($app): void {
-            $app["env"] = $this->environmentType;
-            foreach ($this->configOverrides as $key => $value) {
-                $app->make("config")->set($key, $value);
-            }
-        });
+        if (!empty($this->configOverrides)) {
+            $app->afterBootstrapping(LaravelContracts::LOAD_CONFIGURATION_CLASS, function ($app): void {
+                $app["env"] = $this->environmentType;
+                foreach ($this->configOverrides as $key => $value) {
+                    $app->make("config")->set($key, $value);
+                }
+            });
+        }
 
-        $app->make(LaravelContracts::CONSOLE_KERNEL_INTERFACE)->bootstrap();
+        $app->make($this->getContractToBootstrap())->bootstrap();
     }
 
     public function setEnvironmentType(string $environmentType): void
@@ -46,5 +49,15 @@ class LaravelBootstrapper
     public function setConfigOverrides(array $configOverrides): void
     {
         $this->configOverrides = $configOverrides;
+    }
+
+    protected function getContractToBootstrap(): string
+    {
+        return Kernel::class;
+    }
+
+    protected function getBootstrapFilePath(): string
+    {
+        return "{$this->basePath}/bootstrap/app.php";
     }
 }
