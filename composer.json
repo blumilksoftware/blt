@@ -27,7 +27,8 @@
     }
   },
   "scripts": {
-    "ecs": "./vendor/bin/ecs check"
+    "ecs": "./vendor/bin/ecs check",
+    "test": "./vendor/bin/phpunit tests"
   },
   "config": {
     "optimize-autoloader": true,
