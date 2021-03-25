@@ -12,12 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 trait Middleware
 {
+    use Application;
+
     /**
      * @Given there is :middleware middleware disabled
      */
     public function disableMiddleware(string $middleware): void
     {
-        app()->instance(
+        $this->getContainer()->instance(
             $middleware,
             new class() {
                 public function handle(Request $request, Closure $next): Response

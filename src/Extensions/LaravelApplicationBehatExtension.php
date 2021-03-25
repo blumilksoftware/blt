@@ -39,9 +39,4 @@ class LaravelApplicationBehatExtension implements Extension
     public function process(ContainerBuilder $container): void
     {
     }
-
-    protected function getBasePath(ContainerBuilder $container, string $file = ""): string
-    {
-        return $container->getParameter("paths.base") . $file;
-    }
 }

@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 trait Http
 {
+    use Application;
+
     protected Request $request;
     protected Response $response;
 
@@ -28,7 +30,7 @@ trait Http
      */
     public function aRequestIsSent(): void
     {
-        $this->response = app()->handle($this->request);
+        $this->response = $this->getContainer()->handle($this->request);
         $this->response->send();
     }
 
