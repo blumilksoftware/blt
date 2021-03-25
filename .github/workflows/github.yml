@@ -1,0 +1,24 @@
+name: Build & Test the application
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run the php container
+        run: docker-compose up -d
+
+      - name: Install dependencies
+        run: docker-compose run php composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Run code style checker
+        run: docker-compose run php composer ecs
+
+      - name: Run tests
+        run: docker-compose run php composer test
