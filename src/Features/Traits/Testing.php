@@ -7,8 +7,6 @@ namespace Blumilk\BLT\Features\Traits;
 use PHPUnit\Framework\Assert;
 
 /**
- * Trait Testing
- * @package Blumilk\BLT\Features\Traits
  * @mixin Assert
  */
 trait Testing
