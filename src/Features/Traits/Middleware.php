@@ -26,7 +26,7 @@ trait Middleware
                 {
                     return $next($request);
                 }
-            }
+            },
         );
     }
 
