@@ -1,4 +1,4 @@
-name: Build & Test the application
+name: Build & test the application
 
 on:
   pull_request:
@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    name: Build & test the application
     runs-on: ubuntu-20.04
 
     steps:
@@ -18,7 +19,7 @@ jobs:
         run: docker-compose run php composer install --prefer-dist --no-progress --no-suggest
 
       - name: Run code style checker
-        run: docker-compose run php composer ecs
+        run: docker-compose run php composer cs
 
       - name: Run tests
         run: docker-compose run php composer test
