@@ -14,7 +14,9 @@ class MultiContextTest extends TestCase
     public function testIfMultiContextClassIsBuildingProperly(): void
     {
         $context = new class() implements Context {
-            use Database; use Http; use Middleware;
+            use Database;
+            use Http;
+            use Middleware;
         };
 
         $this->assertTrue(method_exists($context, "refreshDatabase"));

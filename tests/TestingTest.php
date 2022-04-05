@@ -28,7 +28,8 @@ class TestingTest extends TestCase
     public function testIfMoreComplexCombinationsAreWorkingProperly(): void
     {
         $context = new class() implements Context {
-            use Http; use Testing;
+            use Http;
+            use Testing;
 
             public function test(): void
             {
