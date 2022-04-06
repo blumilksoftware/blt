@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Behat\Behat\Context\Context;
 use Blumilk\BLT\Features\Toolbox;
 use Blumilk\BLT\Features\Traits\Database;
@@ -11,8 +13,10 @@ class MultiContextTest extends TestCase
 {
     public function testIfMultiContextClassIsBuildingProperly(): void
     {
-        $context = new class implements Context {
-            use Database, Http, Middleware;
+        $context = new class() implements Context {
+            use Database;
+            use Http;
+            use Middleware;
         };
 
         $this->assertTrue(method_exists($context, "refreshDatabase"));

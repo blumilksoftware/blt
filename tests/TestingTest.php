@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Behat\Behat\Context\Context;
 use Blumilk\BLT\Features\Traits\Http;
 use Blumilk\BLT\Features\Traits\Testing;
@@ -9,7 +11,7 @@ class TestingTest extends TestCase
 {
     public function testIfCallMagicMethodIsWorkingProperly(): void
     {
-        $context = new class implements Context {
+        $context = new class() implements Context {
             use Testing;
 
             public function test(bool $condition): bool
@@ -25,8 +27,9 @@ class TestingTest extends TestCase
 
     public function testIfMoreComplexCombinationsAreWorkingProperly(): void
     {
-        $context = new class implements Context {
-            use Http, Testing;
+        $context = new class() implements Context {
+            use Http;
+            use Testing;
 
             public function test(): void
             {

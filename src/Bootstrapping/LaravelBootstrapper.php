@@ -7,7 +7,7 @@ namespace Blumilk\BLT\Bootstrapping;
 use Blumilk\BLT\LaravelContracts;
 use Illuminate\Contracts\Console\Kernel;
 
-class LaravelBootstrapper
+class LaravelBootstrapper implements BootstrapperContract
 {
     protected string $environmentType = "testing";
     protected string $environmentFile = ".env.behat";
@@ -16,7 +16,7 @@ class LaravelBootstrapper
 
     public function boot(): void
     {
-        $app = require $this->getBootstrapFilePath();
+        $app = $this->getApplication();
         $app->loadEnvironmentFrom($this->environmentFile);
 
         if (!empty($this->configOverrides)) {
@@ -59,5 +59,10 @@ class LaravelBootstrapper
     protected function getBootstrapFilePath(): string
     {
         return "{$this->basePath}/bootstrap/app.php";
+    }
+
+    protected function getApplication()
+    {
+        return require $this->getBootstrapFilePath();
     }
 }

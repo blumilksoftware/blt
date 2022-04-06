@@ -34,7 +34,7 @@ trait Environment
      */
     public function applicationIsBootedWithConfig(array $config): void
     {
-        $bootstrap = new LaravelBootstrapper();
+        $bootstrap = $this->provideBootstraper();
         $bootstrap->setConfigOverrides($config);
 
         if (array_key_exists("app.env", $config)) {
@@ -42,5 +42,10 @@ trait Environment
         }
 
         $bootstrap->boot();
+    }
+
+    protected function provideBootstraper(): LaravelBootstrapper
+    {
+        return new LaravelBootstrapper();
     }
 }
