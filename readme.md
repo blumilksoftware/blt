@@ -6,26 +6,9 @@ BLT for PHP developers: Behat+Laravel toolbox
 > Package is still under development.
 
 ### Usage
-Add the repository to your `composer.json` structure:
-```json
-"repositories": [
-  {
-    "type": "vcs",
-    "url": "https://github.com/blumilksoftware/blt"
-  }
-],
+Use Composer to get package from the Packagist repository:
 ```
-
-Then update your `require-dev` section:
-```json
-"require-dev": {
-  "blumilksoftware/blt": "dev-main",
-},
-```
-
-And run:
-```
-composer install
+composer require blumilksfotware/blt --dev
 ```
 
 ### Development
@@ -36,6 +19,7 @@ composer csf
 composer test
 ```
 
+#### Docker
 There is also the Docker Compose configuration available:
 ```shell
 docker-compose up -d
