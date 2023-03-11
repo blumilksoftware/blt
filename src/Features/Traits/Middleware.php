@@ -49,7 +49,7 @@ trait Middleware
     }
 
     /**
-     * @Given there's throttling middleware disabled
+     * @Given there's CSRF protection middleware disabled
      */
     public function disableCsrfProtection(): void
     {
