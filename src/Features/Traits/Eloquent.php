@@ -10,14 +10,12 @@ use PHPUnit\Framework\Assert;
 trait Eloquent
 {
     /**
-     * @Given there are no :model objects in database
-     * @Given there should be no :model objects in database
      * @Given there is :count :model object in database
      * @Given there should be :count :model object in database
      * @Given there are :count :model objects in database
      * @Given there should be :count :model objects in database
      */
-    public function thereAreModelsInDatabase(string $model, int $count = 0): void
+    public function thereAreModelsInDatabase(string $model, int $count): void
     {
         $modelClass = $this->recognizeModelClass($model);
         Assert::assertEquals($count, $modelClass::query()->count());
