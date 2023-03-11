@@ -6,6 +6,8 @@ namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
 use PHPUnit\Framework\Assert;
+use Symfony\Component\CssSelector\CssSelectorConverter;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,7 +20,7 @@ trait Http
 
     /**
      * @Given a user is requesting :url
-     * @Given a user is requesting :url :method using
+     * @Given a user is requesting :url using :method method
      */
     public function aUserIsRequesting(string $endpoint, string $method = Request::METHOD_GET): void
     {
@@ -71,10 +73,42 @@ trait Http
     }
 
     /**
+     * @Given request form params contains:
+     */
+    public function thereAreValuesInFormParams(TableNode $table): void
+    {
+        foreach ($table as $row) {
+            $this->request->request->set($row["key"], $row["value"]);
+        }
+    }
+
+    /**
      * @Then a response status code should be :status
      */
     public function aResponseStatusCodeShouldBe(int $status): void
     {
         Assert::assertEquals($status, $this->response->getStatusCode());
+    }
+
+    /**
+     * @Given a response HTML should contain :phrase phrase
+     */
+    public function aResponseHTMLShouldContainPhrase(string $phrase): void
+    {
+        Assert::assertStringContainsString($phrase, $this->response->getContent());
+    }
+
+    /**
+     * @Given a response HTML should contain CSRF token
+     */
+    public function aResponseHTMLShouldContainCSRFToken(): void
+    {
+        $converter = new CssSelectorConverter();
+        $xPath = $converter->toXPath("form input[name=\"_token\"]");
+
+        $crawler = new Crawler($this->response->getContent());
+        $node = $crawler->filterXPath($xPath)->first();
+
+        Assert::assertNotNull($node?->attr("value"));
     }
 }
