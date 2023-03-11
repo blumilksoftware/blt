@@ -47,4 +47,12 @@ trait Middleware
     {
         $this->disableMiddleware(LaravelContracts::THROTTLING_MIDDLEWARE_CLASS);
     }
+
+    /**
+     * @Given there's CSRF protection middleware disabled
+     */
+    public function disableCsrfProtection(): void
+    {
+        $this->disableMiddleware(LaravelContracts::CSRF_PROTECTION_MIDDLEWARE_CLASS);
+    }
 }
