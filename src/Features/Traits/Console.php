@@ -28,7 +28,7 @@ trait Console
      * @Given I run artisan command :command
      * @Given I run artisan command :command in console
      */
-    public function runCommand(string $command): void
+    public function runArtisanCommand(string $command): void
     {
         $this->consoleOutput = "";
         Artisan::call($command);
@@ -43,7 +43,18 @@ trait Console
      */
     public function runCommandWithArguments(string $command, string $arguments): void
     {
-        $this->runCommand("$command $arguments");
+        $this->runArtisanCommand("$command $arguments");
+    }
+
+    /**
+     * @Given I run artisan command :command with options :options and arguments :arguments
+     * @Given I run artisan command :command with option :options and argument :arguments
+     * @Given I run artisan command :command with options :options and argument :arguments
+     * @Given I run artisan command :command with option :options and arguments :arguments
+     */
+    public function runCommandWithOptionsAndArguments(string $command, string $options, string $arguments): void
+    {
+        $this->runArtisanCommand("$command $options $arguments");
     }
 
     /**
