@@ -6,6 +6,7 @@ namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
 use Blumilk\BLT\Bootstrapping\LaravelBootstrapper;
+use Blumilk\BLT\Helpers\BooleanHelper;
 
 trait Environment
 {
@@ -21,7 +22,7 @@ trait Environment
             $value = $row["value"];
 
             if (in_array($value, ["true", "false"], true)) {
-                $value = $value === "true";
+                $value = BooleanHelper::toBoolean($value);
             }
             $config[$key] = $value;
         }
