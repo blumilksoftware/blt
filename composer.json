@@ -1,5 +1,5 @@
 {
-  "name": "local-blumilksoftware/blt",
+  "name":"blumilksoftware/blt",
   "description": "Behat + Laravel toolbox",
   "type": "library",
   "license": "MIT",
