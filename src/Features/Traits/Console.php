@@ -11,11 +11,22 @@ trait Console
 {
     use Application;
 
-    private $consoleOutput = "";
+    private string $consoleOutput = "";
 
     /**
-     * @Given I run :command command
-     * @Given I run :command in console
+     * @given I run shell command :command
+     * @given I run shell command :command in console
+     */
+    public function runShellCommand(string $command): void
+    {
+        $this->consoleOutput = "";
+        exec($command, $output);
+        $this->consoleOutput = implode("\n", $output);
+    }
+
+    /**
+     * @Given I run artisan command :command
+     * @Given I run artisan command :command in console
      */
     public function runCommand(string $command): void
     {
@@ -25,10 +36,10 @@ trait Console
     }
 
     /**
-     * @Given I run :command command with arguments :arguments
-     * @Given I run :command command with argument :arguments
-     * @Given I run :command command with options :arguments
-     * @Given I run :command command with option :arguments
+     * @Given I run artisan command :command with arguments :arguments
+     * @Given I run artisan command :command with argument :arguments
+     * @Given I run artisan command :command with options :arguments
+     * @Given I run artisan command :command with option :arguments
      */
     public function runCommandWithArguments(string $command, string $arguments): void
     {
@@ -38,6 +49,7 @@ trait Console
     /**
      * @Then I see :output in console
      * @Then I should see :output in console
+     * @Then Console output contains :output
      */
     public function seeInConsole(string $output): void
     {
