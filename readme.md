@@ -33,6 +33,7 @@ Bootstrap BLT in your FeatureContext file:
         $bootstrapper->boot();
     }
 ```
+Example usage in tests is available in the [docs](docs).
 ### Development
 There are scripts available for package codestyle checking and testing:
 ```shell
