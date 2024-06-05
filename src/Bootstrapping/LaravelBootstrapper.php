@@ -22,6 +22,7 @@ class LaravelBootstrapper implements BootstrapperContract
         if (!empty($this->configOverrides)) {
             $app->afterBootstrapping(LaravelContracts::LOAD_CONFIGURATION_CLASS, function ($app): void {
                 $app["env"] = $this->environmentType;
+
                 foreach ($this->configOverrides as $key => $value) {
                     $app->make("config")->set($key, $value);
                 }
