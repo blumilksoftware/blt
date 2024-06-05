@@ -14,7 +14,7 @@
     "behat/behat": "^3.12",
     "phpunit/phpunit": "^9.5",
     "symfony/css-selector": "^6.2",
-    "symfony/dom-crawler": "^6.2"
+    "symfony/dom-crawler": "^6.2",
     "illuminate/bus": "v11.10.0"
   },
   "require-dev": {
