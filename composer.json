@@ -18,9 +18,9 @@
   },
   "require-dev": {
     "blumilksoftware/codestyle": "^3.1.0",
-    "illuminate/contracts": "^10.0|11",
-    "illuminate/http": "^10.0|11",
-    "illuminate/support": "^10.0|11",
+    "illuminate/contracts": "^10.0|11.0",
+    "illuminate/http": "^10.0|11.0",
+    "illuminate/support": "^10.0|11.0",
     "symfony/http-foundation": "^6.2|^7.1"
   },
   "autoload": {
