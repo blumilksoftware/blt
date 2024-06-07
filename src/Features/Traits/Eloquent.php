@@ -16,9 +16,11 @@ trait Eloquent
     public function thereIsAModelInTheDatabase(string $model): void
     {
         $modelClass = $this->recognizeModelClass($model);
+
         if (!$modelClass::query()->exists()) {
             $modelClass::factory()->create();
         }
+
         Assert::assertTrue($modelClass::query()->exists(), "The model $model does not exist in the database.");
     }
 
@@ -30,9 +32,11 @@ trait Eloquent
     {
         $modelClass = $this->recognizeModelClass($model);
         $existingCount = $modelClass::query()->count();
+
         if ($existingCount < $count) {
             $modelClass::factory()->count($count - $existingCount)->create();
         }
+
         Assert::assertEquals($count, $modelClass::query()->count());
     }
 
