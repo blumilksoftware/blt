@@ -38,7 +38,7 @@ trait Dispatcher
      * @When I dispatch :count of :objectName
      * @when I dispatch :objectName
      */
-    public function dispatchJobs(string $objectName, int $count = 1, string|array $parameters = []): void
+    public function dispatchObject(string $objectName, int $count = 1, string|array $parameters = []): void
     {
         $parameters = ArrayHelper::toArray($parameters);
 
