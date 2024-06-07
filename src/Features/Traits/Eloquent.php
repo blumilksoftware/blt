@@ -30,11 +30,9 @@ trait Eloquent
     {
         $modelClass = $this->recognizeModelClass($model);
         $existingCount = $modelClass::query()->count();
-
         if ($existingCount < $count) {
             $modelClass::factory()->count($count - $existingCount)->create();
         }
-
         Assert::assertEquals($count, $modelClass::query()->count());
     }
 
