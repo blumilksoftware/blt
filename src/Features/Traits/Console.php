@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Blumilk\BLT\Features\Traits;
 
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Contracts\Console\Kernel;
 use PHPUnit\Framework\Assert;
 
 trait Console
@@ -14,25 +14,14 @@ trait Console
     private string $consoleOutput = "";
 
     /**
-     * @given I run shell command :command
-     * @given I run shell command :command in console
-     */
-    public function runShellCommand(string $command): void
-    {
-        $this->consoleOutput = "";
-        exec($command, $output);
-        $this->consoleOutput = implode("\n", $output);
-    }
-
-    /**
      * @Given I run artisan command :command
      * @Given I run artisan command :command in console
      */
     public function runArtisanCommand(string $command): void
     {
         $this->consoleOutput = "";
-        Artisan::call($command);
-        $this->consoleOutput = Artisan::output();
+        $this->getContainer()->make(Kernel::class)->call($command);
+        $this->consoleOutput = $this->getContainer()->make(Kernel::class)->output($command);
     }
 
     /**
