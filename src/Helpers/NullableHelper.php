@@ -6,7 +6,7 @@ namespace Blumilk\BLT\Helpers;
 
 class NullableHelper
 {
-    public static function behatNull(string $nullable): ?string
+    public static function toNullable(string $nullable): ?string
     {
         return $nullable !== "null" ? $nullable : null;
     }

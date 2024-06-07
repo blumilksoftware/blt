@@ -10,32 +10,32 @@ use PHPUnit\Framework\TestCase;
 
 class HelperTest extends TestCase
 {
-    public function testBehatNullReturnsNullForNullString(): void
+    public function testToNullableReturnsNullForNullString(): void
     {
         $input = "null";
         $expected = null;
 
-        $actual = NullableHelper::behatNull($input);
+        $actual = NullableHelper::toNullable($input);
 
         self::assertSame($expected, $actual);
     }
 
-    public function testBehatNullReturnsInputForNonNullString(): void
+    public function testToNullableReturnsInputForNonNullString(): void
     {
         $input = "someValue";
         $expected = "someValue";
 
-        $actual = NullableHelper::behatNull($input);
+        $actual = NullableHelper::toNullable($input);
 
         self::assertSame($expected, $actual);
     }
 
-    public function testBehatNullReturnsInputForEmptyString(): void
+    public function testToNullableReturnsInputForEmptyString(): void
     {
         $input = "";
         $expected = "";
 
-        $actual = NullableHelper::behatNull($input);
+        $actual = NullableHelper::toNullable($input);
 
         self::assertSame($expected, $actual);
     }
