@@ -130,6 +130,29 @@ trait Eloquent
         );
     }
 
+    /**
+     * @Then the model :model1 has :count related :model2
+     */
+    public function theModelHasExpectedNumberOfRelated(string $model1, string $model2, int $count): void
+    {
+        $model1Class = $this->recognizeModelClass($model1);
+        $relation = Str::plural($model2);
+        $instance = $model1Class::first() ?: $model1Class::factory()->create();
+
+        Assert::assertTrue(
+            method_exists($instance, $relation),
+            "The model $model1 does not have a $relation relation method.",
+        );
+
+        $relatedCount = $instance->{$relation}()->count();
+
+        Assert::assertEquals(
+            $count,
+            $relatedCount,
+            "The model $model1 does not have $count related $relation.",
+        );
+    }
+
     protected function getModelNamespace(): string
     {
         return "App\\Models\\";
