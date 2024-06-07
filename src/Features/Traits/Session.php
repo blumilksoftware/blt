@@ -118,7 +118,16 @@ trait Session
     }
 
     /**
-     * @Given the session forgets key :key
+     * @Then the session should have key :key with value :value
+     */
+    public function theSessionShouldHaveKeyWithValue(string $key, string $value): void
+    {
+        $session = $this->getContainer()->get("session");
+        Assert::assertEquals($value, $session->get($key));
+    }
+
+    /**
+     * @Given the session forgets the key :key
      */
     public function theSessionForgetsKey(string $key): void
     {
