@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Features\Traits;
 
 use Blumilk\BLT\Helpers\ArrayHelper;
+use Blumilk\BLT\Helpers\RecognizeClassHelper;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Event;
 
 trait Dispatcher
 {
@@ -18,45 +20,57 @@ trait Dispatcher
     }
 
     /**
-     * @When I dispatch :count :jobName jobs with parameters: :parameters
-     * @When I dispatch :count :jobName jobs
-     * @when I dispatch :jobName job
+     * @Given events are faked
      */
-    public function dispatchJobs(string $jobName, int $count = 1, string|array $parameters = []): void
+    public function fakeEvents(): void
+    {
+        Event::fake();
+    }
+
+    /**
+     * @When I dispatch :count :objectName jobs with parameters: :parameters
+     * @When I dispatch :count :objectName jobs
+     * @when I dispatch :objectName job
+     * @When I dispatch :count of :objectName events with parameters: :parameters
+     * @When I dispatch :count of :objectName events
+     * @when I dispatch :objectName event
+     * @When I dispatch :count of :objectName with parameters: :parameters
+     * @When I dispatch :count of :objectName
+     * @when I dispatch :objectName
+     */
+    public function dispatchJobs(string $objectName, int $count = 1, string|array $parameters = []): void
     {
         $parameters = ArrayHelper::toArray($parameters);
 
-        $jobClass = $this->recognizeJobClass($jobName);
-        $job = new $jobClass(...$parameters);
+        $objectClass = RecognizeClassHelper::recognizeObjectClass($objectName);
+        $objectType = RecognizeClassHelper::guessType($objectName);
+
+        if ($objectType === "Job") {
+            $objectType = "Bus";
+        }
+        $object = new $objectClass(...$parameters);
 
         for ($i = 0; $i < $count; $i++) {
-            Bus::dispatch($job);
+            $objectType::dispatch($object);
         }
     }
 
     /**
-     * @Then I should see :jobName job was dispatched
-     * @Then I should see :count :jobName jobs were dispatched
+     * @Then I should see :objectName event was dispatched
+     * @Then I should see :count of :objectName events were dispatched
+     * @Then I should see :objectName job was dispatched
+     * @Then I should see :count of :objectName jobs were dispatched
+     * @Then I should see :objectName was dispatched
+     * @Then I should see :count of :objectName were dispatched
      */
-    public function assertJobsDispatched(string $jobName, int $count = 1): void
+    public function assertDispatched(string $objectName, int $count = 1): void
     {
-        $jobClass = $this->recognizeJobClass($jobName);
-        Bus::assertDispatched($jobClass, $count);
-    }
+        $objectType = RecognizeClassHelper::guessType($objectName);
+        $objectClass = RecognizeClassHelper::recognizeObjectClass($objectName);
 
-    private function recognizeJobClass(string $jobName): string
-    {
-        if (strpos($jobName, "\\")) {
-            return $jobName;
+        if ($objectType === "Job") {
+            $objectType = "Bus";
         }
-
-        $jobName = ucfirst($jobName);
-
-        return $this->getJobNamespace() . $jobName;
-    }
-
-    private function getJobNamespace(): string
-    {
-        return "App\\Jobs\\";
+        $objectType::assertDispatched($objectClass, $count);
     }
 }
