@@ -6,25 +6,34 @@ namespace Blumilk\BLT\Features\Traits;
 
 use Blumilk\BLT\Helpers\ArrayHelper;
 use Blumilk\BLT\Helpers\RecognizeClassHelper;
-use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\Event;
+use Illuminate\Contracts\Bus\Dispatcher as BusDispatcher;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
+use Illuminate\Support\Testing\Fakes\BusFake;
+use Illuminate\Support\Testing\Fakes\EventFake;
 
 trait Dispatcher
 {
+    use Application;
+
     /**
      * @Given Bus is running
+     * @throws BindingResolutionException
      */
     public function runBus(): void
     {
-        Bus::fake();
+        $busFake = new BusFake($this->getContainer()->make(BusDispatcher::class));
+        $this->getContainer()->instance(BusDispatcher::class, $busFake);
     }
 
     /**
      * @Given events are faked
+     * @throws BindingResolutionException
      */
     public function fakeEvents(): void
     {
-        Event::fake();
+        $eventFake = new EventFake($this->getContainer()->make(EventDispatcher::class));
+        $this->getContainer()->instance(EventDispatcher::class, $eventFake);
     }
 
     /**
