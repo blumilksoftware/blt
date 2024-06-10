@@ -93,6 +93,7 @@ trait Middleware
                 public function handle(Request $request, Closure $next): Response
                 {
                     $request->attributes->set("id", (string)Str::uuid());
+
                     return $next($request);
                 }
             };
