@@ -14,8 +14,7 @@
     "behat/behat": "^3.14",
     "phpunit/phpunit": "^10.1|^11.0.1",
     "symfony/css-selector": "^6.2|^7.1",
-    "symfony/dom-crawler": "^6.2|^7.1",
-    "illuminate/console": "v11.10.0"
+    "symfony/dom-crawler": "^6.2|^7.1"
   },
   "require-dev": {
     "blumilksoftware/codestyle": "^3.1.0",
@@ -38,13 +37,5 @@
     "optimize-autoloader": true,
     "preferred-install": "dist",
     "sort-packages": true
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Blumilk\\BLT\\BltServiceProvider"
-      ]
-    }
   }
-
 }
