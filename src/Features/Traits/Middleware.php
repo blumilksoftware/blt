@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
+use Blumilk\BLT\Http\Middleware\IdentifyRequest;
 use Blumilk\BLT\LaravelContracts;
 use Closure;
 use Illuminate\Foundation\Http\Kernel;
@@ -88,18 +89,9 @@ trait Middleware
      */
     public function addUuidMiddleware(): void
     {
-        $this->getContainer()->singleton('App\Http\Middleware\IdentifyRequest', function () {
-            return new class() {
-                public function handle(Request $request, Closure $next): Response
-                {
-                    $request->attributes->set("id", (string)Str::uuid());
-
-                    return $next($request);
-                }
-            };
-        });
+        $this->getContainer()->singleton(IdentifyRequest::class, fn() => new IdentifyRequest());
 
         $kernel = $this->getContainer()->make(Kernel::class);
-        $kernel->pushMiddleware('App\Http\Middleware\IdentifyRequest');
+        $kernel->pushMiddleware(IdentifyRequest::class);
     }
 }
