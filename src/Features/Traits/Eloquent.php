@@ -33,6 +33,7 @@ trait Eloquent
         }
 
         $model = Str::ucfirst(Str::singular($model));
+
         return $this->getModelNamespace() . $model;
     }
 }
