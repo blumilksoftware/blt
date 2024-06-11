@@ -36,8 +36,9 @@ class RecognizeClassHelper
 
     public static function guessType(string $objectName): string
     {
+        $slug = Str::slug($objectName);
+
         foreach (TypesEnum::cases() as $objectType) {
-            $slug = Str::slug($objectName);
             $objectTypeName = $objectType->value;
 
             if (Str::contains($slug, $objectTypeName)) {
