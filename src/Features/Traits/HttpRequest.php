@@ -5,18 +5,11 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
-use PHPUnit\Framework\Assert;
-use Symfony\Component\CssSelector\CssSelectorConverter;
-use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
-trait Http
+trait HttpRequest
 {
-    use Application;
-
     protected Request $request;
-    protected Response $response;
 
     /**
      * @Given a user is requesting :url
@@ -28,20 +21,11 @@ trait Http
     }
 
     /**
-     * @When a request is sent
-     */
-    public function aRequestIsSent(): void
-    {
-        $this->response = $this->getContainer()->handle($this->request);
-        $this->response->send();
-    }
-
-    /**
      * @Given request body contains :key equal :value
      */
     public function requestBodyContainsKeyValuePair(string $key, string $value): void
     {
-        $this->request[$key] = $value;
+        $this->request->request->set($key, $value);
     }
 
     /**
@@ -83,32 +67,50 @@ trait Http
     }
 
     /**
-     * @Then a response status code should be :status
+     * @Given request query params contains:
      */
-    public function aResponseStatusCodeShouldBe(int $status): void
+    public function requestQueryParamsContains(TableNode $table): void
     {
-        Assert::assertEquals($status, $this->response->getStatusCode());
+        foreach ($table as $row) {
+            $this->request->query->set($row["key"], $row["value"]);
+        }
     }
 
     /**
-     * @Given a response HTML should contain :phrase phrase
+     * @Given request cookies contains:
      */
-    public function aResponseHTMLShouldContainPhrase(string $phrase): void
+    public function requestCookiesContains(TableNode $table): void
     {
-        Assert::assertStringContainsString($phrase, $this->response->getContent());
+        foreach ($table as $row) {
+            $this->request->cookies->set($row["key"], $row["value"]);
+        }
     }
 
     /**
-     * @Given a response HTML should contain CSRF token
+     * @Given request server params contains:
      */
-    public function aResponseHTMLShouldContainCSRFToken(): void
+    public function requestServerParamsContains(TableNode $table): void
     {
-        $converter = new CssSelectorConverter();
-        $xPath = $converter->toXPath("form input[name=\"_token\"]");
+        foreach ($table as $row) {
+            $this->request->server->set($row["key"], $row["value"]);
+        }
+    }
 
-        $crawler = new Crawler($this->response->getContent());
-        $node = $crawler->filterXPath($xPath)->first();
+    /**
+     * @Given request files contains:
+     */
+    public function requestFilesContains(TableNode $table): void
+    {
+        foreach ($table as $row) {
+            $this->request->files->set($row["key"], $row["value"]);
+        }
+    }
 
-        Assert::assertNotNull($node?->attr("value"));
+    /**
+     * @Given request has bearer token :token
+     */
+    public function requestHasBearerToken(string $token): void
+    {
+        $this->request->headers->set("Authorization", "Bearer " . $token);
     }
 }

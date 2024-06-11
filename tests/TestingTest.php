@@ -3,7 +3,8 @@
 declare(strict_types=1);
 
 use Behat\Behat\Context\Context;
-use Blumilk\BLT\Features\Traits\Http;
+use Blumilk\BLT\Features\Traits\HttpRequest;
+use Blumilk\BLT\Features\Traits\HttpResponse;
 use Blumilk\BLT\Features\Traits\Testing;
 use PHPUnit\Framework\TestCase;
 
@@ -28,7 +29,8 @@ class TestingTest extends TestCase
     public function testIfMoreComplexCombinationsAreWorkingProperly(): void
     {
         $context = new class() implements Context {
-            use Http;
+            use HttpRequest;
+            use HttpResponse;
             use Testing;
 
             public function test(): void

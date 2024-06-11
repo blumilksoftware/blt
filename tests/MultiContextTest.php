@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use Behat\Behat\Context\Context;
-use Blumilk\BLT\Features\Toolbox;
 use Blumilk\BLT\Features\Traits\Database;
-use Blumilk\BLT\Features\Traits\Http;
+use Blumilk\BLT\Features\Traits\HttpRequest;
+use Blumilk\BLT\Features\Traits\HttpResponse;
 use Blumilk\BLT\Features\Traits\Middleware;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +15,8 @@ class MultiContextTest extends TestCase
     {
         $context = new class() implements Context {
             use Database;
-            use Http;
+            use HttpRequest;
+            use HttpResponse;
             use Middleware;
         };
 
