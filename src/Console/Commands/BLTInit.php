@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-class BltInit extends Command
+class BLTInit extends Command
 {
     protected $signature = "blt:init";
     protected $description = "Initialize BLT in your project";
