@@ -21,9 +21,17 @@ class RecognizeClassHelper
 
     public static function getObjectNamespace(string $objectName): string
     {
-        $type = Str::plural(self::guessType($objectName));
+        $type = self::guessType($objectName);
+        $typeNamespaces = config("blt.namespaces.types");
 
-        return "App\\$type\\";
+        if (array_key_exists($type, $typeNamespaces)) {
+            return $typeNamespaces[$type];
+        }
+        $type = Str::plural(Str::ucfirst($type));
+
+        $defaultNamespace = config("blt.namespaces.default") ?? "App\\";
+
+        return $defaultNamespace . $type . "\\";
     }
 
     public static function guessType(string $objectName): string
@@ -33,7 +41,7 @@ class RecognizeClassHelper
             $objectTypeName = $objectType->value;
 
             if (Str::contains($slug, $objectTypeName)) {
-                return Str::ucfirst(Str::singular($objectTypeName));
+                return Str::singular($objectTypeName);
             }
         }
 
