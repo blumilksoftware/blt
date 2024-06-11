@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
-use Blumilk\BLT\Http\Middleware\IdentifyRequest;
 use Blumilk\BLT\LaravelContracts;
 use Closure;
 use Illuminate\Foundation\Http\Kernel;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert;
 
@@ -26,7 +24,7 @@ trait Middleware
         $this->getContainer()->instance(
             $middleware,
             new class() {
-                public function handle(Request $request, Closure $next): Response
+                public function handle(Request $request, Closure $next)
                 {
                     return $next($request);
                 }
@@ -82,16 +80,5 @@ trait Middleware
             Str::isUuid($uuid),
             "The request field $field does not contain a valid UUID.",
         );
-    }
-
-    /**
-     * @Given there is a middleware that adds UUID to request
-     */
-    public function addUuidMiddleware(): void
-    {
-        $this->getContainer()->singleton(IdentifyRequest::class, fn() => new IdentifyRequest());
-
-        $kernel = $this->getContainer()->make(Kernel::class);
-        $kernel->pushMiddleware(IdentifyRequest::class);
     }
 }
