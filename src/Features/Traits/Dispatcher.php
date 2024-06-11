@@ -4,26 +4,30 @@ declare(strict_types=1);
 
 namespace Blumilk\BLT\Features\Traits;
 
-use Blumilk\BLT\Helpers\ArrayHelper;
+use Behat\Gherkin\Node\TableNode;
 use Blumilk\BLT\Helpers\RecognizeClassHelper;
+use Blumilk\BLT\Helpers\TypesEnum;
 use Illuminate\Contracts\Bus\Dispatcher as BusDispatcher;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 use Illuminate\Support\Testing\Fakes\BusFake;
 use Illuminate\Support\Testing\Fakes\EventFake;
+use InvalidArgumentException;
 
 trait Dispatcher
 {
     use Application;
 
+    private BusFake $busFake;
+    private EventFake $eventFake;
+
     /**
-     * @Given Bus is running
+     * @Given bus is running
      * @throws BindingResolutionException
      */
     public function runBus(): void
     {
-        $busFake = new BusFake($this->getContainer()->make(BusDispatcher::class));
-        $this->getContainer()->instance(BusDispatcher::class, $busFake);
+        $this->busFake = new BusFake($this->getContainer()->make(BusDispatcher::class));
     }
 
     /**
@@ -32,35 +36,37 @@ trait Dispatcher
      */
     public function fakeEvents(): void
     {
-        $eventFake = new EventFake($this->getContainer()->make(EventDispatcher::class));
-        $this->getContainer()->instance(EventDispatcher::class, $eventFake);
+        $this->eventFake = new EventFake($this->getContainer()->make(EventDispatcher::class));
     }
 
     /**
-     * @When I dispatch :count :objectName jobs with parameters: :parameters
+     * @When I dispatch :count :objectName jobs with parameters:
      * @When I dispatch :count :objectName jobs
      * @when I dispatch :objectName job
-     * @When I dispatch :count of :objectName events with parameters: :parameters
+     * @When I dispatch :count of :objectName events with parameters:
      * @When I dispatch :count of :objectName events
      * @when I dispatch :objectName event
-     * @When I dispatch :count of :objectName with parameters: :parameters
+     * @When I dispatch :count of :objectName with parameters:
      * @When I dispatch :count of :objectName
      * @when I dispatch :objectName
      */
-    public function dispatchObject(string $objectName, int $count = 1, string|array $parameters = []): void
+    public function dispatchObject(string $objectName, ?TableNode $table = null, int $count = 1): void
     {
-        $parameters = ArrayHelper::toArray($parameters);
+        $parameters = [];
+
+        if ($table) {
+            foreach ($table as $row) {
+                $value = is_numeric($row["value"]) ? (int)$row["value"] : (string)$row["value"];
+                $parameters[] = $value;
+            }
+        }
 
         $objectClass = RecognizeClassHelper::recognizeObjectClass($objectName);
-        $objectType = RecognizeClassHelper::guessType($objectName);
 
-        if ($objectType === "Job") {
-            $objectType = "Bus";
-        }
         $object = new $objectClass(...$parameters);
 
         for ($i = 0; $i < $count; $i++) {
-            $objectType::dispatch($object);
+            $this->resolveFaker($objectName)->dispatch($object);
         }
     }
 
@@ -74,12 +80,21 @@ trait Dispatcher
      */
     public function assertDispatched(string $objectName, int $count = 1): void
     {
-        $objectType = RecognizeClassHelper::guessType($objectName);
         $objectClass = RecognizeClassHelper::recognizeObjectClass($objectName);
 
-        if ($objectType === "Job") {
-            $objectType = "Bus";
+        $this->resolveFaker($objectName)->assertDispatched($objectClass, $count);
+    }
+
+    private function resolveFaker($objectName): BusFake|EventFake
+    {
+        $objectType = RecognizeClassHelper::guessType($objectName);
+
+        if ($objectType === TypesEnum::JOB->value) {
+            return $this->busFake;
+        } elseif ($objectType === TypesEnum::EVENT->value) {
+            return $this->eventFake;
         }
-        $objectType::assertDispatched($objectClass, $count);
+
+        throw new InvalidArgumentException("Unsupported object type: $objectType");
     }
 }
