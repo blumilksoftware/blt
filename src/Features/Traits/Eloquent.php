@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Blumilk\BLT\Features\Traits;
 
+use Behat\Gherkin\Node\TableNode;
+use Blumilk\BLT\Helpers\LaravelRelations;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert;
 
@@ -13,13 +15,20 @@ trait Eloquent
      * @Given there is a model :model in the database
      * @Given there is a :model in the database
      */
-    public function thereIsAModelInTheDatabase(string $model): void
+    public function seedModelInTheDatabase(string $model, ?TableNode $table = null): void
     {
         $modelClass = $this->recognizeModelClass($model);
+        $attributes = $table ? $table->getRowsHash() : [];
 
-        if (!$modelClass::query()->exists()) {
-            $modelClass::factory()->create();
-        }
+        $modelClass::factory()->create($attributes);
+    }
+
+    /**
+     * @Then the model :model exists in the database
+     */
+    public function assertModelExistsInTheDatabase(string $model): void
+    {
+        $modelClass = $this->recognizeModelClass($model);
 
         Assert::assertTrue($modelClass::query()->exists(), "The model $model does not exist in the database.");
     }
@@ -54,13 +63,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-        $related = $instance->{$relation}();
-
-        Assert::assertInstanceOf(
-            'Illuminate\Database\Eloquent\Relations\HasMany',
-            $related,
-            "The relation $relation is not of type HasMany.",
-        );
+        LaravelRelations::assertRelation($instance, $relation, 'Illuminate\Database\Eloquent\Relations\HasMany');
     }
 
     /**
@@ -77,13 +80,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-        $related = $instance->{$relation}();
-
-        Assert::assertInstanceOf(
-            'Illuminate\Database\Eloquent\Relations\BelongsTo',
-            $related,
-            "The relation $relation is not of type BelongsTo.",
-        );
+        LaravelRelations::assertRelation($instance, $relation, 'Illuminate\Database\Eloquent\Relations\BelongsTo');
     }
 
     /**
@@ -100,13 +97,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-        $related = $instance->{$relation}();
-
-        Assert::assertInstanceOf(
-            'Illuminate\Database\Eloquent\Relations\HasOne',
-            $related,
-            "The relation $relation is not of type HasOne.",
-        );
+        LaravelRelations::assertRelation($instance, $relation, 'Illuminate\Database\Eloquent\Relations\HasOne');
     }
 
     /**
@@ -123,13 +114,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-        $related = $instance->{$relation}();
-
-        Assert::assertInstanceOf(
-            'Illuminate\Database\Eloquent\Relations\BelongsToMany',
-            $related,
-            "The relation $relation is not of type BelongsToMany.",
-        );
+        LaravelRelations::assertRelation($instance, $relation, 'Illuminate\Database\Eloquent\Relations\BelongsToMany');
     }
 
     /**
