@@ -97,16 +97,6 @@ trait HttpRequest
     }
 
     /**
-     * @Given request files contains:
-     */
-    public function requestFilesContains(TableNode $table): void
-    {
-        foreach ($table as $row) {
-            $this->request->files->set($row["key"], $row["value"]);
-        }
-    }
-
-    /**
      * @Given request has bearer token :token
      */
     public function requestHasBearerToken(string $token): void
