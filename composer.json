@@ -11,6 +11,7 @@
   ],
   "require": {
     "php": "^8.3",
+    "ext-simplexml": "*",
     "behat/behat": "^3.14",
     "phpunit/phpunit": "^10.1|^11.0.1",
     "symfony/css-selector": "^6.2|^7.1",
