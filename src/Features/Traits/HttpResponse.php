@@ -135,7 +135,7 @@ trait HttpResponse
      */
     public function aResponseShouldBeCreated(): void
     {
-        Assert::assertEquals(201, $this->response->getStatusCode());
+        Assert::assertEquals(Response::HTTP_CREATED, $this->response->getStatusCode());
     }
 
     /**
