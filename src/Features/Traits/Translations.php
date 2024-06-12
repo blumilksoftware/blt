@@ -15,6 +15,15 @@ trait Translations
     private string $input;
 
     /**
+     * @Given locale is set to :locale
+     * @Given localization is set to :locale
+     */
+    public function setLocale(string $locale): void
+    {
+        $this->getContainer()->setLocale($locale);
+    }
+
+    /**
      * @When I ask to translate :input
      * @When I ask for translations of :input
      */
