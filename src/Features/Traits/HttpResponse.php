@@ -127,7 +127,7 @@ trait HttpResponse
      */
     public function aResponseShouldBeOk(): void
     {
-        Assert::assertEquals(200, $this->response->getStatusCode());
+        Assert::assertEquals(Response::HTTP_OK, $this->response->getStatusCode());
     }
 
     /**
@@ -143,7 +143,7 @@ trait HttpResponse
      */
     public function aResponseShouldBeNoContent(): void
     {
-        Assert::assertEquals(204, $this->response->getStatusCode());
+        Assert::assertEquals(Response::HTTP_NO_CONTENT, $this->response->getStatusCode());
     }
 
     /**
@@ -151,7 +151,7 @@ trait HttpResponse
      */
     public function aResponseShouldBeBadRequest(): void
     {
-        Assert::assertEquals(400, $this->response->getStatusCode());
+        Assert::assertEquals(Response::HTTP_BAD_REQUEST, $this->response->getStatusCode());
     }
 
     /**
@@ -159,7 +159,7 @@ trait HttpResponse
      */
     public function aResponseShouldBeUnauthorized(): void
     {
-        Assert::assertEquals(401, $this->response->getStatusCode());
+        Assert::assertEquals(Response::HTTP_UNAUTHORIZED, $this->response->getStatusCode());
     }
 
     /**
@@ -167,7 +167,7 @@ trait HttpResponse
      */
     public function aResponseShouldBeForbidden(): void
     {
-        Assert::assertEquals(403, $this->response->getStatusCode());
+        Assert::assertEquals(Response::HTTP_FORBIDDEN, $this->response->getStatusCode());
     }
 
     /**
@@ -175,7 +175,7 @@ trait HttpResponse
      */
     public function aResponseShouldBeNotFound(): void
     {
-        Assert::assertEquals(404, $this->response->getStatusCode());
+        Assert::assertEquals(Response::HTTP_NOT_FOUND, $this->response->getStatusCode());
     }
 
     /**
@@ -183,7 +183,7 @@ trait HttpResponse
      */
     public function aResponseShouldBeConflict(): void
     {
-        Assert::assertEquals(409, $this->response->getStatusCode());
+        Assert::assertEquals(Response::HTTP_CONFLICT, $this->response->getStatusCode());
     }
 
     /**
@@ -191,7 +191,7 @@ trait HttpResponse
      */
     public function aResponseShouldBeUnprocessable(): void
     {
-        Assert::assertEquals(422, $this->response->getStatusCode());
+        Assert::assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $this->response->getStatusCode());
     }
 
     /**
@@ -199,7 +199,7 @@ trait HttpResponse
      */
     public function aResponseShouldBeTooManyRequests(): void
     {
-        Assert::assertEquals(429, $this->response->getStatusCode());
+        Assert::assertEquals(Response::HTTP_TOO_MANY_REQUESTS, $this->response->getStatusCode());
     }
 
     /**
@@ -207,7 +207,7 @@ trait HttpResponse
      */
     public function aResponseShouldBeGone(): void
     {
-        Assert::assertEquals(410, $this->response->getStatusCode());
+        Assert::assertEquals(Response::HTTP_GONE, $this->response->getStatusCode());
     }
 
     /**
@@ -215,7 +215,7 @@ trait HttpResponse
      */
     public function aResponseShouldBeServiceUnavailable(): void
     {
-        Assert::assertEquals(503, $this->response->getStatusCode());
+        Assert::assertEquals(Response::HTTP_SERVICE_UNAVAILABLE, $this->response->getStatusCode());
     }
 
     /**
@@ -223,7 +223,7 @@ trait HttpResponse
      */
     public function aResponseShouldBeFound(): void
     {
-        Assert::assertEquals(302, $this->response->getStatusCode());
+        Assert::assertEquals(Response::HTTP_FOUND, $this->response->getStatusCode());
     }
 
     /**
