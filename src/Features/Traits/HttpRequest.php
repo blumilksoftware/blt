@@ -120,7 +120,7 @@ trait HttpRequest
         $this->request->headers->set("Content-Type", $contentType);
     }
 
-     /**
+    /**
      * @Given request has User-Agent header set to :userAgent
      */
     public function requestHasUserAgent(string $userAgent): void
@@ -129,8 +129,8 @@ trait HttpRequest
     }
 
     /**
-    * @Given request has Host header set to :Host
-    */
+     * @Given request has Host header set to :Host
+     */
     public function requestHasHost(string $host): void
     {
         $this->request->headers->set("Host", $host);
