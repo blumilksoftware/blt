@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Behat\Behat\Context\Context;
+use Blumilk\BLT\Features\Toolbox;
 use Blumilk\BLT\Features\Traits\Database;
 use Blumilk\BLT\Features\Traits\HttpRequest;
 use Blumilk\BLT\Features\Traits\HttpResponse;
