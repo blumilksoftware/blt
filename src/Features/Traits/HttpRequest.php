@@ -23,7 +23,7 @@ trait HttpRequest
     /**
      * @Given request body contains :key equal :value
      */
-    public function requestBodyContainsKeyValuePair(string $key, $value): void
+    public function requestBodyContainsKeyValuePair(string $key, mixed $value): void
     {
         $this->request->request->set($key, $value);
     }
@@ -118,5 +118,21 @@ trait HttpRequest
     public function requestHasContentType(string $contentType): void
     {
         $this->request->headers->set("Content-Type", $contentType);
+    }
+
+     /**
+     * @Given request has User-Agent header set to :userAgent
+     */
+    public function requestHasUserAgent(string $userAgent): void
+    {
+        $this->request->headers->set("User-Agent", $userAgent);
+    }
+
+    /**
+    * @Given request has Host header set to :Host
+    */
+    public function requestHasHost(string $host): void
+    {
+        $this->request->headers->set("Host", $host);
     }
 }
