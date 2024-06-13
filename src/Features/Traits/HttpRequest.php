@@ -23,7 +23,7 @@ trait HttpRequest
     /**
      * @Given request body contains :key equal :value
      */
-    public function requestBodyContainsKeyValuePair(string $key, string $value): void
+    public function requestBodyContainsKeyValuePair(string $key, $value): void
     {
         $this->request->request->set($key, $value);
     }
@@ -102,5 +102,21 @@ trait HttpRequest
     public function requestHasBearerToken(string $token): void
     {
         $this->request->headers->set("Authorization", "Bearer " . $token);
+    }
+
+    /**
+     * @Given request has Accept Language header set to :language
+     */
+    public function requestHasAcceptLanguage(string $language): void
+    {
+        $this->request->headers->set("Accept-Language", $language);
+    }
+
+    /**
+     * @Given request has Content Type header set to :contentType
+     */
+    public function requestHasContentType(string $contentType): void
+    {
+        $this->request->headers->set("Content-Type", $contentType);
     }
 }
