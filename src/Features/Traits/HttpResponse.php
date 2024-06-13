@@ -15,12 +15,11 @@ trait HttpResponse
     protected Response $response;
 
     /**
-     * @When a request is sent
+     * @When a response is received
      */
-    public function aRequestIsSent(): void
+    public function aResponseIsReceived(): void
     {
         $this->response = $this->getContainer()->handle($this->request);
-        $this->response->send();
     }
 
     /**
