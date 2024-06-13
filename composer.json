@@ -23,6 +23,9 @@
     "illuminate/support": "^10.0|11.0",
     "symfony/http-foundation": "^6.2|^7.1"
   },
+  "suggest": {
+    "spatie/laravel-permission": "^6.*"
+  },
   "autoload": {
     "psr-4": {
       "Blumilk\\BLT\\": "src/"
