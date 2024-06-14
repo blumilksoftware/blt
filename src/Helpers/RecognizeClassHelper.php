@@ -22,14 +22,14 @@ class RecognizeClassHelper
     public static function getObjectNamespace(string $objectName): string
     {
         $type = self::guessType($objectName);
-        $typeNamespaces = config("blt.namespaces.types");
+        $typeNamespace = self::getNamespaceFromConfig($objectName, $type);
 
-        if (array_key_exists($type, $typeNamespaces)) {
-            return $typeNamespaces[$type];
+        if ($typeNamespace) {
+            return $typeNamespace;
         }
-        $type = Str::plural(Str::ucfirst($type));
 
-        $defaultNamespace = config("blt.namespaces.default") ?? "App\\";
+        $type = Str::plural(Str::ucfirst($type));
+        $defaultNamespace = config("blt.namespaces.default", "App\\");
 
         return $defaultNamespace . $type . "\\";
     }
@@ -39,13 +39,18 @@ class RecognizeClassHelper
         $slug = Str::slug($objectName);
 
         foreach (TypesEnum::cases() as $objectType) {
-            $objectTypeName = $objectType->value;
-
-            if (Str::contains($slug, $objectTypeName)) {
-                return Str::singular($objectTypeName);
+            if (Str::contains($slug, $objectType->value)) {
+                return Str::singular($objectType->value);
             }
         }
 
-        return $objectName;
+        return "model";
+    }
+
+    private static function getNamespaceFromConfig(string $objectName, string $type): ?string
+    {
+        $typeNamespaces = config("blt.namespaces.types");
+
+        return $typeNamespaces[$objectName] ?? $typeNamespaces[$type] ?? null;
     }
 }
