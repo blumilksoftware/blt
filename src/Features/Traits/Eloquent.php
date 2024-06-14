@@ -20,7 +20,7 @@ trait Eloquent
         $modelClass = $this->recognizeModelClass($model);
         $attributes = $table ? $table->getRowsHash() : [];
 
-        if (method_exists($modelClass, 'factory')) {
+        if (method_exists($modelClass, "factory")) {
             $modelClass::factory()->create($attributes);
         } else {
             $modelClass::create($attributes);
