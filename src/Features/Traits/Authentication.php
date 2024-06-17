@@ -8,6 +8,7 @@ use Behat\Gherkin\Node\TableNode;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use PHPUnit\Framework\Assert;
+use Symfony\Component\HttpFoundation\Response;
 
 trait Authentication
 {
@@ -112,6 +113,29 @@ trait Authentication
         $user = $this->getUserModel()::firstOrCreate($attributes);
         $auth = $this->getContainer()->make(Guard::class);
         $auth->login($user);
+    }
+
+    /**
+     * @Then the user with email :email should not be able to access :url
+     * @throws BindingResolutionException
+     */
+    public function userWithEmailShouldNotBeAbleToAccess(string $email, string $url): void
+    {
+        $auth = $this->getContainer()->make(Guard::class);
+        $auth->login($this->getUserModel()::query()->where("email", $email)->first());
+        $response = $this->call("GET", $url);
+        Assert::assertEquals(Response::HTTP_FORBIDDEN, $response->status());
+    }
+
+    /**
+     * @Then the user should be able to logout
+     * @throws BindingResolutionException
+     */
+    public function userShouldBeAbleToLogout(): void
+    {
+        $auth = $this->getContainer()->make(Guard::class);
+        $auth->logout();
+        Assert::assertNull($auth->user());
     }
 
     /**
