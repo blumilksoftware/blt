@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Tests\Helpers;
 
 use Blumilk\BLT\Helpers\BooleanHelper;
-use Blumilk\BLT\Helpers\NullableHelper;
 use Blumilk\BLT\Helpers\DotNotationHelper;
+use Blumilk\BLT\Helpers\NullableHelper;
 use PHPUnit\Framework\TestCase;
 
-class HelperTest extends TestCase
+class HelpersTest extends TestCase
 {
     public function testToNullableReturnsNullForNullString(): void
     {
@@ -81,19 +81,60 @@ class HelperTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testGetValueUsingDotNotation()
+    public function testGetValueUsingDotNotation(): void
     {
         $array = [
-            'user' => [
-                'profile' => [
-                    'email' => 'user@example.com',
-                    'age' => 25,
+            "user" => [
+                "profile" => [
+                    "email" => "user@example.com",
+                    "age" => 25,
                 ],
             ],
         ];
 
-        $this->assertEquals('user@example.com', DotNotationHelper::getValueUsingDotNotation($array, 'user.profile.email'));
-        $this->assertEquals(25, DotNotationHelper::getValueUsingDotNotation($array, 'user.profile.age'));
-        $this->assertNull(DotNotationHelper::getValueUsingDotNotation($array, 'user.profile.name'));
+        $this->assertEquals("user@example.com", DotNotationHelper::getValueUsingDotNotation($array, "user.profile.email"));
+        $this->assertEquals(25, DotNotationHelper::getValueUsingDotNotation($array, "user.profile.age"));
+        $this->assertNull(DotNotationHelper::getValueUsingDotNotation($array, "user.profile.name"));
+    }
+
+    public function testGetValueUsingDotNotationWithEmptyPath(): void
+    {
+        $array = [
+            "user" => [
+                "profile" => [
+                    "email" => "user@example.com",
+                ],
+            ],
+        ];
+
+        $this->assertNull(DotNotationHelper::getValueUsingDotNotation($array, ""));
+    }
+
+    public function testGetValueUsingDotNotationWithInvalidPath(): void
+    {
+        $array = [
+            "user" => [
+                "profile" => [
+                    "email" => "user@example.com",
+                ],
+            ],
+        ];
+
+        $this->assertNull(DotNotationHelper::getValueUsingDotNotation($array, "user.address.street"));
+    }
+
+    public function testGetValueUsingDotNotationWithNestedArray(): void
+    {
+        $array = [
+            "user" => [
+                "profile" => [
+                    "details" => [
+                        "email" => "user@example.com",
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertEquals("user@example.com", DotNotationHelper::getValueUsingDotNotation($array, "user.profile.details.email"));
     }
 }
