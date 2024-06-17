@@ -6,6 +6,7 @@ namespace Blumilk\BLT\Tests\Helpers;
 
 use Blumilk\BLT\Helpers\BooleanHelper;
 use Blumilk\BLT\Helpers\NullableHelper;
+use Blumilk\BLT\Helpers\DotNotationHelper;
 use PHPUnit\Framework\TestCase;
 
 class HelperTest extends TestCase
@@ -78,5 +79,21 @@ class HelperTest extends TestCase
         $actual = BooleanHelper::toBoolean($input);
 
         self::assertSame($expected, $actual);
+    }
+
+    public function testGetValueUsingDotNotation()
+    {
+        $array = [
+            'user' => [
+                'profile' => [
+                    'email' => 'user@example.com',
+                    'age' => 25,
+                ],
+            ],
+        ];
+
+        $this->assertEquals('user@example.com', DotNotationHelper::getValueUsingDotNotation($array, 'user.profile.email'));
+        $this->assertEquals(25, DotNotationHelper::getValueUsingDotNotation($array, 'user.profile.age'));
+        $this->assertNull(DotNotationHelper::getValueUsingDotNotation($array, 'user.profile.name'));
     }
 }
