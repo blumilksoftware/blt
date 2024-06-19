@@ -18,8 +18,8 @@ trait Dispatcher
 {
     use Application;
 
-    private BusFake $busFake;
-    private EventFake $eventFake;
+    protected BusFake $busFake;
+    protected EventFake $eventFake;
 
     /**
      * @Given bus is running
@@ -89,12 +89,10 @@ trait Dispatcher
     {
         $objectType = RecognizeClassHelper::guessType($objectName);
 
-        if ($objectType === TypesEnum::JOB->value) {
-            return $this->busFake;
-        } elseif ($objectType === TypesEnum::EVENT->value) {
-            return $this->eventFake;
-        }
-
-        throw new InvalidArgumentException("Unsupported object type: $objectType");
+        return match ($objectType) {
+            TypesEnum::Job->value => $this->busFake,
+            TypesEnum::Event->value => $this->eventFake,
+            default => throw new InvalidArgumentException("Unsupported object type: $objectType"),
+        };
     }
 }
