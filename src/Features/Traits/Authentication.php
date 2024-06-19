@@ -116,6 +116,30 @@ trait Authentication
     }
 
     /**
+     * @Then the user should be able to logout
+     * @throws BindingResolutionException
+     */
+    public function userShouldBeAbleToLogout(): void
+    {
+        $auth = $this->getContainer()->make(Guard::class);
+        $auth->logout();
+        Assert::assertNull($auth->user());
+    }
+
+    /**
+     * @Then the authenticated user should be redirected to :url
+     * @throws BindingResolutionException
+     */
+    public function authenticatedUserShouldBeRedirectedTo(string $url): void
+    {
+        $response = $this->response;
+        Assert::assertTrue(
+            $response->isRedirect($url),
+            "Authenticated user was not redirected to $url.",
+        );
+    }
+
+    /**
      * @Then the user with email :email should not be able to access :url
      * @throws BindingResolutionException
      */
@@ -125,17 +149,6 @@ trait Authentication
         $auth->login($this->getUserModel()::query()->where("email", $email)->first());
         $response = $this->call("GET", $url);
         Assert::assertEquals(Response::HTTP_FORBIDDEN, $response->status());
-    }
-
-    /**
-     * @Then the user should be able to logout
-     * @throws BindingResolutionException
-     */
-    public function userShouldBeAbleToLogout(): void
-    {
-        $auth = $this->getContainer()->make(Guard::class);
-        $auth->logout();
-        Assert::assertNull($auth->user());
     }
 
     /**
