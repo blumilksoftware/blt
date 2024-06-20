@@ -84,7 +84,7 @@ trait Authentication
     }
 
     /**
-     * @Then the authenticated user's email should be :email
+     * @Then the authenticated user email should be :email
      * @throws BindingResolutionException
      */
     public function authenticatedUsersEmailShouldBe(string $email): void
