@@ -85,7 +85,7 @@ trait Dispatcher
         $this->resolveFaker($objectName)->assertDispatched($objectClass, $count);
     }
 
-    private function resolveFaker($objectName): BusFake|EventFake
+    protected function resolveFaker(string $objectName): BusFake|EventFake
     {
         $objectType = RecognizeClassHelper::guessType($objectName);
 

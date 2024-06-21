@@ -15,7 +15,7 @@ class ArrayHelper
         return explode($separator, $input);
     }
 
-    public static function toString(string|array $input, $separator = " "): string
+    public static function toString(string|array $input, string $separator = " "): string
     {
         if (is_string($input)) {
             return $input;

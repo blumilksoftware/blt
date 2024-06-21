@@ -47,7 +47,7 @@ class RecognizeClassHelper
         return "model";
     }
 
-    private static function getNamespaceFromConfig(string $objectName, string $type): ?string
+    protected static function getNamespaceFromConfig(string $objectName, string $type): ?string
     {
         $typeNamespaces = config("blt.namespaces.types");
 
