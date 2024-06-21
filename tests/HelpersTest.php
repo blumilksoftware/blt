@@ -21,7 +21,7 @@ class HelpersTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testToNullableReturnsInputForNonNullString(): void
+    public function testToNullableReturnsInputForNotEmptyString(): void
     {
         $input = "someValue";
         $expected = "someValue";
