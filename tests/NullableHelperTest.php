@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class NullableHelperTest extends TestCase
 {
-    public function testToNullableReturnsNullForNullString(): void
+    public function testReturnsNullForNullString(): void
     {
         $input = "null";
         $expected = null;
@@ -19,7 +19,7 @@ class NullableHelperTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testToNullableReturnsInputForNotEmptyString(): void
+    public function testReturnsInputForNotEmptyString(): void
     {
         $input = "someValue";
         $expected = "someValue";
@@ -29,7 +29,7 @@ class NullableHelperTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testToNullableReturnsInputForEmptyString(): void
+    public function testReturnsInputForEmptyString(): void
     {
         $input = "";
         $expected = "";

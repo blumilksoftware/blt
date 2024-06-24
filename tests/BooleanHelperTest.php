@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class BooleanHelperTest extends TestCase
 {
-    public function testToBooleanReturnsTrueForStringTrue(): void
+    public function testReturnsTrueForStringTrue(): void
     {
         $input = "true";
         $expected = true;
@@ -19,7 +19,7 @@ class BooleanHelperTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testToBooleanReturnsFalseForStringFalse(): void
+    public function testReturnsFalseForStringFalse(): void
     {
         $input = "false";
         $expected = false;
@@ -29,7 +29,7 @@ class BooleanHelperTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testToBooleanReturnsFalseForInvalidString(): void
+    public function testReturnsFalseForInvalidString(): void
     {
         $input = "invalid";
         $expected = false;
@@ -39,7 +39,7 @@ class BooleanHelperTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testToBooleanReturnsFalseForEmptyString(): void
+    public function testReturnsFalseForEmptyString(): void
     {
         $input = "";
         $expected = false;
