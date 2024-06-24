@@ -25,7 +25,7 @@ class DotNotationHelperTest extends TestCase
         $this->assertNull(data_get($array, "user.profile.name"));
     }
 
-    public function testGetValueUsingDotNotationWithEmptyPath(): void
+    public function testReturnsNullWithEmptyPath(): void
     {
         $array = [
             "user" => [
