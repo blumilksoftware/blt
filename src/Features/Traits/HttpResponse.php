@@ -123,57 +123,57 @@ trait HttpResponse
     }
 
     /**
-     * @Then the response should be OK
+     * @Then the response status should be OK
      */
-    public function aResponseShouldBeOk(): void
+    public function aResponseStatusShouldBeOk(): void
     {
         Assert::assertEquals(Response::HTTP_OK, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be created
+     * @Then the response status should be created
      */
-    public function aResponseShouldBeCreated(): void
+    public function aResponseStatusShouldBeCreated(): void
     {
         Assert::assertEquals(Response::HTTP_CREATED, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be no content
+     * @Then the response status should be no content
      */
-    public function aResponseShouldBeNoContent(): void
+    public function aResponseStatusShouldBeNoContent(): void
     {
         Assert::assertEquals(Response::HTTP_NO_CONTENT, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be bad request
+     * @Then the response status should be bad request
      */
-    public function aResponseShouldBeBadRequest(): void
+    public function aResponseStatusShouldBeBadRequest(): void
     {
         Assert::assertEquals(Response::HTTP_BAD_REQUEST, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be unauthorized
+     * @Then the response status should be unauthorized
      */
-    public function aResponseShouldBeUnauthorized(): void
+    public function aResponseStatusShouldBeUnauthorized(): void
     {
         Assert::assertEquals(Response::HTTP_UNAUTHORIZED, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be forbidden
+     * @Then the response status should be forbidden
      */
-    public function aResponseShouldBeForbidden(): void
+    public function aResponseStatusShouldBeForbidden(): void
     {
         Assert::assertEquals(Response::HTTP_FORBIDDEN, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be not found
+     * @Then the response status should be not found
      */
-    public function aResponseShouldBeNotFound(): void
+    public function aResponseStatusShouldBeNotFound(): void
     {
         Assert::assertEquals(Response::HTTP_NOT_FOUND, $this->response->getStatusCode());
     }
@@ -181,47 +181,47 @@ trait HttpResponse
     /**
      * @Then the response status should be conflict
      */
-    public function theResponseStatusShouldBeConflict(): void
+    public function aResponseStatusShouldBeConflict(): void
     {
         Assert::assertEquals(Response::HTTP_CONFLICT, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be unprocessable
+     * @Then the response status should be unprocessable
      */
-    public function aResponseShouldBeUnprocessable(): void
+    public function aResponseStatusShouldBeUnprocessable(): void
     {
         Assert::assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be too many requests
+     * @Then the response status should be too many requests
      */
-    public function aResponseShouldBeTooManyRequests(): void
+    public function aResponseStatusShouldBeTooManyRequests(): void
     {
         Assert::assertEquals(Response::HTTP_TOO_MANY_REQUESTS, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be gone
+     * @Then the response status should be gone
      */
-    public function aResponseShouldBeGone(): void
+    public function aResponseStatusShouldBeGone(): void
     {
         Assert::assertEquals(Response::HTTP_GONE, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be service unavailable
+     * @Then the response status should be service unavailable
      */
-    public function aResponseShouldBeServiceUnavailable(): void
+    public function aResponseStatusShouldBeServiceUnavailable(): void
     {
         Assert::assertEquals(Response::HTTP_SERVICE_UNAVAILABLE, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be found
+     * @Then the response status should be found
      */
-    public function aResponseShouldBeFound(): void
+    public function aResponseStatusShouldBeFound(): void
     {
         Assert::assertEquals(Response::HTTP_FOUND, $this->response->getStatusCode());
     }
