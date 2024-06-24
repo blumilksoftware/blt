@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
-use Blumilk\BLT\Helpers\LaravelRelations;
+use Blumilk\BLT\LaravelRelations;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert;
+use Illuminate\Database\Eloquent\Model;
 
 trait Eloquent
 {
     /**
-     * @Given there is a model :model in the database
-     * @Given there is a :model in the database
+     * @Given there is a model :model in the database:
+     * @Given there is a :model in the database:
      */
     public function seedModelInTheDatabase(string $model, ?TableNode $table = null): void
     {
@@ -67,7 +68,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-        LaravelRelations::assertRelation($instance, $relation, 'Illuminate\Database\Eloquent\Relations\HasMany');
+        $this->assertRelation($instance, $relation, LaravelRelations::HAS_MANY);
     }
 
     /**
@@ -84,7 +85,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-        LaravelRelations::assertRelation($instance, $relation, 'Illuminate\Database\Eloquent\Relations\BelongsTo');
+        $this->assertRelation($instance, $relation, LaravelRelations::BELONGS_TO);
     }
 
     /**
@@ -101,7 +102,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-        LaravelRelations::assertRelation($instance, $relation, 'Illuminate\Database\Eloquent\Relations\HasOne');
+        $this->assertRelation($instance, $relation, LaravelRelations::HAS_ONE);
     }
 
     /**
@@ -118,7 +119,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-        LaravelRelations::assertRelation($instance, $relation, 'Illuminate\Database\Eloquent\Relations\BelongsToMany');
+        $this->assertRelation($instance, $relation, LaravelRelations::BELONGS_TO_MANY);
     }
 
     /**
@@ -158,5 +159,16 @@ trait Eloquent
         $model = Str::ucfirst(Str::singular($model));
 
         return $this->getModelNamespace() . $model;
+    }
+
+    protected function assertRelation(Model $instance, string $relation, string $relationType): void
+    {
+        $related = $instance->{$relation}();
+
+        Assert::assertInstanceOf(
+            $relationType,
+            $related,
+            "The relation $relation is not of type $relationType."
+        );
     }
 }
