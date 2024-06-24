@@ -68,8 +68,9 @@ trait HttpResponse
         $json = json_decode($this->response->getContent(), true);
 
         foreach ($table->getRowsHash() as $key => $value) {
-            Assert::assertArrayHasKey($key, $json);
-            Assert::assertEquals($value, $json[$key]);
+            $actualValue = data_get($json, $key);
+            Assert::assertNotNull($actualValue, "Key '$key' not found in response JSON.");
+            Assert::assertEquals($value, $actualValue);
         }
     }
 
