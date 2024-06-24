@@ -22,7 +22,6 @@ trait Notification
     public function fakeNotifications(): void
     {
         $this->notificationFake = $this->getContainer()->make(NotificationFake::class);
-        $this->getContainer()->instance(\Illuminate\Support\Facades\Notification::class,$this->notificationFake);
     }
 
     /**
