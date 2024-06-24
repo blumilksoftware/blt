@@ -38,7 +38,7 @@ class DotNotationHelperTest extends TestCase
         $this->assertNull(DotNotationHelper::getValueUsingDotNotation($array, ""));
     }
 
-    public function testGetValueUsingDotNotationWithInvalidPath(): void
+    public function testReturnsNullWithInvalidPath(): void
     {
         $array = [
             "user" => [
@@ -51,7 +51,7 @@ class DotNotationHelperTest extends TestCase
         $this->assertNull(DotNotationHelper::getValueUsingDotNotation($array, "user.address.street"));
     }
 
-    public function testGetValueUsingDotNotationWithNestedArray(): void
+    public function testReturnsValueWithNestedArray(): void
     {
         $array = [
             "user" => [
