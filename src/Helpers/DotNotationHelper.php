@@ -6,7 +6,7 @@ namespace Blumilk\BLT\Helpers;
 
 class DotNotationHelper
 {
-    public static function getValueUsingDotNotation(array $array, string $path): mixed
+    public static function getValueUsingDotNotation(array $array, string $path): ?array
     {
         $keys = explode(".", $path);
 
