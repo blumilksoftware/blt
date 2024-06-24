@@ -178,9 +178,9 @@ trait HttpResponse
     }
 
     /**
-     * @Then the response should be conflict
+     * @Then the response status should be conflict
      */
-    public function aResponseShouldBeConflict(): void
+    public function theResponseStatusShouldBeConflict(): void
     {
         Assert::assertEquals(Response::HTTP_CONFLICT, $this->response->getStatusCode());
     }

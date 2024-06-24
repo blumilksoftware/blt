@@ -7,7 +7,7 @@ namespace Blumilk\BLT\Features;
 use Behat\Behat\Context\Context;
 use Blumilk\BLT\Features\Traits\HttpRequest as HttpRequestTrait;
 
-class Request implements Context
+class HttpRequest implements Context
 {
     use HttpRequestTrait;
 }
