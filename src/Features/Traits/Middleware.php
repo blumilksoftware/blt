@@ -81,4 +81,13 @@ trait Middleware
             "The request field $field does not contain a valid UUID.",
         );
     }
+
+    /**
+     * @Then the middleware :middleware should be applied to the request
+     */
+    public function middlewareShouldBeAppliedToRequest(string $middleware): void
+    {
+        $request = $this->getContainer()->make(Request::class);
+        Assert::assertTrue($request->attributes->has($middleware));
+    }
 }
