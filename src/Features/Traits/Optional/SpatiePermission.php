@@ -14,12 +14,14 @@ trait SpatiePermission
     use Application;
 
     /**
+     * @When :objectName can have role
      * @When user can have role
      * @throws BindingResolutionException
      */
-    public function userHasRoles(): void
+    public function objectCanHaveRoles(string $objectName = "User"): void
     {
-        $used_traits = class_uses_recursive($this->getContainer()->make(RecognizeClassHelper::recognizeObjectClass("User")));
+        $objectClass = RecognizeClassHelper::recognizeObjectClass($objectName);
+        $used_traits = class_uses_recursive($this->getContainer()->make($objectClass));
         Assert::assertTrue(in_array("Spatie\Permission\Traits\HasRoles", $used_traits, true));
     }
 
