@@ -121,7 +121,7 @@ trait HttpRequest
     }
 
     /**
-     * @Given request has User-Agent header set to :userAgent
+     * @Given request has User Agent header set to :userAgent
      */
     public function requestHasUserAgent(string $userAgent): void
     {
