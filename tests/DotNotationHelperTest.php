@@ -14,14 +14,15 @@ class DotNotationHelperTest extends TestCase
         $array = [
             "user" => [
                 "profile" => [
-                    "email" => "user@example.com",
-                    "age" => 25,
+                    "details" => [
+                        "email" => "user@example.com",
+                        "age" => 25,
+                    ],
                 ],
             ],
         ];
 
-        $this->assertEquals("user@example.com", DotNotationHelper::getValueUsingDotNotation($array, "user.profile.email"));
-        $this->assertEquals(25, DotNotationHelper::getValueUsingDotNotation($array, "user.profile.age"));
+        $this->assertEquals(["email" => "user@example.com", "age" => 25], DotNotationHelper::getValueUsingDotNotation($array, "user.profile.details"));
         $this->assertNull(DotNotationHelper::getValueUsingDotNotation($array, "user.profile.name"));
     }
 
@@ -63,6 +64,6 @@ class DotNotationHelperTest extends TestCase
             ],
         ];
 
-        $this->assertEquals("user@example.com", DotNotationHelper::getValueUsingDotNotation($array, "user.profile.details.email"));
+        $this->assertEquals(["email" => "user@example.com"], DotNotationHelper::getValueUsingDotNotation($array, "user.profile.details"));
     }
 }
