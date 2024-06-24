@@ -9,6 +9,7 @@ use Blumilk\BLT\LaravelContracts;
 use Closure;
 use Illuminate\Foundation\Http\Kernel;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert;
 
@@ -24,7 +25,7 @@ trait Middleware
         $this->getContainer()->instance(
             $middleware,
             new class() {
-                public function handle(Request $request, Closure $next)
+                public function handle(Request $request, Closure $next): Response
                 {
                     return $next($request);
                 }
