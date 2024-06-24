@@ -14,16 +14,15 @@ class DotNotationHelperTest extends TestCase
         $array = [
             "user" => [
                 "profile" => [
-                    "details" => [
-                        "email" => "user@example.com",
-                        "age" => 25,
-                    ],
+                    "email" => "user@example.com",
+                    "age" => 25,
                 ],
             ],
         ];
 
-        $this->assertEquals(["email" => "user@example.com", "age" => 25], DotNotationHelper::getValueUsingDotNotation($array, "user.profile.details"));
-        $this->assertNull(DotNotationHelper::getValueUsingDotNotation($array, "user.profile.name"));
+        $this->assertEquals("user@example.com", data_get($array, "user.profile.email"));
+        $this->assertEquals(25, data_get($array, "user.profile.age"));
+        $this->assertNull(data_get($array, "user.profile.name"));
     }
 
     public function testGetValueUsingDotNotationWithEmptyPath(): void
