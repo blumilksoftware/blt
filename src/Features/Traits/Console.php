@@ -7,7 +7,6 @@ namespace Blumilk\BLT\Features\Traits;
 use Behat\Gherkin\Node\TableNode;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Support\Facades\Artisan;
 use InvalidArgumentException;
 use PHPUnit\Framework\Assert;
 
@@ -30,7 +29,7 @@ trait Console
     }
 
     /**
-     * @Given I run artisan command :command with
+     * @Given I run artisan command :command with:
      * @throws BindingResolutionException
      */
     public function runCommandWithOptionsAndArguments(string $command, TableNode $table): void
@@ -52,9 +51,8 @@ trait Console
     }
 
     /**
-     * @Then I see :output in console
-     * @Then I should see :output in console
-     * @Then Console output contains :output
+     * @Then console output contains :output
+     * @Then console output should contain :output
      */
     public function seeInConsole(string $output): void
     {
@@ -62,7 +60,7 @@ trait Console
     }
 
     /**
-     * @Then Console output is not empty
+     * @Then console output is not empty
      */
     public function consoleOutputIsNotEmpty(): void
     {
@@ -70,7 +68,7 @@ trait Console
     }
 
     /**
-     * @Then Console output is empty
+     * @Then console output is empty
      */
     public function consoleOutputIsEmpty(): void
     {
