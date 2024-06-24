@@ -14,5 +14,13 @@ class BLTServiceProvider extends ServiceProvider
         $this->commands([
             BLTInit::class,
         ]);
+        $this->publishes([
+            __DIR__ . "/../config/blt.php" => config_path("blt.php"),
+        ], "config");
+    }
+
+    public function register(): void
+    {
+        $this->mergeConfigFrom(__DIR__ . "/../config/blt.php", "blt");
     }
 }
