@@ -14,22 +14,27 @@ class RecognizeClassHelper
             return $objectName;
         }
 
-        $objectName = Str::ucfirst(Str::singular($objectName));
+        $objectName = Str::ucfirst($objectName);
 
-        return self::getObjectNamespace($objectName) . $objectName;
+        return self::getObjectNamespace(Str::singular($objectName)) . $objectName;
     }
 
     public static function getObjectNamespace(string $objectName): string
     {
         $type = self::guessType($objectName);
-        $typeNamespace = self::getNamespaceFromConfig($objectName, $type);
+        $typeNamespaces = config("blt.namespaces.types");
 
-        if ($typeNamespace) {
-            return $typeNamespace;
+        if (array_key_exists($objectName, $typeNamespaces)) {
+            return $typeNamespaces[$objectName];
+        }
+
+        if (array_key_exists($type, $typeNamespaces)) {
+            return $typeNamespaces[$type];
         }
 
         $type = Str::plural(Str::ucfirst($type));
-        $defaultNamespace = config("blt.namespaces.default", "App\\");
+
+        $defaultNamespace = config("blt.namespaces.default") ?? "App\\";
 
         return $defaultNamespace . $type . "\\";
     }
@@ -39,18 +44,14 @@ class RecognizeClassHelper
         $slug = Str::slug($objectName);
 
         foreach (TypesEnum::cases() as $objectType) {
-            if (Str::contains($slug, $objectType->value)) {
-                return Str::singular($objectType->value);
+            $objectTypeName = $objectType->value;
+
+            if (Str::contains($slug, $objectTypeName)) {
+                return Str::singular($objectTypeName);
             }
         }
 
+        //        TODO: find better way for returning models, as they usually dont have Model in their name.
         return "model";
-    }
-
-    protected static function getNamespaceFromConfig(string $objectName, string $type): ?string
-    {
-        $typeNamespaces = config("blt.namespaces.types");
-
-        return $typeNamespaces[$objectName] ?? $typeNamespaces[$type] ?? null;
     }
 }
