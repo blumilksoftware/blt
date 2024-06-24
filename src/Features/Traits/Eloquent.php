@@ -6,9 +6,9 @@ namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
 use Blumilk\BLT\LaravelRelations;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert;
-use Illuminate\Database\Eloquent\Model;
 
 trait Eloquent
 {
@@ -168,7 +168,7 @@ trait Eloquent
         Assert::assertInstanceOf(
             $relationType,
             $related,
-            "The relation $relation is not of type $relationType."
+            "The relation $relation is not of type $relationType.",
         );
     }
 }
