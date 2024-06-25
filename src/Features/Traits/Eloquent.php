@@ -18,7 +18,7 @@ trait Eloquent
      */
     public function seedModelInTheDatabase(string $model, ?TableNode $table = null): void
     {
-        $modelClass = $this->recognizeModelClass($model);
+        $modelClass = RecognizeClassHelper::recognizeObjectClass($model);
         $attributes = $table ? $table->getRowsHash() : [];
 
         if (method_exists($modelClass, "factory")) {
