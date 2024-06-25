@@ -15,6 +15,7 @@ trait Console
     use Application;
 
     protected string $consoleOutput = "";
+    protected int $consoleCode;
 
     /**
      * @Given I run artisan command :command
@@ -24,7 +25,7 @@ trait Console
     public function runArtisanCommand(string $command): void
     {
         $this->consoleOutput = "";
-        $this->getContainer()->make(Kernel::class)->call($command);
+        $this->consoleCode = $this->getContainer()->make(Kernel::class)->call($command);
         $this->consoleOutput = $this->getContainer()->make(Kernel::class)->output();
     }
 
@@ -73,5 +74,14 @@ trait Console
     public function consoleOutputIsEmpty(): void
     {
         Assert::assertEmpty($this->consoleOutput);
+    }
+
+    /**
+     * @Then console exit code is :code
+     * @Then console exit code should be :code
+     */
+    public function consoleExitCodeIs(int $code): void
+    {
+        Assert::assertEquals($this->consoleCode, $code);
     }
 }
