@@ -6,14 +6,15 @@ BLT for PHP developers: Behat+Laravel toolbox
 > Package is still under development.
 
 ### Usage
+To start using package if you don't already have Behat initialized in your project:
+```
+composer require blumilksfotware/blt --dev
+php artisan blt:init
+```
+### Or if you want to do that manually:
 Use Composer to get package from the Packagist repository:
 ```
 composer require blumilksfotware/blt --dev
-```
-
-To use the package you need to have behat installed in your project:
-```
-php composer.phar require --dev behat/behat
 ```
 Create .env.behat file in your project root directory and set up your environment variables for Behat.
 ```
@@ -24,7 +25,7 @@ Initialize Behat in your project:
 php vendor/bin/behat --init
 ```
 To learn more about Behat visit [Behat documentation](https://docs.behat.org/en/latest/).
-
+### To use in your tests:
 Bootstrap BLT in your FeatureContext file:
 ```
  public function __construct()
@@ -33,6 +34,22 @@ Bootstrap BLT in your FeatureContext file:
         $bootstrapper->boot();
     }
 ```
+If you want to include all suite of features, you can use:
+```
+use Blumilk\BLT\Features\Toolbox;
+class FeatureContext extends Toolbox implements Context
+{...}
+```
+Or to use selected traits:
+```
+use Blumilk\BLT\Features\Traits\Eloquent;
+class FeatureContext implements Context
+{
+    use Eloquent;
+    ...
+}
+```
+
 Example usage in tests is available in the [docs](docs).
 ### Development
 There are scripts available for package codestyle checking and testing:
