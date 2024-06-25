@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
+use Blumilk\BLT\Helpers\RecognizeClassHelper;
 use Blumilk\BLT\LaravelRelations;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -33,7 +34,7 @@ trait Eloquent
      */
     public function assertModelExistsInTheDatabase(string $model): void
     {
-        $modelClass = $this->recognizeModelClass($model);
+        $modelClass = RecognizeClassHelper::recognizeObjectClass($model);
 
         Assert::assertTrue($modelClass::query()->exists(), "The model $model does not exist in the database.");
     }
@@ -44,7 +45,7 @@ trait Eloquent
      */
     public function thereAreModelsInTheDatabase(string $model, int $count): void
     {
-        $modelClass = $this->recognizeModelClass($model);
+        $modelClass = RecognizeClassHelper::recognizeObjectClass($model);
         $existingCount = $modelClass::query()->count();
 
         if ($existingCount < $count) {
@@ -59,7 +60,7 @@ trait Eloquent
      */
     public function theModelHasMany(string $model1, string $model2): void
     {
-        $model1Class = $this->recognizeModelClass($model1);
+        $model1Class = RecognizeClassHelper::recognizeObjectClass($model1);
         $relation = Str::plural($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 
@@ -76,7 +77,7 @@ trait Eloquent
      */
     public function theModelBelongsTo(string $model1, string $model2): void
     {
-        $model1Class = $this->recognizeModelClass($model1);
+        $model1Class = RecognizeClassHelper::recognizeObjectClass($model1);
         $relation = Str::singular($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 
@@ -93,7 +94,7 @@ trait Eloquent
      */
     public function theModelHasOne(string $model1, string $model2): void
     {
-        $model1Class = $this->recognizeModelClass($model1);
+        $model1Class = RecognizeClassHelper::recognizeObjectClass($model1);
         $relation = Str::singular($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 
@@ -110,7 +111,7 @@ trait Eloquent
      */
     public function theModelBelongsToMany(string $model1, string $model2): void
     {
-        $model1Class = $this->recognizeModelClass($model1);
+        $model1Class = RecognizeClassHelper::recognizeObjectClass($model1);
         $relation = Str::plural($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 
@@ -127,7 +128,7 @@ trait Eloquent
      */
     public function theModelHasExpectedNumberOfRelated(string $model1, string $model2, int $count): void
     {
-        $model1Class = $this->recognizeModelClass($model1);
+        $model1Class = RecognizeClassHelper::recognizeObjectClass($model1);
         $relation = Str::plural($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 
@@ -143,22 +144,6 @@ trait Eloquent
             $relatedCount,
             "The model $model1 does not have $count related $relation.",
         );
-    }
-
-    protected function getModelNamespace(): string
-    {
-        return "App\\Models\\";
-    }
-
-    protected function recognizeModelClass(string $model): string
-    {
-        if (str_contains($model, "\\")) {
-            return $model;
-        }
-
-        $model = Str::ucfirst(Str::singular($model));
-
-        return $this->getModelNamespace() . $model;
     }
 
     protected function assertRelation(Model $instance, string $relation, string $relationType): void
