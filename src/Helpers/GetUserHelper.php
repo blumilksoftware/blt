@@ -6,7 +6,7 @@ namespace Blumilk\BLT\Helpers;
 
 class GetUserHelper
 {
-    public static function getUser(string $field, string $value): object
+    public static function getUser(string $field, string $value): ?object
     {
         $userClass = RecognizeClassHelper::recognizeObjectClass("User");
 
