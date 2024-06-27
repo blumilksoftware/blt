@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
-use Blumilk\BLT\Helpers\RecognizeClassHelper;
+use Blumilk\BLT\Helpers\ContextHelper;
 use Blumilk\BLT\Helpers\TypesEnum;
 use Illuminate\Contracts\Bus\Dispatcher as BusDispatcher;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -61,7 +61,7 @@ trait Dispatcher
             }
         }
 
-        $objectClass = RecognizeClassHelper::recognizeObjectClass($objectName);
+        $objectClass = ContextHelper::getHelper("class")->recognizeObjectClass($objectName);
 
         $object = new $objectClass(...$parameters);
 
@@ -80,14 +80,14 @@ trait Dispatcher
      */
     public function assertDispatched(string $objectName, int $count = 1): void
     {
-        $objectClass = RecognizeClassHelper::recognizeObjectClass($objectName);
+        $objectClass = ContextHelper::getHelper("class")->recognizeObjectClass($objectName);
 
         $this->resolveFaker($objectName)->assertDispatched($objectClass, $count);
     }
 
     protected function resolveFaker(string $objectName): BusFake|EventFake
     {
-        $objectType = RecognizeClassHelper::guessType($objectName);
+        $objectType = ContextHelper::getHelper("class")->guessType($objectName);
 
         return match ($objectType) {
             TypesEnum::Job->value => $this->busFake,

@@ -23,7 +23,7 @@ trait HttpRequest
     /**
      * @Given request body contains :key equal :value
      */
-    public function requestBodyContainsKeyValuePair(string $key, string $value): void
+    public function requestBodyContainsKeyValuePair(string $key, mixed $value): void
     {
         $this->request->request->set($key, $value);
     }

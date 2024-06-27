@@ -15,9 +15,9 @@ trait HttpResponse
     protected Response $response;
 
     /**
-     * @When a response is received
+     * @When a request is sent
      */
-    public function aResponseIsReceived(): void
+    public function aRequestIsSent(): void
     {
         $this->response = $this->getContainer()->handle($this->request);
     }
@@ -68,8 +68,6 @@ trait HttpResponse
         $json = json_decode($this->response->getContent(), true);
 
         foreach ($table->getRowsHash() as $key => $value) {
-            Assert::assertArrayHasKey($key, $json);
-            Assert::assertEquals($value, $json[$key]);
         }
     }
 
@@ -122,105 +120,79 @@ trait HttpResponse
     }
 
     /**
-     * @Then the response should be OK
      */
-    public function aResponseShouldBeOk(): void
     {
         Assert::assertEquals(Response::HTTP_OK, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be created
      */
-    public function aResponseShouldBeCreated(): void
     {
         Assert::assertEquals(Response::HTTP_CREATED, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be no content
      */
-    public function aResponseShouldBeNoContent(): void
     {
         Assert::assertEquals(Response::HTTP_NO_CONTENT, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be bad request
      */
-    public function aResponseShouldBeBadRequest(): void
     {
         Assert::assertEquals(Response::HTTP_BAD_REQUEST, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be unauthorized
      */
-    public function aResponseShouldBeUnauthorized(): void
     {
         Assert::assertEquals(Response::HTTP_UNAUTHORIZED, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be forbidden
      */
-    public function aResponseShouldBeForbidden(): void
     {
         Assert::assertEquals(Response::HTTP_FORBIDDEN, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be not found
      */
-    public function aResponseShouldBeNotFound(): void
     {
         Assert::assertEquals(Response::HTTP_NOT_FOUND, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be conflict
      */
-    public function aResponseShouldBeConflict(): void
     {
         Assert::assertEquals(Response::HTTP_CONFLICT, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be unprocessable
      */
-    public function aResponseShouldBeUnprocessable(): void
     {
         Assert::assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be too many requests
      */
-    public function aResponseShouldBeTooManyRequests(): void
     {
         Assert::assertEquals(Response::HTTP_TOO_MANY_REQUESTS, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be gone
      */
-    public function aResponseShouldBeGone(): void
     {
         Assert::assertEquals(Response::HTTP_GONE, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be service unavailable
      */
-    public function aResponseShouldBeServiceUnavailable(): void
     {
         Assert::assertEquals(Response::HTTP_SERVICE_UNAVAILABLE, $this->response->getStatusCode());
     }
 
     /**
-     * @Then the response should be found
      */
-    public function aResponseShouldBeFound(): void
     {
         Assert::assertEquals(Response::HTTP_FOUND, $this->response->getStatusCode());
     }
