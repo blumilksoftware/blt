@@ -1,6 +1,10 @@
 <?php
 
 declare(strict_types=1);
+use Blumilk\BLT\Helpers\ArrayHelper;
+use Blumilk\BLT\Helpers\ClassHelper;
+use Blumilk\BLT\Helpers\ContextHelper;
+use Blumilk\BLT\Helpers\NullableHelper;
 
 return [
     "namespaces" => [
@@ -8,9 +12,9 @@ return [
         "types" => [],
     ],
     "helpers" => [
-        "array" => "Blumilk\BLT\Helpers\ArrayHelper",
-        "class" => "Blumilk\BLT\Helpers\ClassHelper",
-        "context" => "Blumilk\BLT\Helpers\ContextHelper",
-        "nullable" => "Blumilk\BLT\Helpers\NullableHelper",
-    ]
+        "array" => ArrayHelper::class,
+        "class" => ClassHelper::class,
+        "context" => ContextHelper::class,
+        "nullable" => NullableHelper::class,
+    ],
 ];
