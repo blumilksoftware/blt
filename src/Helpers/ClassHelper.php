@@ -6,7 +6,7 @@ namespace Blumilk\BLT\Helpers;
 
 use Illuminate\Support\Str;
 
-class RecognizeClassHelper
+class ClassHelper
 {
     public static function recognizeObjectClass(string $objectName): string
     {
