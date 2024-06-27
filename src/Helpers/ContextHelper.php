@@ -8,9 +8,11 @@ use Illuminate\Support\Str;
 
 class ContextHelper
 {
-    public static function get(
+    public static function getHelper(
         string $helper,
     ) {
-        return config("blt.helpers.$helper") ?? "Blumilk\BLT\Helpers\\" . Str::ucfirst($helper) . "Helper";
+        $helperClass = config("blt.helpers.$helper") ?? "Blumilk\BLT\Helpers\\" . Str::ucfirst($helper) . "Helper";
+
+        return new $helperClass();
     }
 }

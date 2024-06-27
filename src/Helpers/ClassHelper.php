@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class ClassHelper
 {
-    public static function recognizeObjectClass(string $objectName): string
+    public function recognizeObjectClass(string $objectName): string
     {
         if (strpos($objectName, "\\")) {
             return $objectName;
@@ -16,13 +16,13 @@ class ClassHelper
 
         $objectName = Str::ucfirst(Str::singular($objectName));
 
-        return self::getObjectNamespace($objectName) . $objectName;
+        return $this->getObjectNamespace($objectName) . $objectName;
     }
 
-    public static function getObjectNamespace(string $objectName): string
+    public function getObjectNamespace(string $objectName): string
     {
-        $type = self::guessType($objectName);
-        $typeNamespace = self::getNamespaceFromConfig($objectName, $type);
+        $type = $this->guessType($objectName);
+        $typeNamespace = $this->getNamespaceFromConfig($objectName, $type);
 
         if ($typeNamespace) {
             return $typeNamespace;
@@ -34,7 +34,7 @@ class ClassHelper
         return $defaultNamespace . $type . "\\";
     }
 
-    public static function guessType(string $objectName): string
+    public function guessType(string $objectName): string
     {
         $slug = Str::slug($objectName);
 
@@ -47,7 +47,7 @@ class ClassHelper
         return "model";
     }
 
-    protected static function getNamespaceFromConfig(string $objectName, string $type): ?string
+    protected function getNamespaceFromConfig(string $objectName, string $type): ?string
     {
         $typeNamespaces = config("blt.namespaces.types");
 
