@@ -6,7 +6,7 @@ return [
     "namespaces" => [
         "default" => "App\\",
         "types" => [
-            "User" => "App\Models\\",
+            "User" => "App\Models\User",
         ],
     ],
 ];
