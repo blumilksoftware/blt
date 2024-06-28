@@ -51,7 +51,7 @@ trait CodeBlocs
     {
         $this->sessionHasUserWithRole($role);
         $this->aUserIsRequesting($url, $method);
-        $this->aResponseIsReceived();
+        $this->aRequestIsSent();
         $this->aResponseShouldHaveStatus($status);
     }
 }
