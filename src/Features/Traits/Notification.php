@@ -58,6 +58,25 @@ trait Notification
         $this->notificationFake->assertSentTo($object, $notificationClass);
     }
 
+    /**
+     * @Then :notification was not sent to :object with :value value in :field field
+     */
+    public function assertNotificationNotSent(string $notification, string $object, string $value, string $field): void
+    {
+        $object = $this->getNotifiable($object, $field, $value);
+
+        $notificationClass = RecognizeClassHelper::recognizeObjectClass($notification);
+        $this->notificationFake->assertNotSentTo($object, $notificationClass);
+    }
+
+    /**
+     * @Then not one notification was sent
+     */
+    public function assertNothingWasSent(): void
+    {
+        $this->notificationFake->assertNothingSent();
+    }
+
     private function getNotifiable(string $object, string $field, string $value): object
     {
         return RecognizeClassHelper::recognizeObjectClass($object)::query()->where($field, $value)->first();
