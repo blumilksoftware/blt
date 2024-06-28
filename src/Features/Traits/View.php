@@ -65,14 +65,3 @@ trait View
         }
     }
 }
-//    Then a response is received             # FeatureContext::aResponseIsReceived()
-//    Then view response contains:            # FeatureContext::viewResponseContains()
-//      | key   | value |
-//      | title | Login |
-//      | name  | test  |
-//      The response is not a view.
-// When Symfony
-
-// When a response is received                                              # FeatureContext::aResponseIsReceived()
-//      Type error: Cannot assign Illuminate\Http\JsonResponse to property Blumilk\BLT\Features\Toolbox::$response of type Illuminate\Http\Response (Behat\Testwork\Call\Exception\FatalThrowableError)
-// When Illuminate

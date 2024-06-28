@@ -55,7 +55,7 @@ trait Translations
     {
         foreach ($table as $row) {
             $this->getContainer()->setLocale($row["locale"]);
-            $this->aResponseIsReceived();
+            $this->aRequestIsSent();
 
             Assert::assertEquals($row["phrase"], $this->response->getContent());
         }
