@@ -14,7 +14,6 @@ use Illuminate\Http\Response as IlluminateResponse;
 trait HttpResponse
 {
     protected Response $response;
-    protected \Illuminate\Http\Response $illuminateResponse;
 
     /**
      * @When a request is sent
@@ -24,10 +23,9 @@ trait HttpResponse
         $response = $this->getContainer()->handle($this->request);
         $this->response = $response;
 
-        if ($response instanceof \Illuminate\Http\Response) {
-            $this->illuminateResponse = $response;
+        if ($response instanceof IlluminateResponse) {
+            $this->response = $response;
         }
-        //        TODO: better handling for IlluminateResponse
     }
 
     /**

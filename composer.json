@@ -12,12 +12,12 @@
   "require": {
     "php": "^8.3",
     "behat/behat": "^3.14",
-    "illuminate/view": "^10.0|^11.0",
     "illuminate/console": "^10.0|^11.0",
+    "illuminate/support": "^10.0|11.0",
+    "illuminate/testing": "^10.0|^11.0",
     "phpunit/phpunit": "^10.1|^11.0.1",
     "symfony/css-selector": "^6.2|^7.1",
-    "symfony/dom-crawler": "^6.2|^7.1",
-    "illuminate/support": "^10.0|11.0"
+    "symfony/dom-crawler": "^6.2|^7.1"
   },
   "require-dev": {
     "blumilksoftware/codestyle": "^3.1.0",

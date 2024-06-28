@@ -58,7 +58,7 @@ trait View
      */
     public function viewResponseContains(TableNode $table): void
     {
-        $this->testResponse = TestResponse::fromBaseResponse($this->illuminateResponse);
+        $this->testResponse = TestResponse::fromBaseResponse($this->response);
 
         foreach ($table as $row) {
             $this->testResponse->assertViewHas($row["key"], $row["value"]);
