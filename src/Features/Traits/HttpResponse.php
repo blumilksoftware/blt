@@ -9,17 +9,25 @@ use PHPUnit\Framework\Assert;
 use Symfony\Component\CssSelector\CssSelectorConverter;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response as IlluminateResponse;
 
 trait HttpResponse
 {
     protected Response $response;
+    protected \Illuminate\Http\Response $illuminateResponse;
 
     /**
      * @When a request is sent
      */
     public function aRequestIsSent(): void
     {
-        $this->response = $this->getContainer()->handle($this->request);
+        $response = $this->getContainer()->handle($this->request);
+        $this->response = $response;
+
+        if ($response instanceof \Illuminate\Http\Response) {
+            $this->illuminateResponse = $response;
+        }
+        //        TODO: better handling for IlluminateResponse
     }
 
     /**
