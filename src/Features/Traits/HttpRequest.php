@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
+use Blumilk\BLT\Helpers\ArrayHelper;
 use Symfony\Component\HttpFoundation\Request;
+use Blumilk\BLT\Helpers\ContextHelper;
 
 trait HttpRequest
 {
+    // TODO: unify table structure between request and eloquent(and other places), do we use key-value or dont?
     protected Request $request;
 
     /**
@@ -23,7 +26,7 @@ trait HttpRequest
     /**
      * @Given request body contains :key equal :value
      */
-    public function requestBodyContainsKeyValuePair(string $key, mixed $value): void
+    public function requestBodyContainsKeyValuePair(string $key, string|array $value): void
     {
         $this->request->request->set($key, $value);
     }
@@ -34,7 +37,13 @@ trait HttpRequest
     public function requestBodyContains(TableNode $table): void
     {
         foreach ($table as $row) {
-            $this->requestBodyContainsKeyValuePair($row["key"], $row["value"]);
+            $key = $row["key"];
+            $value = $row["value"];
+
+            if (ContextHelper::getHelper("array")->hasArraySyntax($value)) {
+                $value = ContextHelper::getHelper("array")->toArray($value, ",");
+            }
+            $this->requestBodyContainsKeyValuePair($key, $value);
         }
     }
 

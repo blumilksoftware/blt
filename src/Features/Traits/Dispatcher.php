@@ -28,6 +28,7 @@ trait Dispatcher
     public function runBus(): void
     {
         $this->busFake = new BusFake($this->getContainer()->make(BusDispatcher::class));
+        $this->getContainer()->instance(BusDispatcher::class, $this->busFake);
     }
 
     /**
@@ -37,6 +38,7 @@ trait Dispatcher
     public function fakeEvents(): void
     {
         $this->eventFake = new EventFake($this->getContainer()->make(EventDispatcher::class));
+        $this->getContainer()->instance(EventDispatcher::class, $this->eventFake);
     }
 
     /**

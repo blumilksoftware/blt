@@ -8,7 +8,7 @@ use PHPUnit\Framework\Assert;
 
 class LaravelRelations
 {
-    public static function assertRelation($instance, string $relation, string $relationType): void
+    public function assertRelation($instance, string $relation, string $relationType): void
     {
         $related = $instance->{$relation}();
         Assert::assertInstanceOf(

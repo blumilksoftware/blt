@@ -16,6 +16,8 @@ class ContextHelper
             "class" => config("blt.helpers.class"),
             "context" => config("blt.helpers.context"),
             "nullable" => config("blt.helpers.nullable"),
+            "laravelRelations" => config("blt.helpers.laravelRelations"),
+            default => null,
         };
 
         if (!$helperClass) {

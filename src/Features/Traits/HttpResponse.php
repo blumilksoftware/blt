@@ -13,13 +13,19 @@ use Symfony\Component\HttpFoundation\Response;
 trait HttpResponse
 {
     protected Response $response;
+    protected \Illuminate\Http\Response $illuminateResponse;
 
     /**
      * @When a request is sent
      */
     public function aRequestIsSent(): void
     {
-        $this->response = $this->getContainer()->handle($this->request);
+        $response = $this->getContainer()->handle($this->request);
+        $this->response = $response;
+        if($response instanceof \Illuminate\Http\Response){
+            $this->illuminateResponse = $response;
+        }
+//        TODO: better handling for IlluminateResponse
     }
 
     /**
@@ -68,6 +74,9 @@ trait HttpResponse
         $json = json_decode($this->response->getContent(), true);
 
         foreach ($table->getRowsHash() as $key => $value) {
+            $actualValue = data_get($json, $key);
+            Assert::assertNotNull($actualValue, "Key '$key' not found in response JSON.");
+            Assert::assertEquals($value, $actualValue);
         }
     }
 
@@ -120,79 +129,105 @@ trait HttpResponse
     }
 
     /**
+     * @Then the response status should be OK
      */
+    public function aResponseStatusShouldBeOk(): void
     {
         Assert::assertEquals(Response::HTTP_OK, $this->response->getStatusCode());
     }
 
     /**
+     * @Then the response status should be created
      */
+    public function aResponseStatusShouldBeCreated(): void
     {
         Assert::assertEquals(Response::HTTP_CREATED, $this->response->getStatusCode());
     }
 
     /**
+     * @Then the response status should be no content
      */
+    public function aResponseStatusShouldBeNoContent(): void
     {
         Assert::assertEquals(Response::HTTP_NO_CONTENT, $this->response->getStatusCode());
     }
 
     /**
+     * @Then the response status should be bad request
      */
+    public function aResponseStatusShouldBeBadRequest(): void
     {
         Assert::assertEquals(Response::HTTP_BAD_REQUEST, $this->response->getStatusCode());
     }
 
     /**
+     * @Then the response status should be unauthorized
      */
+    public function aResponseStatusShouldBeUnauthorized(): void
     {
         Assert::assertEquals(Response::HTTP_UNAUTHORIZED, $this->response->getStatusCode());
     }
 
     /**
+     * @Then the response status should be forbidden
      */
+    public function aResponseStatusShouldBeForbidden(): void
     {
         Assert::assertEquals(Response::HTTP_FORBIDDEN, $this->response->getStatusCode());
     }
 
     /**
+     * @Then the response status should be not found
      */
+    public function aResponseStatusShouldBeNotFound(): void
     {
         Assert::assertEquals(Response::HTTP_NOT_FOUND, $this->response->getStatusCode());
     }
 
     /**
+     * @Then the response status should be conflict
      */
+    public function aResponseStatusShouldBeConflict(): void
     {
         Assert::assertEquals(Response::HTTP_CONFLICT, $this->response->getStatusCode());
     }
 
     /**
+     * @Then the response status should be unprocessable
      */
+    public function aResponseStatusShouldBeUnprocessable(): void
     {
         Assert::assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $this->response->getStatusCode());
     }
 
     /**
+     * @Then the response status should be too many requests
      */
+    public function aResponseStatusShouldBeTooManyRequests(): void
     {
         Assert::assertEquals(Response::HTTP_TOO_MANY_REQUESTS, $this->response->getStatusCode());
     }
 
     /**
+     * @Then the response status should be gone
      */
+    public function aResponseStatusShouldBeGone(): void
     {
         Assert::assertEquals(Response::HTTP_GONE, $this->response->getStatusCode());
     }
 
     /**
+     * @Then the response status should be service unavailable
      */
+    public function aResponseStatusShouldBeServiceUnavailable(): void
     {
         Assert::assertEquals(Response::HTTP_SERVICE_UNAVAILABLE, $this->response->getStatusCode());
     }
 
     /**
+     * @Then the response status should be found
      */
+    public function aResponseStatusShouldBeFound(): void
     {
         Assert::assertEquals(Response::HTTP_FOUND, $this->response->getStatusCode());
     }

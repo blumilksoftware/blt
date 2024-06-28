@@ -11,6 +11,7 @@ use PHPUnit\Framework\Assert;
 trait Translations
 {
     use Application;
+    use HttpResponse;
 
     private string $input;
 
@@ -44,6 +45,19 @@ trait Translations
             $translation = $translator->get($this->input);
 
             Assert::assertEquals($row["phrase"], $translation);
+        }
+    }
+
+    /**
+     * @Then response should be translated as:
+     */
+    public function assertEndpointTranslationMatches(?TableNode $table = null): void
+    {
+        foreach ($table as $row) {
+            $this->getContainer()->setLocale($row["locale"]);
+            $this->aResponseIsReceived();
+
+            Assert::assertEquals($row["phrase"], $this->response->getContent());
         }
     }
 }

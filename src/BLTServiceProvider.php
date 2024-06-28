@@ -11,15 +11,12 @@ class BLTServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->commands([
-            BLTInit::class,
-        ]);
         $this->publishes([
             __DIR__ . "/../config/blt.php" => config_path("blt.php"),
         ], "config");
         $this->commands([
-        BLTInit::class,
-    ]);
+            BLTInit::class,
+        ]);
     }
 
     public function register(): void

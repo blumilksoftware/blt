@@ -6,3 +6,4 @@ services:
     user: ${CURRENT_UID}
     volumes:
       - .:/application
+      - /home/jakub/coodestyle:/home/jakub/codestyle

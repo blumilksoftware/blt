@@ -6,16 +6,16 @@ namespace Blumilk\BLT\Helpers;
 
 class UserHelper
 {
-    public static function getBy(string $field, string $value): ?object
+    public function getBy(string $field, string $value): ?object
     {
-        $userClass = RecognizeClassHelper::recognizeObjectClass("User");
+        $userClass = ContextHelper::getHelper("class")->recognizeObjectClass("User");
 
         return $userClass::query()->where($field, $value)->first();
     }
 
-    public static function getByEmail(string $value): ?object
+    public function getByEmail(string $value): ?object
     {
-        $userClass = RecognizeClassHelper::recognizeObjectClass("User");
+        $userClass = ContextHelper::getHelper("class")->recognizeObjectClass("User");
 
         return $userClass::query()->where("email", $value)->first();
     }

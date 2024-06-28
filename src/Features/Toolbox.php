@@ -14,6 +14,7 @@ use Blumilk\BLT\Features\Traits\Eloquent;
 use Blumilk\BLT\Features\Traits\Environment;
 use Blumilk\BLT\Features\Traits\Http;
 use Blumilk\BLT\Features\Traits\Middleware;
+use Blumilk\BLT\Features\Traits\Notification;
 use Blumilk\BLT\Features\Traits\Session;
 use Blumilk\BLT\Features\Traits\Testing;
 use Blumilk\BLT\Features\Traits\Translations;
@@ -34,4 +35,5 @@ class Toolbox implements Context
     use Testing;
     use Translations;
     use View;
+    use Notification;
 }

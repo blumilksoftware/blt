@@ -6,7 +6,9 @@ namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use Illuminate\Testing\TestResponse;
 use Illuminate\View\View as LaravelView;
 
 use function PHPUnit\Framework\assertContains;
@@ -16,7 +18,8 @@ trait View
     use Application;
     use Http;
 
-    private ?LaravelView $view = null;
+    protected ?LaravelView $view = null;
+    protected TestResponse $testResponse;
 
     /**
      * @Given user is looking at :page :view view
@@ -49,4 +52,27 @@ trait View
         $viewData = $this->view->getData();
         assertContains($data, $viewData);
     }
+
+    /**
+     * @Then view response contains:
+     */
+    public function viewResponseContains(TableNode $table): void
+    {
+        $this->testResponse = TestResponse::fromBaseResponse($this->illuminateResponse);
+
+        foreach ($table as $row) {
+            $this->testResponse->assertViewHas($row["key"], $row["value"]);
+        }
+    }
 }
+//    Then a response is received             # FeatureContext::aResponseIsReceived()
+//    Then view response contains:            # FeatureContext::viewResponseContains()
+//      | key   | value |
+//      | title | Login |
+//      | name  | test  |
+//      The response is not a view.
+// When Symfony
+
+// When a response is received                                              # FeatureContext::aResponseIsReceived()
+//      Type error: Cannot assign Illuminate\Http\JsonResponse to property Blumilk\BLT\Features\Toolbox::$response of type Illuminate\Http\Response (Behat\Testwork\Call\Exception\FatalThrowableError)
+// When Illuminate

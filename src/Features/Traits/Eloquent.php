@@ -6,8 +6,14 @@ namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
 use Blumilk\BLT\Helpers\LaravelRelations;
+use Blumilk\BLT\Helpers\ClassHelper;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert;
+use Blumilk\BLT\Helpers\ContextHelper;
 
 trait Eloquent
 {
@@ -15,12 +21,26 @@ trait Eloquent
      * @Given there is a model :model in the database
      * @Given there is a :model in the database
      */
-    public function seedModelInTheDatabase(string $model, ?TableNode $table = null): void
+    public function seedModelInTheDatabase(string $model, ?TableNode $table = null, bool $hasFactory = true): void
     {
-        $modelClass = $this->recognizeModelClass($model);
+        $modelClass = ContextHelper::getHelper("class")->recognizeObjectClass($model);
+
         $attributes = $table ? $table->getRowsHash() : [];
 
-        $modelClass::factory()->create($attributes);
+        if ($hasFactory) {
+            $modelClass::factory()->create($attributes);
+        } else {
+            $modelClass::create($attributes);
+        }
+    }
+
+    /**
+     * @Given there is a model :model in the database without factory
+     * @Given there is a :model in the database without factory
+     */
+    public function seedModelWithoutFactory(string $model, ?TableNode $table = null): void
+    {
+        $this->seedModelInTheDatabase($model, $table, false);
     }
 
     /**
@@ -28,7 +48,7 @@ trait Eloquent
      */
     public function assertModelExistsInTheDatabase(string $model): void
     {
-        $modelClass = $this->recognizeModelClass($model);
+        $modelClass = ContextHelper::getHelper("class")->recognizeObjectClass($model);
 
         Assert::assertTrue($modelClass::query()->exists(), "The model $model does not exist in the database.");
     }
@@ -39,7 +59,7 @@ trait Eloquent
      */
     public function thereAreModelsInTheDatabase(string $model, int $count): void
     {
-        $modelClass = $this->recognizeModelClass($model);
+        $modelClass = ContextHelper::getHelper("class")->recognizeObjectClass($model);
         $existingCount = $modelClass::query()->count();
 
         if ($existingCount < $count) {
@@ -54,7 +74,7 @@ trait Eloquent
      */
     public function theModelHasMany(string $model1, string $model2): void
     {
-        $model1Class = $this->recognizeModelClass($model1);
+        $model1Class = ContextHelper::getHelper("class")->recognizeObjectClass($model1);
         $relation = Str::plural($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 
@@ -63,7 +83,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-        LaravelRelations::assertRelation($instance, $relation, 'Illuminate\Database\Eloquent\Relations\HasMany');
+       ContextHelper::getHelper("laravelRelations")->assertRelation($instance, $relation, HasMany::class);
     }
 
     /**
@@ -71,7 +91,7 @@ trait Eloquent
      */
     public function theModelBelongsTo(string $model1, string $model2): void
     {
-        $model1Class = $this->recognizeModelClass($model1);
+        $model1Class = ContextHelper::getHelper("class")->recognizeObjectClass($model1);
         $relation = Str::singular($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 
@@ -80,7 +100,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-        LaravelRelations::assertRelation($instance, $relation, 'Illuminate\Database\Eloquent\Relations\BelongsTo');
+       ContextHelper::getHelper("laravelRelations")->assertRelation($instance, $relation, BelongsTo::class);
     }
 
     /**
@@ -88,7 +108,7 @@ trait Eloquent
      */
     public function theModelHasOne(string $model1, string $model2): void
     {
-        $model1Class = $this->recognizeModelClass($model1);
+        $model1Class = ContextHelper::getHelper("class")->recognizeObjectClass($model1);
         $relation = Str::singular($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 
@@ -97,7 +117,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-        LaravelRelations::assertRelation($instance, $relation, 'Illuminate\Database\Eloquent\Relations\HasOne');
+       ContextHelper::getHelper("laravelRelations")->assertRelation($instance, $relation, HasOne::class);
     }
 
     /**
@@ -105,7 +125,7 @@ trait Eloquent
      */
     public function theModelBelongsToMany(string $model1, string $model2): void
     {
-        $model1Class = $this->recognizeModelClass($model1);
+        $model1Class = ContextHelper::getHelper("class")->recognizeObjectClass($model1);
         $relation = Str::plural($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 
@@ -114,7 +134,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-        LaravelRelations::assertRelation($instance, $relation, 'Illuminate\Database\Eloquent\Relations\BelongsToMany');
+       ContextHelper::getHelper("laravelRelations")->assertRelation($instance, $relation, BelongsToMany::class);
     }
 
     /**
@@ -122,7 +142,7 @@ trait Eloquent
      */
     public function theModelHasExpectedNumberOfRelated(string $model1, string $model2, int $count): void
     {
-        $model1Class = $this->recognizeModelClass($model1);
+        $model1Class = ContextHelper::getHelper("class")->recognizeObjectClass($model1);
         $relation = Str::plural($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 

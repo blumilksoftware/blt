@@ -12,7 +12,10 @@
   "require": {
     "php": "^8.3",
     "behat/behat": "^3.14",
-    "illuminate/view": "^10.0|^11.0",
+    "illuminate/console": "^v10.0|^11.0",
+    "illuminate/notifications": "^11.0|^10.0",
+    "illuminate/testing": "^11.0|^10.0",
+    "illuminate/view": "^v10.0|^11.0",
     "phpunit/phpunit": "^10.1|^11.0.1",
     "symfony/css-selector": "^6.2|^7.1",
     "symfony/dom-crawler": "^6.2|^7.1"

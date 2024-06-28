@@ -12,6 +12,10 @@ class ArrayHelper
             return $input;
         }
 
+        if (self::hasArraySyntax($input)) {
+            $input = substr($input, 1, -1);
+        }
+
         return explode($separator, $input);
     }
 
@@ -22,5 +26,10 @@ class ArrayHelper
         }
 
         return implode($separator, $input);
+    }
+
+    public static function hasArraySyntax($input): bool
+    {
+        return str_starts_with($input, "[") && str_ends_with($input, "]");
     }
 }
