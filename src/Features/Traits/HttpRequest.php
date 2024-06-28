@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
-use Blumilk\BLT\Helpers\ArrayHelper;
-use Symfony\Component\HttpFoundation\Request;
 use Blumilk\BLT\Helpers\ContextHelper;
+use Symfony\Component\HttpFoundation\Request;
 
 trait HttpRequest
 {

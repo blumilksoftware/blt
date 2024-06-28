@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Blumilk\BLT\Features\Traits;
 
+use Blumilk\BLT\Helpers\ContextHelper;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\Testing\Fakes\NotificationFake;
-use Blumilk\BLT\Helpers\ContextHelper;
 
 trait Notification
 {
@@ -56,6 +56,25 @@ trait Notification
 
         $notificationClass = ContextHelper::getHelper("class")->recognizeObjectClass($notification);
         $this->notificationFake->assertSentTo($object, $notificationClass);
+    }
+
+    /**
+     * @Then :notification was not sent to :object with :value value in :field field
+     */
+    public function assertNotificationNotSent(string $notification, string $object, string $value, string $field): void
+    {
+        $object = $this->getNotifiable($object, $field, $value);
+
+        $notificationClass = ContextHelper::getHelper("class")->recognizeObjectClass($notification);
+        $this->notificationFake->assertNotSentTo($object, $notificationClass);
+    }
+
+    /**
+     * @Then not one notification was sent
+     */
+    public function assertNothingWasSent(): void
+    {
+        $this->notificationFake->assertNothingSent();
     }
 
     private function getNotifiable(string $object, string $field, string $value): object

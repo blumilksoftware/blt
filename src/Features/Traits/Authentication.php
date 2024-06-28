@@ -6,7 +6,6 @@ namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
 use Blumilk\BLT\Helpers\ContextHelper;
-use Blumilk\BLT\Helpers\UserHelper;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use PHPUnit\Framework\Assert;

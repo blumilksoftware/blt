@@ -19,7 +19,6 @@ use Blumilk\BLT\Features\Traits\Session;
 use Blumilk\BLT\Features\Traits\Testing;
 use Blumilk\BLT\Features\Traits\Translations;
 use Blumilk\BLT\Features\Traits\View;
-use Laravel\Prompts\Concerns\Events;
 
 class Toolbox implements Context
 {

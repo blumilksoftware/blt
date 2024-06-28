@@ -6,11 +6,9 @@ namespace Blumilk\BLT\Features\Traits\Optional;
 
 use Behat\Gherkin\Node\TableNode;
 use Blumilk\BLT\Features\Traits\Application;
-use Blumilk\BLT\Helpers\ClassHelper;
 use Blumilk\BLT\Helpers\ContextHelper;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use PHPUnit\Framework\Assert;
-use function PHPUnit\Framework\assertTrue;
 
 trait SpatiePermission
 {
@@ -45,6 +43,7 @@ trait SpatiePermission
         $object = $this->getObjectInstance($object, $value, $field);
         $object->revokePermissionTo($permission);
     }
+
     /**
      * @Given :object with :value value in :field field :role role has been removed
      */
@@ -63,17 +62,10 @@ trait SpatiePermission
         $object->givePermissionTo($permission);
     }
 
-    private function getObjectInstance(string $object, string $value, string $field): object
-    {
-        $objectClass = ContextHelper::getHelper("class")->recognizeObjectClass($object);
-
-        return $objectClass::query()->where($field, $value)->first();
-    }
-
     /**
      * @Then :object with :value value in :field field should have :role role
      */
-    public function assertHasRole(string $object, string $field, string $value, string $role)
+    public function assertHasRole(string $object, string $field, string $value, string $role): void
     {
         $object = $this->getObjectInstance($object, $value, $field);
         Assert::assertTrue($object->hasRole($role));
@@ -82,7 +74,7 @@ trait SpatiePermission
     /**
      * @Then :object with :value value in :field field should have :permission permission
      */
-    public function assertHasPermission(string $object, string $field, string $value, string $permission)
+    public function assertHasPermission(string $object, string $field, string $value, string $permission): void
     {
         $object = $this->getObjectInstance($object, $value, $field);
         Assert::assertTrue($object->hasPermissionTo($permission));
@@ -91,9 +83,10 @@ trait SpatiePermission
     /**
      * @Then :object with :value value in :field field should have:
      */
-    public function assertHas(string $object, string $field, string $value, TableNode $table)
+    public function assertHas(string $object, string $field, string $value, TableNode $table): void
     {
         $object = $this->getObjectInstance($object, $value, $field);
+
         foreach ($table as $row) {
             match ($row["key"]) {
                 "role" => Assert::assertTrue($object->hasRole($row["value"])),
@@ -102,5 +95,10 @@ trait SpatiePermission
         }
     }
 
+    private function getObjectInstance(string $object, string $value, string $field): object
+    {
+        $objectClass = ContextHelper::getHelper("class")->recognizeObjectClass($object);
 
+        return $objectClass::query()->where($field, $value)->first();
+    }
 }

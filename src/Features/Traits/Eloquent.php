@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
-use Blumilk\BLT\Helpers\LaravelRelations;
-use Blumilk\BLT\Helpers\ClassHelper;
+use Blumilk\BLT\Helpers\ContextHelper;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert;
-use Blumilk\BLT\Helpers\ContextHelper;
 
 trait Eloquent
 {
@@ -83,7 +81,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-       ContextHelper::getHelper("laravelRelations")->assertRelation($instance, $relation, HasMany::class);
+        ContextHelper::getHelper("laravelRelations")->assertRelation($instance, $relation, HasMany::class);
     }
 
     /**
@@ -100,7 +98,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-       ContextHelper::getHelper("laravelRelations")->assertRelation($instance, $relation, BelongsTo::class);
+        ContextHelper::getHelper("laravelRelations")->assertRelation($instance, $relation, BelongsTo::class);
     }
 
     /**
@@ -117,7 +115,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-       ContextHelper::getHelper("laravelRelations")->assertRelation($instance, $relation, HasOne::class);
+        ContextHelper::getHelper("laravelRelations")->assertRelation($instance, $relation, HasOne::class);
     }
 
     /**
@@ -134,7 +132,7 @@ trait Eloquent
             "The model $model1 does not have a $relation relation method.",
         );
 
-       ContextHelper::getHelper("laravelRelations")->assertRelation($instance, $relation, BelongsToMany::class);
+        ContextHelper::getHelper("laravelRelations")->assertRelation($instance, $relation, BelongsToMany::class);
     }
 
     /**

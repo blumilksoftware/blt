@@ -22,10 +22,11 @@ trait HttpResponse
     {
         $response = $this->getContainer()->handle($this->request);
         $this->response = $response;
-        if($response instanceof \Illuminate\Http\Response){
+
+        if ($response instanceof \Illuminate\Http\Response) {
             $this->illuminateResponse = $response;
         }
-//        TODO: better handling for IlluminateResponse
+        //        TODO: better handling for IlluminateResponse
     }
 
     /**
