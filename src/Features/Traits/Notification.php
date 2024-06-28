@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Blumilk\BLT\Features\Traits;
 
-use Blumilk\BLT\Helpers\ClassHelper;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\Testing\Fakes\NotificationFake;

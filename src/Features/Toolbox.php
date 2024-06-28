@@ -24,7 +24,6 @@ class Toolbox implements Context
 {
     use Application;
     use Authentication;
-    use Console;
     use Database;
     use Dispatcher;
     use Eloquent;
@@ -34,6 +33,4 @@ class Toolbox implements Context
     use Session;
     use Testing;
     use Translations;
-    use View;
-    use Notification;
 }
