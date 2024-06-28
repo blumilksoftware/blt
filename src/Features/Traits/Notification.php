@@ -6,7 +6,7 @@ namespace Blumilk\BLT\Features\Traits;
 
 use Blumilk\BLT\Helpers\RecognizeClassHelper;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Notifications\ChannelManager;
+use Illuminate\Contracts\Notifications\Dispatcher;
 use Illuminate\Support\Testing\Fakes\NotificationFake;
 
 trait Notification
@@ -22,7 +22,7 @@ trait Notification
     public function fakeNotifications(): void
     {
         $this->notificationFake = $this->getContainer()->make(NotificationFake::class);
-        $this->getContainer()->instance(ChannelManager::class, $this->notificationFake);
+        $this->getContainer()->instance(Dispatcher::class, $this->notificationFake);
     }
 
     /**
