@@ -63,7 +63,7 @@ trait Dispatcher
             }
         }
 
-        $objectClass = ContextHelper::getHelper("class")->recognizeObjectClass($objectName);
+        $objectClass = ContextHelper::getClassHelper()->recognizeObjectClass($objectName);
 
         $object = new $objectClass(...$parameters);
 
@@ -82,14 +82,14 @@ trait Dispatcher
      */
     public function assertDispatched(string $objectName, int $count = 1): void
     {
-        $objectClass = ContextHelper::getHelper("class")->recognizeObjectClass($objectName);
+        $objectClass = ContextHelper::getClassHelper()->recognizeObjectClass($objectName);
 
         $this->resolveFaker($objectName)->assertDispatched($objectClass, $count);
     }
 
     protected function resolveFaker(string $objectName): BusFake|EventFake
     {
-        $objectType = ContextHelper::getHelper("class")->guessType($objectName);
+        $objectType = ContextHelper::getClassHelper()->guessType($objectName);
 
         return match ($objectType) {
             TypesEnum::Job->value => $this->busFake,

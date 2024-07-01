@@ -4,30 +4,25 @@ declare(strict_types=1);
 
 namespace Blumilk\BLT\Helpers;
 
-use Illuminate\Support\Str;
-
 class ContextHelper
 {
-    public static function getHelper(string $helper)
+    public static function getArrayHelper(): ArrayHelper
     {
-        $helperClass = match($helper) {
-            "array" => config("blt.helpers.array"),
-            "boolean" => config("blt.helpers.boolean"),
-            "class" => config("blt.helpers.class"),
-            "context" => config("blt.helpers.context"),
-            "nullable" => config("blt.helpers.nullable"),
-            "laravelRelations" => config("blt.helpers.laravelRelations"),
-            default => null,
-        };
+        return new (config("blt.helpers.array") ?? ArrayHelper::class);
+    }
 
-        if (!$helperClass) {
-            $helperClass = "Blumilk\BLT\Helpers\\" . Str::studly($helper) . "Helper";
-        }
+    public static function getBooleanHelper(): BooleanHelper
+    {
+        return new (config("blt.helpers.boolean") ?? BooleanHelper::class);
+    }
 
-        if (!class_exists($helperClass)) {
-            throw new \Exception("Helper class $helperClass does not exist.");
-        }
+    public static function getClassHelper(): ClassHelper
+    {
+        return new (config("blt.helpers.class") ?? ClassHelper::class);
+    }
 
-        return new $helperClass();
+    public static function getNullableHelper(): NullableHelper
+    {
+        return new (config("blt.helpers.nullable") ?? NullableHelper::class);
     }
 }

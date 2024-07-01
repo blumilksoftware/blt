@@ -14,24 +14,25 @@ class ClassHelper
             return $objectName;
         }
 
-        $objectName = Str::ucfirst($objectName);
-
-        return self::getObjectNamespace(Str::singular($objectName)) . $objectName;
-    }
-
-    public function getObjectNamespace(string $objectName): string
-    {
-        $type = self::guessType($objectName);
         $typeNamespaces = config("blt.namespaces.types");
+        $objectName = Str::lcfirst($objectName);
 
         if (array_key_exists($objectName, $typeNamespaces)) {
             return $typeNamespaces[$objectName];
         }
 
+        $type = self::guessType($objectName);
+        $objectName = Str::ucfirst($objectName);
+
         if (array_key_exists($type, $typeNamespaces)) {
-            return $typeNamespaces[$type];
+            return $typeNamespaces[$type] . $objectName;
         }
 
+        return self::getObjectNamespace(Str::singular($objectName), $type) . $objectName;
+    }
+
+    public function getObjectNamespace(string $type): string
+    {
         $type = Str::plural(Str::ucfirst($type));
         $defaultNamespace = config("blt.namespaces.default") ?? "App\\";
 
