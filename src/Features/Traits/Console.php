@@ -30,7 +30,7 @@ trait Console
     }
 
     /**
-     * @Given I run artisan command :command with:
+     * @Given a command :command is ran with:
      * @throws BindingResolutionException
      */
     public function runCommandWithOptionsAndArguments(string $command, TableNode $table): void
