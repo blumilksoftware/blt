@@ -12,6 +12,7 @@
   "require": {
     "php": "^8.3",
     "behat/behat": "^3.14",
+    "illuminate/contracts": "^10.0|11.0",
     "illuminate/console": "^10.0|^11.0",
     "illuminate/support": "^10.0|11.0",
     "illuminate/testing": "^10.0|^11.0",
@@ -21,7 +22,6 @@
   },
   "require-dev": {
     "blumilksoftware/codestyle": "^3.1.0",
-    "illuminate/contracts": "^10.0|11.0",
     "illuminate/http": "^10.0|11.0",
     "symfony/http-foundation": "^6.2|^7.1"
   },
