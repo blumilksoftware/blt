@@ -14,26 +14,26 @@ class RecognizeClassHelper
             return $objectName;
         }
 
-        $objectName = Str::ucfirst($objectName);
-
-        return self::getObjectNamespace(Str::singular($objectName)) . $objectName;
-    }
-
-    public static function getObjectNamespace(string $objectName): string
-    {
-        $type = self::guessType($objectName);
         $typeNamespaces = config("blt.namespaces.types");
+        $objectName = Str::lcfirst($objectName);
 
         if (array_key_exists($objectName, $typeNamespaces)) {
             return $typeNamespaces[$objectName];
         }
 
+        $type = self::guessType($objectName);
+        $objectName = Str::ucfirst($objectName);
+
         if (array_key_exists($type, $typeNamespaces)) {
-            return $typeNamespaces[$type];
+            return $typeNamespaces[$type] . $objectName;
         }
 
-        $type = Str::plural(Str::ucfirst($type));
+        return self::getObjectNamespace(Str::singular($objectName), $type) . $objectName;
+    }
 
+    public static function getObjectNamespace(string $objectName, string $type): string
+    {
+        $type = Str::plural(Str::ucfirst($type));
         $defaultNamespace = config("blt.namespaces.default") ?? "App\\";
 
         return $defaultNamespace . $type . "\\";
@@ -51,7 +51,6 @@ class RecognizeClassHelper
             }
         }
 
-        //        TODO: find better way for returning models, as they usually dont have Model in their name.
-        return "model";
+        return TypesEnum::Model->value;
     }
 }
