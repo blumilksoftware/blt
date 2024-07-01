@@ -4,38 +4,51 @@ declare(strict_types=1);
 
 namespace Blumilk\BLT\Features\Traits;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Routing\Router;
 use PHPUnit\Framework\Assert;
-use Symfony\Component\HttpFoundation\Response;
 
 trait Routing
 {
     use HttpRequest;
     use HttpResponse;
     use Session;
-    use Authentication;
-    //Also translation, waiting for PR to merge.
 
     /**
-     * @Given user is authenticated and requests :url
-     * @Given user is authenticated and requests :url using :method method
+     * @Given user is accessing route named :routeName
      */
-    public function userIsAuthenticatedAndRequests(string $url, string $method = "GET"): void
+    public function userIsAccessingRouteNamed(string $routeName, Router $router): void
     {
-        $this->userIsAuthenticatedInSessionAs("test@example.com", "email");
-        $this->aUserIsRequesting($url, $method);
+        $url = $router->has($routeName) ? $router->url()->route($routeName) : null;
+        Assert::assertNotNull($url, "Route $routeName does not exist.");
+        $this->aUserIsRequesting($url);
         $this->aRequestIsSent();
     }
 
     /**
-     * @Then the user should not be able to access :url
-     * @throws BindingResolutionException
+     * @Given user is accessing the home route
      */
-    public function userShouldNotBeAbleToAccess(string $url): void
+    public function userIsAccessingHomeRoute(Router $router): void
     {
-        $this->aUserIsRequesting($url);
-        $this->aRequestIsSent();
-        $this->aResponseStatusCodeShouldBe(Response::HTTP_FORBIDDEN);
+        $this->userIsAccessingRouteNamed("home", $router);
+    }
+
+    /**
+     * @Then the route :routeName should exist
+     */
+    public function routeShouldExist(string $routeName, Router $router): void
+    {
+        $routeExists = $router->has($routeName);
+        Assert::assertTrue($routeExists, "Route $routeName does not exist.");
+    }
+
+    /**
+     * @Then the user should be redirected to the route named :routeName
+     */
+    public function userShouldBeRedirectedToRouteNamed(string $routeName, Router $router): void
+    {
+        $expectedUrl = $router->url()->route($routeName);
+        $actualUrl = $this->response->headers->get("Location");
+        Assert::assertEquals($expectedUrl, $actualUrl, "User was not redirected to the route $routeName.");
     }
 
     /**
@@ -48,31 +61,11 @@ trait Routing
     }
 
     /**
-     * @Given authenticated user with email :email requests :url
-     * @Given authenticated user with email :email requests :url using :method method
-     */
-    public function authenticatedUserWithEmailRequests(string $email, string $url, string $method = "GET"): void
-    {
-        $this->userIsAuthenticatedInSessionAs($email, "email");
-        $this->aUserIsRequesting($url, $method);
-        $this->aRequestIsSent();
-    }
-
-    /**
      * @Then the response should have status :status and contain JSON with key :key and value :value
      */
     public function responseShouldHaveStatusAndContainJson(int $status, string $key, string $value): void
     {
         $this->aResponseStatusCodeShouldBe($status);
         $this->responseShouldContainJsonWithKeyAndValue($key, $value);
-    }
-
-    /**
-     * @Then the response status should be :status and the user should be redirected to :url
-     */
-    public function responseStatusShouldBeAndUserShouldBeRedirectedTo(int $status, string $url): void
-    {
-        $this->aResponseStatusCodeShouldBe($status);
-        $this->authenticatedUserShouldBeRedirectedTo($url);
     }
 }
