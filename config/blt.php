@@ -18,7 +18,6 @@ return [
         "array" => ArrayHelper::class,
         "boolean" => BooleanHelper::class,
         "class" => ClassHelper::class,
-        "context" => ContextHelper::class,
         "nullable" => NullableHelper::class,
     ],
 ];
