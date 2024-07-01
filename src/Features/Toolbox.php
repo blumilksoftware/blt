@@ -18,6 +18,7 @@ use Blumilk\BLT\Features\Traits\Notification;
 use Blumilk\BLT\Features\Traits\Session;
 use Blumilk\BLT\Features\Traits\Testing;
 use Blumilk\BLT\Features\Traits\Translations;
+use Blumilk\BLT\Features\Traits\View;
 
 class Toolbox implements Context
 {
@@ -33,5 +34,6 @@ class Toolbox implements Context
     use Session;
     use Testing;
     use Translations;
+    use View;
     use Notification;
 }

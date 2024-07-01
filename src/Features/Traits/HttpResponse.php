@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
+use Illuminate\Http\Response as IlluminateResponse;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\CssSelector\CssSelectorConverter;
 use Symfony\Component\DomCrawler\Crawler;
@@ -19,7 +20,12 @@ trait HttpResponse
      */
     public function aRequestIsSent(): void
     {
-        $this->response = $this->getContainer()->handle($this->request);
+        $response = $this->getContainer()->handle($this->request);
+        $this->response = $response;
+
+        if ($response instanceof IlluminateResponse) {
+            $this->response = $response;
+        }
     }
 
     /**
