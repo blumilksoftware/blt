@@ -6,7 +6,8 @@ return [
     "namespaces" => [
         "default" => "App\\",
         "types" => [
-            "User" => "App\Models\User",
+            "role" => "Spatie\Permission\Models\Role",
+            "user" => "App\Models\User",
         ],
     ],
 ];
