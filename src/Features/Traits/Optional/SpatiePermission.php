@@ -21,7 +21,7 @@ trait SpatiePermission
      */
     public function objectCanHaveRoles(string $objectName = "User"): void
     {
-        $objectClass = ContextHelper::getHelper("class")->recognizeObjectClass($objectName);
+        $objectClass = ContextHelper::getClassHelper()->recognizeObjectClass($objectName);
         $used_traits = class_uses_recursive($this->getContainer()->make($objectClass));
         Assert::assertTrue(in_array("Spatie\Permission\Traits\HasRoles", $used_traits, true));
     }
@@ -97,7 +97,7 @@ trait SpatiePermission
 
     private function getObjectInstance(string $object, string $value, string $field): object
     {
-        $objectClass = ContextHelper::getHelper("class")->recognizeObjectClass($object);
+        $objectClass = ContextHelper::getClassHelper()->recognizeObjectClass($object);
 
         return $objectClass::query()->where($field, $value)->first();
     }

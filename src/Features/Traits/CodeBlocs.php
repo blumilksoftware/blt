@@ -25,7 +25,7 @@ trait CodeBlocs
             ["name", $role],
         ];
         $roleTable = new TableNode($roleArray);
-        $this->seedModelWithoutFactory("Role", $roleTable);
+        $this->seedModelInTheDatabase("Role", $roleTable);
         $userArray = [
             ["name", $role],
             ["email", "userWithRole@example.com"],

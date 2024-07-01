@@ -39,8 +39,8 @@ trait HttpRequest
             $key = $row["key"];
             $value = $row["value"];
 
-            if (ContextHelper::getHelper("array")->hasArraySyntax($value)) {
-                $value = ContextHelper::getHelper("array")->toArray($value, ",");
+            if (ContextHelper::getArrayHelper()->hasArraySyntax($value)) {
+                $value = ContextHelper::getArrayHelper()->toArray($value, ",");
             }
             $this->requestBodyContainsKeyValuePair($key, $value);
         }

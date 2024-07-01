@@ -10,7 +10,7 @@ return [
     "namespaces" => [
         "default" => "App\\",
         "types" => [
-            "User" => "App\Models\User",
+            "user" => "App\Models\User",
         ],
     ],
     "helpers" => [
