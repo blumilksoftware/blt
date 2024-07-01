@@ -10,7 +10,9 @@ use Blumilk\BLT\Helpers\NullableHelper;
 return [
     "namespaces" => [
         "default" => "App\\",
-        "types" => [],
+        "types" => [
+            "User" => "App\Models\User",
+        ],
     ],
     "helpers" => [
         "array" => ArrayHelper::class,
