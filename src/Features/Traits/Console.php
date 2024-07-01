@@ -18,15 +18,15 @@ trait Console
     protected int $consoleCode;
 
     /**
-     * @Given I run artisan command :command
-     * @Given I run artisan command :command in console
+     * @Given a command :command is ran
+     * @Given a command :command is ran in console
      * @throws BindingResolutionException
      */
     public function runArtisanCommand(string $command): void
     {
-        $this->consoleOutput = "";
-        $this->consoleCode = $this->getContainer()->make(Kernel::class)->call($command);
-        $this->consoleOutput = $this->getContainer()->make(Kernel::class)->output();
+        $console = $this->getContainer()->make(Kernel::class);
+        $this->consoleCode = $console->call($command);
+        $this->consoleOutput = $console->output();
     }
 
     /**
