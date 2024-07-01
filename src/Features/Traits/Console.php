@@ -9,7 +9,6 @@ use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use InvalidArgumentException;
 use PHPUnit\Framework\Assert;
-use Symfony\Component\Console\Output\BufferedOutput;
 
 trait Console
 {
@@ -19,20 +18,19 @@ trait Console
     protected int $consoleCode;
 
     /**
-     * @Given I run artisan command :command
-     * @Given I run artisan command :command in console
+     * @Given a command :command is ran
+     * @Given a command :command is ran in console
      * @throws BindingResolutionException
      */
     public function runArtisanCommand(string $command): void
     {
-        $bufferedOutput = new BufferedOutput();
-        $this->consoleOutput = "";
-        $this->consoleCode = $this->getContainer()->make(Kernel::class)->call($command, [], $bufferedOutput);
-        $this->consoleOutput = $this->getContainer()->make(Kernel::class)->output();
+        $console = $this->getContainer()->make(Kernel::class);
+        $this->consoleCode = $console->call($command);
+        $this->consoleOutput = $console->output();
     }
 
     /**
-     * @Given I run artisan command :command with:
+     * @Given a command :command is ran with:
      * @throws BindingResolutionException
      */
     public function runCommandWithOptionsAndArguments(string $command, TableNode $table): void

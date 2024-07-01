@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Blumilk\BLT\Features\Traits;
 
-use Blumilk\BLT\Helpers\ContextHelper;
+use Blumilk\BLT\Helpers\RecognizeClassHelper;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Notifications\ChannelManager;
+use Illuminate\Contracts\Notifications\Dispatcher;
 use Illuminate\Support\Testing\Fakes\NotificationFake;
 
 trait Notification
@@ -22,7 +22,7 @@ trait Notification
     public function fakeNotifications(): void
     {
         $this->notificationFake = $this->getContainer()->make(NotificationFake::class);
-        $this->getContainer()->instance(ChannelManager::class, $this->notificationFake);
+        $this->getContainer()->instance(Dispatcher::class, $this->notificationFake);
     }
 
     /**
@@ -32,7 +32,7 @@ trait Notification
     public function sendNotification(string $notification, string $object = "User", string $value = "", string $field = ""): void
     {
         $object = $this->getNotifiable($object, $field, $value);
-        $notificationClass = ContextHelper::getHelper("class")->recognizeObjectClass($notification);
+        $notificationClass = RecognizeClassHelper::recognizeObjectClass($notification);
 
         $this->notificationFake->send($object, new $notificationClass());
     }
@@ -43,7 +43,7 @@ trait Notification
      */
     public function assertNotificationSent(string $notification, int $count = 1): void
     {
-        $notificationClass = ContextHelper::getHelper("class")->recognizeObjectClass($notification);
+        $notificationClass = RecognizeClassHelper::recognizeObjectClass($notification);
         $this->notificationFake->assertSentTimes($notificationClass, $count);
     }
 
@@ -54,7 +54,7 @@ trait Notification
     {
         $object = $this->getNotifiable($object, $field, $value);
 
-        $notificationClass = ContextHelper::getHelper("class")->recognizeObjectClass($notification);
+        $notificationClass = RecognizeClassHelper::recognizeObjectClass($notification);
         $this->notificationFake->assertSentTo($object, $notificationClass);
     }
 
@@ -65,7 +65,7 @@ trait Notification
     {
         $object = $this->getNotifiable($object, $field, $value);
 
-        $notificationClass = ContextHelper::getHelper("class")->recognizeObjectClass($notification);
+        $notificationClass = RecognizeClassHelper::recognizeObjectClass($notification);
         $this->notificationFake->assertNotSentTo($object, $notificationClass);
     }
 
@@ -79,6 +79,6 @@ trait Notification
 
     private function getNotifiable(string $object, string $field, string $value): object
     {
-        return ContextHelper::getHelper("class")->recognizeObjectClass($object)::query()->where($field, $value)->first();
+        return RecognizeClassHelper::recognizeObjectClass($object)::query()->where($field, $value)->first();
     }
 }
