@@ -14,7 +14,8 @@ class BooleanHelperTest extends TestCase
         $input = "true";
         $expected = true;
 
-        $actual = BooleanHelper::toBoolean($input);
+        $booleanHelper = new BooleanHelper();
+        $actual = $booleanHelper->toBoolean($input);
 
         self::assertSame($expected, $actual);
     }
@@ -24,7 +25,8 @@ class BooleanHelperTest extends TestCase
         $input = "false";
         $expected = false;
 
-        $actual = BooleanHelper::toBoolean($input);
+        $booleanHelper = new BooleanHelper();
+        $actual = $booleanHelper->toBoolean($input);
 
         self::assertSame($expected, $actual);
     }
@@ -34,7 +36,8 @@ class BooleanHelperTest extends TestCase
         $input = "invalid";
         $expected = false;
 
-        $actual = BooleanHelper::toBoolean($input);
+        $booleanHelper = new BooleanHelper();
+        $actual = $booleanHelper->toBoolean($input);
 
         self::assertSame($expected, $actual);
     }
@@ -44,7 +47,8 @@ class BooleanHelperTest extends TestCase
         $input = "";
         $expected = false;
 
-        $actual = BooleanHelper::toBoolean($input);
+        $booleanHelper = new BooleanHelper();
+        $actual = $booleanHelper->toBoolean($input);
 
         self::assertSame($expected, $actual);
     }

@@ -14,7 +14,8 @@ class NullableHelperTest extends TestCase
         $input = "null";
         $expected = null;
 
-        $actual = NullableHelper::toNullable($input);
+        $nullableHelper = new NullableHelper();
+        $actual = $nullableHelper->toNullable($input);
 
         self::assertSame($expected, $actual);
     }
@@ -24,7 +25,8 @@ class NullableHelperTest extends TestCase
         $input = "someValue";
         $expected = "someValue";
 
-        $actual = NullableHelper::toNullable($input);
+        $nullableHelper = new NullableHelper();
+        $actual = $nullableHelper->toNullable($input);
 
         self::assertSame($expected, $actual);
     }
@@ -34,7 +36,8 @@ class NullableHelperTest extends TestCase
         $input = "";
         $expected = "";
 
-        $actual = NullableHelper::toNullable($input);
+        $nullableHelper = new NullableHelper();
+        $actual = $nullableHelper->toNullable($input);
 
         self::assertSame($expected, $actual);
     }
