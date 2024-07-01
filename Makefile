@@ -12,7 +12,7 @@ CURRENT_DIR = $(shell pwd)
 
 init:
 	@make build \
-    && make run \
+    && make run
 
 build:
 	@docker compose --file ${DOCKER_COMPOSE_FILE} build --pull
