@@ -1,0 +1,46 @@
+<article-header>Application</article-header>
+<article-paragraphs>
+  <p>
+    In the development and testing of Laravel applications, mocking services plays a crucial role. By mocking services, you can isolate and test specific parts of your application without relying on external dependencies. This ensures your tests are reliable and focused.
+  </p>
+  <p>
+    This chapter covers the <code>Application</code> trait in the BLT package, which provides methods to mock services in your Laravel application during tests. You will learn how to mock individual services and multiple services at once using this trait.
+  </p>
+</article-paragraphs>
+
+<section-header>Mocking individual services</section-header>
+<article-paragraphs>
+  <p>
+    The following example demonstrates how to mock a specified service with a given mock class. This method ensures that the specified service is replaced by the mock during the test scenario.
+  </p>
+</article-paragraphs>
+
+<code-snippet>
+  Given there is "App\Services\SomeService" service mocked with "App\Mocks\SomeServiceMock"
+</code-snippet>
+
+<article-paragraphs>
+  <p>
+    In this example, the <code>NotificationService</code> is replaced with <code>NotificationServiceMock</code>. This allows the test to run with the mocked version of the service.
+  </p>
+</article-paragraphs>
+
+<section-header>Mocking multiple services</section-header>
+<article-paragraphs>
+  <p>
+    The following example demonstrates how to mock multiple services at once using a table to specify the services and their respective mocks. This method ensures that each specified service is replaced by the corresponding mock during the test scenario.
+  </p>
+</article-paragraphs>
+
+<code-snippet>
+  Given there are services mocked:
+      | service                    | mock                          |
+      | App\Services\FirstService  | App\Mocks\FirstServiceMock    |
+      | App\Services\SecondService | App\Mocks\SecondServiceMock   |
+</code-snippet>
+
+<article-paragraphs>
+  <p>
+    In this example, both the <code>EmailService</code> and <code>PaymentService</code> are replaced with their respective mocks, <code>EmailServiceMock</code> and <code>PaymentServiceMock</code>. This allows the test to run with the mocked versions of these services.
+  </p>
+</article-paragraphs>

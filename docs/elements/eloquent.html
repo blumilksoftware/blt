@@ -1,0 +1,13 @@
+<article-header>Eloquent</article-header>
+<article-paragraphs>
+  <p>
+    Use <code>Blumilk\BLT\Features\Eloquent</code> context to assert Eloquent
+    queries results.
+  </p>
+</article-paragraphs>
+
+<code-snippet>
+  @eloquent @users Feature: Test if users are seeded properly Scenario: Users
+  seeder is ran Given UsersSeeder is ran Then there should be 5 users in
+  database
+</code-snippet>
