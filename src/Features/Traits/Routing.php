@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Blumilk\BLT\Features\Traits;
 
-use PHPUnit\Framework\Assert;
 use Illuminate\Routing\Router;
+use PHPUnit\Framework\Assert;
 
 trait Routing
 {
