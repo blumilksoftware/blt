@@ -33,6 +33,14 @@ trait Routing
     }
 
     /**
+     * @Given user is accessing the login route
+     */
+    public function userIsAccessingLoginRoute(Router $router): void
+    {
+        $this->userIsAccessingRouteNamed("login", $router);
+    }
+
+    /**
      * @Then the route :routeName should exist
      */
     public function routeShouldExist(string $routeName, Router $router): void
