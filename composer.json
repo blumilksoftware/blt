@@ -17,6 +17,7 @@
     "illuminate/testing": "^11.0|^10.0",
     "illuminate/view": "^v10.0|^11.0",
     "phpunit/phpunit": "^10.1|^11.0.1",
+    "illuminate/routing": "^10.0|^11.0",
     "symfony/css-selector": "^6.2|^7.1",
     "symfony/dom-crawler": "^6.2|^7.1"
   },
