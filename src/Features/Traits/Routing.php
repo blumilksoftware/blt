@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Blumilk\BLT\Features\Traits;
 
+use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Routing\Router;
 use PHPUnit\Framework\Assert;
 
@@ -12,15 +13,20 @@ trait Routing
     use HttpRequest;
     use HttpResponse;
     use Session;
+    use Application;
 
     /**
      * @Given user is accessing route named :routeName
      */
-    public function userIsAccessingRouteNamed(string $routeName, Router $router): void
+    public function userIsAccessingRouteNamed(string $routeName): void
     {
-        $url = config("blt.endpoints.$routeName", $router->has($routeName) ? $router->url()->route($routeName) : null);
-        Assert::assertNotNull($url, "Route $routeName does not exist.");
-        $this->aUserIsRequesting($url);
+        $router = $this->getContainer()->make(Registrar::class);
+        $route = $router->getRoutes()->getByName($routeName);
+        $uri = $route ? $route->uri() : "/" . $routeName;
+        $uri = config("blt.endpoints.$routeName", $uri);
+
+        Assert::assertNotNull($uri, "Route $routeName does not exist.");
+        $this->aUserIsRequesting($uri);
         $this->aRequestIsSent();
     }
 
@@ -38,9 +44,9 @@ trait Routing
      */
     public function userShouldBeRedirectedToRouteNamed(string $routeName, Router $router): void
     {
-        $expectedUrl = $router->url()->route($routeName);
-        $actualUrl = $this->response->headers->get("Location");
-        Assert::assertEquals($expectedUrl, $actualUrl, "User was not redirected to the route $routeName.");
+        $expectedUri = $router->url()->route($routeName);
+        $actualUri = $this->response->headers->get("Location");
+        Assert::assertEquals($expectedUri, $actualUri, "User was not redirected to the route $routeName.");
     }
 
     /**
