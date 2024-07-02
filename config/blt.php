@@ -9,4 +9,16 @@ return [
             "User" => "App\Models\User",
         ],
     ],
+    "endpoints" => [
+        "home" => "/",
+        "login" => "/login",
+        "register" => "/register",
+        "profile" => "/profile",
+        "about" => "/about",
+        "contact" => "/contact",
+        "help" => "/help",
+        "search" => "/search",
+        "admin" => "/admin",
+        "logout" => "/logout",
+    ],
 ];
