@@ -148,7 +148,16 @@ class CodeSnippet extends HTMLElement {
         }
     }
 }
-
+class CodeBlock extends HTMLElement {
+    connectedCallback() {
+        const content = this.innerHTML
+        this.innerHTML = `
+            <div class="my-2 bg-black text-white text-sm px-4 py-3 rounded shadow-lg">
+              <pre>${content}</pre>
+            </div>
+        `
+    }
+}
 
 customElements.define('sidebar-header', SidebarHeader);
 customElements.define('sidebar-element', SidebarElement);
@@ -156,6 +165,7 @@ customElements.define('article-header', ArticleHeader);
 customElements.define('article-paragraphs', ArticleParagraphs);
 customElements.define('section-header', SectionHeader);
 customElements.define('code-snippet', CodeSnippet);
+customElements.define('code-block', CodeBlock);
 
 function loadContent(page, element) {
     fetch(page)
@@ -183,8 +193,8 @@ function highlightActive(element) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    const defaultElement = document.querySelector('sidebar-element[href="elements/environment.html"]');
-    loadContent("elements/environment.html", defaultElement);
+    const defaultElement = document.querySelector('sidebar-element[href="elements/overview.html"]');
+    loadContent("elements/overview.html", defaultElement);
     highlightActive(defaultElement);
 });
 

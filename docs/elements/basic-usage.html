@@ -1,0 +1,54 @@
+<article-header>Basic usage</article-header>
+
+<section-header>Bootstrap BLT</section-header>
+<article-paragraf>
+    <p>
+        To start using BLT you need to add it to your behat context:
+    </p>
+    <code-block>
+        class FeatureContext extends Toolbox implements Context
+        {
+            public function __construct()
+            {
+                $bootstrapper = new \Blumilk\BLT\Bootstrapping\LaravelBootstrapper();
+                $bootstrapper->boot();
+            }
+        }
+    </code-block>
+
+    Instead using whole Toolbox you can add individual traits:
+    <code-block>
+        class FeatureContext implements Context
+        {
+            use \Blumilk\BLT\Features\Traits\Http;
+            use \Blumilk\BLT\Features\Traits\Eloquent;
+
+            public function __construct()
+            {
+                $bootstrapper = new \Blumilk\BLT\Bootstrapping\LaravelBootstrapper();
+                $bootstrapper->boot();
+            }
+        }
+    </code-block>
+</article-paragraf>
+
+<section-header>Start writing tests</section-header>
+<article-paragraf>
+    <p>
+        Now you can start writing tests. For most of the tests you won't need to write single line of code.
+    </p>
+    <code-block>
+        Feature: Signup test
+
+        Scenario: User can signup with proper credentials
+        Given a user is requesting "/register" using POST method
+        Given request body contains:
+        | key      | value            |
+        | name     | user             |
+        | email    | user@example.com |
+        | password | password         |
+        When a request is sent
+        Then the response should have status 302
+        And user is authenticated in session as user in name field
+    </code-block>
+</article-paragraf>
