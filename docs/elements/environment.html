@@ -35,10 +35,25 @@
   </p>
 </article-paragraphs>
 
-<code-snippet>
-  Given application is booted with config:
+<code-snippet gherkin="Given application is booted with config:
       | config | value |
-      | app.env | local |</code-snippet>
+      | app.env | local |"
+php="
+    /**
+     * @Given application is booted with config:
+     */
+    public function applicationIsBootedWithConfig(array $config): void
+    {
+        $bootstrap = $this->provideBootstraper();
+        $bootstrap->setConfigOverrides($config);
+
+        if (array_key_exists('app.env', $config)) {
+            $bootstrap->setEnvironmentType($config['app.env']);
+        }
+
+        $bootstrap->boot();
+    }
+"></code-snippet>
 
 <article-paragraphs>
   <p>
@@ -54,10 +69,30 @@
   </p>
 </article-paragraphs>
 
-<code-snippet>
-  Given application is booted with config:
+<code-snippet gherkin="Given application is booted with config:
       | config | value |
-      | telescope.enabled | true |</code-snippet>
+      | telescope.enabled | true |"
+php="
+    /**
+     * @Transform table:config,value
+     */
+    public function castConfigBoolValues(TableNode $configTable): array
+    {
+        $config = [];
+
+        foreach ($configTable as $row) {
+            $key = $row['config'];
+            $value = $row['value'];
+
+            if (in_array($value, ['true', 'false'], true)) {
+                $value = $value === 'true';
+            }
+            $config[$key] = $value;
+        }
+
+        return $config;
+    }
+"></code-snippet>
 
 <article-paragraphs>
   <p>

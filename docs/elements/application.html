@@ -15,9 +15,18 @@
   </p>
 </article-paragraphs>
 
-<code-snippet>
-  Given there is "App\Services\SomeService" service mocked with "App\Mocks\SomeServiceMock"
-</code-snippet>
+<code-snippet gherkin='Given there is "App\Services\NotificationService" service mocked with "App\Mocks\NotificationServiceMock"'
+php='/**
+  * @Given there is :service service mocked with :mock
+  * @throws BindingResolutionException
+  */
+ public function thereIsServiceMocked(string $service, string $mock): void
+ {
+     $this->getContainer()->instance(
+         abstract: $service,
+         instance: $this->getContainer()->make($mock),
+     );
+ }'></code-snippet>
 
 <article-paragraphs>
   <p>
@@ -32,12 +41,20 @@
   </p>
 </article-paragraphs>
 
-<code-snippet>
-  Given there are services mocked:
+<code-snippet gherkin='Given there are services mocked:
       | service                    | mock                          |
-      | App\Services\FirstService  | App\Mocks\FirstServiceMock    |
-      | App\Services\SecondService | App\Mocks\SecondServiceMock   |
-</code-snippet>
+      | App\Services\EmailService  | App\Mocks\EmailServiceMock    |
+      | App\Services\PaymentService| App\Mocks\PaymentServiceMock  |'
+php='/**
+  * @Given there are services mocked:
+  * @throws BindingResolutionException
+  */
+ public function thereAreServicesMocked(TableNode $table): void
+ {
+     foreach ($table as $row) {
+         $this->thereIsServiceMocked($row["service"], $row["mock"]);
+     }
+ }'></code-snippet>
 
 <article-paragraphs>
   <p>
