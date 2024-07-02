@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Blumilk\BLT\Features\Traits;
 
-use Illuminate\Routing\Router;
 use PHPUnit\Framework\Assert;
+use Illuminate\Routing\Router;
 
 trait Routing
 {
@@ -18,26 +18,10 @@ trait Routing
      */
     public function userIsAccessingRouteNamed(string $routeName, Router $router): void
     {
-        $url = $router->has($routeName) ? $router->url()->route($routeName) : null;
+        $url = config("blt.endpoints.$routeName", $router->has($routeName) ? $router->url()->route($routeName) : null);
         Assert::assertNotNull($url, "Route $routeName does not exist.");
         $this->aUserIsRequesting($url);
         $this->aRequestIsSent();
-    }
-
-    /**
-     * @Given user is accessing the home route
-     */
-    public function userIsAccessingHomeRoute(Router $router): void
-    {
-        $this->userIsAccessingRouteNamed("home", $router);
-    }
-
-    /**
-     * @Given user is accessing the login route
-     */
-    public function userIsAccessingLoginRoute(Router $router): void
-    {
-        $this->userIsAccessingRouteNamed("login", $router);
     }
 
     /**
