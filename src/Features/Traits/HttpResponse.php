@@ -24,6 +24,7 @@ trait HttpResponse
 
     /**
      * @Then a response status code should be :status
+     * @Then the response should have status :status
      */
     public function aResponseStatusCodeShouldBe(int $status): void
     {
@@ -112,14 +113,6 @@ trait HttpResponse
     public function aResponseShouldHaveHeaderEqualTo(string $header, string $value): void
     {
         Assert::assertEquals($value, $this->response->headers->get($header));
-    }
-
-    /**
-     * @Then the response should have status :status
-     */
-    public function aResponseShouldHaveStatus(int $status): void
-    {
-        Assert::assertEquals($status, $this->response->getStatusCode());
     }
 
     /**
