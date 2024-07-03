@@ -1,0 +1,50 @@
+<article-header>Testing</article-header>
+
+<article-paragraphs>
+    <p>
+        Use <br>
+        <code class="underline">Blumilk\BLT\Features\Testing</code> context <br>
+        or add <br>
+        <code class="underline">Blumilk\BLT\Features\Traits\Testing</code> trait to test your application's
+        testing features.
+    </p>
+</article-paragraphs>
+
+<section-header>Testing Methods</section-header>
+<article-paragraphs>
+    <p>
+        The <code>Testing</code> trait provides a mechanism to call PHPUnit assertions dynamically within your test scenarios. This trait helps ensure that your test assertions are concise and easy to use.
+    </p>
+</article-paragraphs>
+
+<article-paragraphs>
+    <p>
+        This function demonstrates the dynamic method call for PHPUnit assertions. It allows you to call any PHPUnit assertion method using the trait.
+    </p>
+</article-paragraphs>
+<code-block>
+    &#60?php
+
+    declare(strict_types=1);
+
+    namespace Blumilk\BLT\Features\Traits;
+
+    use PHPUnit\Framework\Assert;
+
+    /**
+     * @mixin Assert
+     */
+    trait Testing
+    {
+        public function __call(string $name, array $arguments): void
+        {
+            Assert::$name(...$arguments);
+        }
+    }
+</code-block>
+
+<article-paragraphs>
+    <p>
+        The <code>__call</code> method intercepts calls to undefined methods and dynamically calls the corresponding PHPUnit assertion method. This makes it easier to write and maintain test assertions.
+    </p>
+</article-paragraphs>

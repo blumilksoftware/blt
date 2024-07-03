@@ -1,0 +1,632 @@
+<article-header>Http</article-header>
+
+<article-paragraphs>
+    <p>
+        Use <br>
+        <code class="underline">Blumilk\BLT\Features\Http</code> context <br>
+        or add <br>
+        <code class="underline">Blumilk\BLT\Features\Traits\Http</code> trait to test your application's
+        http features.
+    </p>
+    If you want to use only Request or Response methods, you can use
+    <code class="underline">Blumilk\BLT\Features\Traits\HttpRequest</code>
+    <code class="underline">Blumilk\BLT\Features\Traits\HttpResponse</code>
+    to include only one of them.
+</article-paragraphs>
+
+<article-header>HttpRequest</article-header>
+<section-header>HttpRequest Methods</section-header>
+<article-paragraphs>
+    <p>
+        The <code>HttpRequest</code> trait provides several methods to handle HTTP requests within your Laravel
+        application. These methods help ensure that your application's request handling and response mechanisms are
+        functioning as expected.
+    </p>
+</article-paragraphs>
+
+<article-paragraphs>
+    <p>
+        This snippet creates a new HTTP request to the specified URL using the specified method. It allows you to
+        simulate different types of requests to test your application's endpoints.
+        <br>
+        You can specify the request method (GET, POST, etc.) and the endpoint URL.
+    </p>
+</article-paragraphs>
+<code-snippet gherkin="Given a user is requesting '/login/ using 'POST' method" php="
+    /**
+     * @Given a user is requesting :url
+     * @Given a user is requesting :url using :method method
+     */
+    public function aUserIsRequesting(string $endpoint, string $method = Request::METHOD_GET): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>requestBodyContainsKeyValuePair</code> method sets a key-value pair in the request body. This is
+        useful for testing scenarios where the request body needs specific data.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given request body contains email equal 'admin@example.com'" php="
+    /**
+     * @Given request body contains :key equal :value
+     */
+    public function requestBodyContainsKeyValuePair(string $key, mixed $value): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>requestBodyContains</code> method sets multiple key-value pairs in the request body using a table.
+        This is useful for testing scenarios where the request body needs multiple specific data points.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="  Given request body contains:
+            | key      | value            |
+            | email    | user@example.com |
+            | password | password         |
+" php="
+    /**
+     * @Given request body contains:
+     */
+    public function requestBodyContains(TableNode $table): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>requestHeadersContainsKeyValuePair</code> method sets a key-value pair in the request headers. This is
+        useful for testing scenarios where specific headers need to be included in the request.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given request headers contains 'Content-Type' equal 'application/json'" php="
+    /**
+     * @Given request headers contains :header equal :value
+     */
+    public function requestHeadersContainsKeyValuePair(string $header, string $value): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>requestHeadersContains</code> method sets multiple key-value pairs in the request headers using a
+        table. This is useful for testing scenarios where multiple specific headers need to be included in the request.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given request headers contains:
+            | header       | value            |
+            | Content-Type | application/json |" php="
+    /**
+     * @Given request headers contains:
+     */
+    public function requestHeadersContains(TableNode $table): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>thereAreValuesInFormParams</code> method sets multiple key-value pairs in the form parameters of the
+        request using a table. This is useful for testing form submissions with specific data.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given request form params contains:
+            | key   | value             |
+            | email | admin@example.com |" php="
+    /**
+     * @Given request form params contains:
+     */
+    public function thereAreValuesInFormParams(TableNode $table): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>requestQueryParamsContains</code> method sets multiple key-value pairs in the query parameters of the
+        request using a table. This is useful for testing URL query parameters with specific data.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given request form params contains:
+            | key  | value   |
+            | City | Legnica |
+" php="
+    /**
+     * @Given request query params contains:
+     */
+    public function requestQueryParamsContains(TableNode $table): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>requestCookiesContains</code> method sets multiple key-value pairs in the cookies of the request using
+        a table. This is useful for testing scenarios where specific cookies need to be included in the request.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given request cookies contains:
+            | key    | value          |
+            | token  | abc123         |
+            | userId | 42             |"
+              php="
+    /**
+     * @Given request cookies contains:
+     */
+    public function requestCookiesContains(TableNode $table): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>requestServerParamsContains</code> method sets multiple key-value pairs in the server parameters of
+        the request using a table. This is useful for testing scenarios where specific server parameters need to be
+        included in the request.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given request server params contains:
+            | key       | value               |
+            | SERVER_NAME | example.com       |
+            | SERVER_PORT | 8080              |"
+              php="
+    /**
+     * @Given request server params contains:
+     */
+    public function requestServerParamsContains(TableNode $table): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>requestHasBearerToken</code> method sets the Authorization header to a Bearer token. This is useful
+        for testing scenarios where authentication via Bearer token is required.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given request has bearer token '1|fQwW..EXAMPLE..8238a'" php="
+    /**
+     * @Given request has bearer token :token
+     */
+    public function requestHasBearerToken(string $token): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>requestHasAcceptLanguage</code> method sets the Accept-Language header. This is useful for testing
+        scenarios where the request needs to specify a preferred language.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given request has Accept Language header set to 'en-US'" php="
+    /**
+     * @Given request has Accept Language header set to :language
+     */
+    public function requestHasAcceptLanguage(string $language): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>requestHasContentType</code> method sets the Content-Type header. This is useful for testing scenarios
+        where the request needs to specify the type of content being sent.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given request has Content Type header set to 'application/json'" php="
+    /**
+     * @Given request has Content Type header set to :contentType
+     */
+    public function requestHasContentType(string $contentType): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>requestHasUserAgent</code> method sets the User-Agent header. This is useful for testing scenarios
+        where the request needs to specify the client making the request.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given request has User Agent header set to 'Mozilla/5.0 (Windows...)'" php="
+    /**
+     * @Given request has User Agent header set to :userAgent
+     */
+    public function requestHasUserAgent(string $userAgent): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>requestHasHost</code> method sets the Host header. This is useful for testing scenarios where the
+        request needs to specify the host.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given request has Host header set to 'example.com'" php="
+    /**
+     * @Given request has Host header set to :host
+     */
+    public function requestHasHost(string $host): void
+"></code-snippet>
+
+<article-header>HttpResponse</article-header>
+
+<article-paragraphs>
+    <p>
+        Use <br>
+        <code class="underline">Blumilk\BLT\Features\Traits\HttpResponse</code> trait to manage and test HTTP responses
+        within your Laravel application. This trait provides methods to send requests and assert various aspects of the
+        HTTP responses received.
+    </p>
+</article-paragraphs>
+
+<section-header>HttpResponse Methods</section-header>
+<article-paragraphs>
+    <p>
+        The <code>HttpResponse</code> trait provides several methods to handle HTTP responses within your Laravel
+        application. These methods help ensure that your application's response handling and status codes are
+        functioning as expected.
+    </p>
+</article-paragraphs>
+
+<article-paragraphs>
+    <p>
+        This snippet sends the prepared request and captures the response. It is useful for testing scenarios where you
+        need to verify the response from a specific request.
+    </p>
+</article-paragraphs>
+<code-snippet gherkin="When a request is sent" php="
+    /**
+     * @When a request is sent
+     */
+    public function aRequestIsSent(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseStatusCodeShouldBe</code> method verifies that the response status code matches the expected
+        status. This is useful for ensuring that the correct status code is returned.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then a response status code should be 200" php="
+    /**
+     * @Then a response status code should be :status
+     */
+    public function aResponseStatusCodeShouldBe(int $status): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseHTMLShouldContainPhrase</code> method verifies that the response HTML contains a specified
+        phrase. This is useful for ensuring that certain content is present in the response body.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given a response HTML should contain 'Welcome back!' phrase" php="
+    /**
+     * @Given a response HTML should contain :phrase phrase
+     */
+    public function aResponseHTMLShouldContainPhrase(string $phrase): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseHTMLShouldContainCSRFToken</code> method verifies that the response HTML contains a CSRF
+        token. This is useful for ensuring that CSRF protection is included in forms.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given a response HTML should contain CSRF token" php="
+    /**
+     * @Given a response HTML should contain CSRF token
+     */
+    public function aResponseHTMLShouldContainCSRFToken(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseShouldBeJson</code> method verifies that the response content is in JSON format. This is
+        useful for ensuring that the response type is correct for API endpoints.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response should be JSON" php="
+    /**
+     * @Then the response should be JSON
+     */
+    public function aResponseShouldBeJson(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseShouldContainJson</code> method verifies that the response JSON contains specified key-value
+        pairs. This is useful for ensuring that the response data includes expected values.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="And the response should contain JSON:
+            | message | Language has been changed. |" php="
+    /**
+     * @Then the response should contain JSON:
+     */
+    public function aResponseShouldContainJson(TableNode $table): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseShouldContainJsonFragment</code> method verifies that the response JSON contains specified
+        fragments. This is useful for ensuring that partial data is included in the response.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin=" And the response should contain JSON:
+            | message | Language  |
+" php="
+    /**
+     * @Then the response should contain a JSON fragment:
+     */
+    public function aResponseShouldContainJsonFragment(TableNode $table): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseShouldHaveCookie</code> method verifies that the response contains a specified cookie. This
+        is useful for ensuring that cookies are set correctly in the response.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response should have cookie token" php="
+    /**
+     * @Then the response should have cookie :name
+     */
+    public function aResponseShouldHaveCookie(string $name): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseShouldHaveHeader</code> method verifies that the response contains a specified header. This
+        is useful for ensuring that specific headers are included in the response.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response should have header 'Content-Type'" php="
+    /**
+     * @Then the response should have header :header
+     */
+    public function aResponseShouldHaveHeader(string $header): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseShouldHaveHeaderEqualTo</code> method verifies that a response header has a specific value.
+        This is useful for ensuring that headers contain the correct values.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response should have header 'Content-Type' equal to 'application/json'" php="
+    /**
+     * @Then the response should have header :header equal to :value
+     */
+    public function aResponseShouldHaveHeaderEqualTo(string $header, string $value): void
+"></code-snippet>
+
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseStatusShouldBeOk</code> method verifies that the response status is HTTP 200 OK. This is
+        useful for ensuring that the request was successful.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response status should be OK" php="
+    /**
+     * @Then the response status should be OK
+     */
+    public function aResponseStatusShouldBeOk(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseStatusShouldBeCreated</code> method verifies that the response status is HTTP 201 Created.
+        This is useful for ensuring that a resource was successfully created.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response status should be created" php="
+    /**
+     * @Then the response status should be created
+     */
+    public function aResponseStatusShouldBeCreated(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseStatusShouldBeNoContent</code> method verifies that the response status is HTTP 204 No
+        Content. This is useful for ensuring that the request was successful but no content is returned.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response status should be no content" php="
+    /**
+     * @Then the response status should be no content
+     */
+    public function aResponseStatusShouldBeNoContent(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseStatusShouldBeBadRequest</code> method verifies that the response status is HTTP 400 Bad
+        Request. This is useful for ensuring that the request was invalid.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response status should be bad request" php="
+    /**
+     * @Then the response status should be bad request
+     */
+    public function aResponseStatusShouldBeBadRequest(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseStatusShouldBeUnauthorized</code> method verifies that the response status is HTTP 401
+        Unauthorized. This is useful for ensuring that the request requires authentication.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response status should be unauthorized" php="
+    /**
+     * @Then the response status should be unauthorized
+     */
+    public function aResponseStatusShouldBeUnauthorized(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseStatusShouldBeForbidden</code> method verifies that the response status is HTTP 403
+        Forbidden. This is useful for ensuring that the request is not allowed.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response status should be forbidden" php="
+    /**
+     * @Then the response status should be forbidden
+     */
+    public function aResponseStatusShouldBeForbidden(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponse
+
+        StatusShouldBeNotFound</code> method verifies that the response status is HTTP 404 Not Found. This is useful for
+        ensuring that the requested resource does not exist.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response status should be not found" php="
+    /**
+     * @Then the response status should be not found
+     */
+    public function aResponseStatusShouldBeNotFound(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseStatusShouldBeConflict</code> method verifies that the response status is HTTP 409 Conflict.
+        This is useful for ensuring that there is a conflict with the request.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response status should be conflict" php="
+    /**
+     * @Then the response status should be conflict
+     */
+    public function aResponseStatusShouldBeConflict(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseStatusShouldBeUnprocessable</code> method verifies that the response status is HTTP 422
+        Unprocessable Entity. This is useful for ensuring that the request contains invalid data.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response status should be unprocessable" php="
+    /**
+     * @Then the response status should be unprocessable
+     */
+    public function aResponseStatusShouldBeUnprocessable(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseStatusShouldBeTooManyRequests</code> method verifies that the response status is HTTP 429 Too
+        Many Requests. This is useful for ensuring that the rate limit has been exceeded.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response status should be too many requests" php="
+    /**
+     * @Then the response status should be too many requests
+     */
+    public function aResponseStatusShouldBeTooManyRequests(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseStatusShouldBeGone</code> method verifies that the response status is HTTP 410 Gone. This is
+        useful for ensuring that the requested resource is no longer available.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response status should be gone" php="
+    /**
+     * @Then the response status should be gone
+     */
+    public function aResponseStatusShouldBeGone(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseStatusShouldBeServiceUnavailable</code> method verifies that the response status is HTTP 503
+        Service Unavailable. This is useful for ensuring that the service is temporarily unavailable.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response status should be service unavailable" php="
+    /**
+     * @Then the response status should be service unavailable
+     */
+    public function aResponseStatusShouldBeServiceUnavailable(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseStatusShouldBeFound</code> method verifies that the response status is HTTP 302 Found. This
+        is useful for ensuring that the resource was found and the request was redirected.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response status should be found" php="
+    /**
+     * @Then the response status should be found
+     */
+    public function aResponseStatusShouldBeFound(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseShouldBeRedirectedTo</code> method verifies that the response is a redirect to the specified
+        URL. This is useful for ensuring that the request was redirected to the correct location.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response should be redirected to '/dashboard'" php="
+    /**
+     * @Then the response should be redirected to :url
+     */
+    public function aResponseShouldBeRedirectedTo(string $url): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseShouldHaveHeaderContaining</code> method verifies that a response header contains a specified
+        value. This is useful for ensuring that headers contain expected values.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response should have a header 'Content-type' containing 'application/json'" php="
+    /**
+     * @Then the response should have a header :header containing :value
+     */
+    public function aResponseShouldHaveHeaderContaining(string $header, string $value): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>aResponseShouldHaveNoContent</code> method verifies that the response content is empty. This is useful
+        for ensuring that no content is returned in the response.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then the response should have no content" php="
+    /**
+     * @Then the response should have no content
+     */
+    public function aResponseShouldHaveNoContent(): void
+"></code-snippet>

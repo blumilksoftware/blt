@@ -71,7 +71,7 @@ class CodeSnippet extends HTMLElement {
         const phpText = this.getAttribute('php');
 
         this.innerHTML = `
-            <div class="my-2 bg-black text-white text-sm px-4 py-3 rounded shadow-lg">
+            <div class="my-2 bg-black text-white text-sm px-4 py-3 rounded shadow-lg w-full">
                 <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
                     <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab"
                         data-tabs-toggle="#default-tab-content" role="tablist">
