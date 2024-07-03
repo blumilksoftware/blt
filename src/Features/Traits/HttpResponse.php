@@ -20,12 +20,7 @@ trait HttpResponse
      */
     public function aRequestIsSent(): void
     {
-        $response = $this->getContainer()->handle($this->request);
-        $this->response = $response;
-
-        if ($response instanceof IlluminateResponse) {
-            $this->response = $response;
-        }
+        $this->response = $this->getContainer()->handle($this->request);
     }
 
     /**

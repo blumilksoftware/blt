@@ -7,11 +7,14 @@ namespace Blumilk\BLT\Features\Traits;
 use Behat\Gherkin\Node\TableNode;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Response;
+use Illuminate\Http\Response as IlluminateResponse;
 use Illuminate\Support\Str;
 use Illuminate\Testing\TestResponse;
 use Illuminate\View\View as LaravelView;
 
+use PHPUnit\Framework\Assert;
 use function PHPUnit\Framework\assertContains;
+use Exception;
 
 trait View
 {
@@ -50,7 +53,7 @@ trait View
     public function theViewContains(string $data): void
     {
         $viewData = $this->view->getData();
-        assertContains($data, $viewData);
+        Assert::assertContains($data, $viewData);
     }
 
     /**
@@ -58,10 +61,17 @@ trait View
      */
     public function viewResponseContains(TableNode $table): void
     {
-        $this->testResponse = TestResponse::fromBaseResponse($this->response);
 
-        foreach ($table as $row) {
-            $this->testResponse->assertViewHas($row["key"], $row["value"]);
+        if ($this->response instanceof IlluminateResponse) {
+
+
+            $this->testResponse = TestResponse::fromBaseResponse($this->response);
+
+            foreach ($table as $row) {
+                $this->testResponse->assertViewHas($row["key"], $row["value"]);
+            }
+        }else{
+            throw new Exception("Response is not instance of IlluminateResponse");
         }
     }
 }
