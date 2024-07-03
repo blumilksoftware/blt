@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <title>Behat + Laravel Toolbox documentation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="./index.js" type="text/javascript" defer></script>
 </head>
 <body class="mx-auto max-w-7xl p-12 flex gap-12">
-<nav class="w-[18%] flex flex-col -mt-12" aria-label="Sidebar">
+<nav class="w-[18%] flex flex-col -mt-12 max-h-screen" aria-label="Sidebar">
     <ul role="list" class="sticky top-0 pt-12 -mx-2 text-xs text-gray-500">
         <li class="pl-3 flex flex-col mb-8">
             <img src="img/BLT.png" alt="BLT Logo" class="w-20 h-20 mx-auto mb-4" />
@@ -41,6 +43,8 @@
         <sidebar-header>External links</sidebar-header>
         <sidebar-element href="https://github.com/blumilksoftware/blt" target="_blank">GitHub</sidebar-element>
         <sidebar-element href="https://packagist.org/packages/blumilksoftware/blt" target="_blank">Packagist</sidebar-element>
+        <sidebar-element href="https://docs.behat.org/en/latest/" target="_blank">Behat documentation</sidebar-element>
+        <sidebar-element href="https://packagist.org/packages/blumilksoftware/blt" target="_blank">Packagist</sidebar-element>
     </ul>
 </nav>
 <div class="flex-1 p-1 mt-24" id="content"></div>
@@ -56,6 +60,7 @@
                     </div>
                 `;
                 highlightActive(element);
+                hljs.highlightAll();  
             });
     }
 
@@ -82,20 +87,23 @@
 
     document.addEventListener("DOMContentLoaded", function () {
         const defaultElement = document.querySelector('sidebar-element[href="elements/overview.html"]');
-        loadContent("elements/environment.html", defaultElement);
+        loadContent("elements/overview.html", defaultElement);
         highlightActive(defaultElement);
     });
 
     document.querySelectorAll('sidebar-element').forEach(element => {
         element.addEventListener('click', function (e) {
             e.preventDefault();
-            if (this.getAttribute('target') !== '_blank') {
-                loadContent(this.getAttribute('href'), this);
+            const href = this.getAttribute('href');
+            const target = this.getAttribute('target');
+            if (target === '_blank') {
+                window.open(href, '_blank');
+            } else {
+                loadContent(href, this);
             }
         });
     });
 
-    // Example usage: load next content from the current element
     const currentElement = document.querySelector('sidebar-element[href="elements/overview.html"]');
     loadNextContent(currentElement);
 </script>

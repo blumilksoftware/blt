@@ -1,3 +1,4 @@
+ 
 class SidebarHeader extends HTMLElement {
     connectedCallback() {
         const content = this.innerHTML;
@@ -71,7 +72,7 @@ class CodeSnippet extends HTMLElement {
         const phpText = this.getAttribute('php');
 
         this.innerHTML = `
-            <div class="my-2 bg-black text-white text-sm px-4 py-3 rounded shadow-lg w-full">
+            <div class="my-2 bg-black text-white text-sm px-4 py-3 rounded shadow-lg">
                 <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
                     <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab"
                         data-tabs-toggle="#default-tab-content" role="tablist">
@@ -91,13 +92,11 @@ class CodeSnippet extends HTMLElement {
                     </ul>
                 </div>
                 <div id="default-tab-content">
-                    <div class="p-4" id="gherkin" role="tabpanel"
-                         aria-labelledby="gherkin-tab">
-                        <pre>${gherkinText}</pre>
+                    <div class="p-4 bg-black" id="gherkin" role="tabpanel" aria-labelledby="gherkin-tab">
+                    <pre><code class="gherkin bg-black ">${gherkinText}</code></pre>
                     </div>
-                    <div class="hidden p-4" id="php" role="tabpanel"
-                         aria-labelledby="php-tab">
-                        <pre>${phpText}</pre>
+                    <div class="hidden p-4 bg-black" id="php" role="tabpanel" aria-labelledby="php-tab">
+                        <pre><code class="php bg-black ">${phpText}</code></pre>
                     </div>
                 </div>
             </div>
@@ -108,6 +107,7 @@ class CodeSnippet extends HTMLElement {
         });
 
         this.setDefaultActive();
+        hljs.highlightAll();
     }
 
     setDefaultActive() {
@@ -143,11 +143,13 @@ class CodeSnippet extends HTMLElement {
             event.currentTarget.classList.add('border-blue-500', 'text-blue-600');
             event.currentTarget.classList.remove('border-transparent');
             targetPanel.classList.remove('hidden');
+            hljs.highlightElement(targetPanel.querySelector('code'));
         } else {
             console.error(`Element with selector "${target}" not found.`);
         }
     }
 }
+
 class CodeBlock extends HTMLElement {
     connectedCallback() {
         const content = this.innerHTML
@@ -177,8 +179,10 @@ function loadContent(page, element) {
                 </div>
             `;
             highlightActive(element);
+            hljs.highlightAll();
         });
 }
+
 
 function highlightActive(element) {
     const sidebarElements = document.querySelectorAll('sidebar-element');
