@@ -1,0 +1,6 @@
+/.github export-ignore
+/docs export-ignore
+/tests export-ignore
+codestyle.php export-ignore
+docker-compose.yml export-ignore
+Makefile export-ignore
