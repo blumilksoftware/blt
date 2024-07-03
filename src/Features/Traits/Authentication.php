@@ -66,15 +66,6 @@ trait Authentication
         $auth->login($this->getUserModel()::query()->where("email", $email)->first());
     }
 
-    /**
-     * @Given there are users in the database:
-     */
-    public function thereAreUsersInTheDatabase(TableNode $table): void
-    {
-        foreach ($table->getColumnsHash() as $userData) {
-            $this->getUserModel()::firstOrCreate($userData);
-        }
-    }
 
     /**
      * @Given there is an unauthenticated user
