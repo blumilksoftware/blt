@@ -66,7 +66,6 @@ trait Authentication
         $auth->login($this->getUserModel()::query()->where("email", $email)->first());
     }
 
-
     /**
      * @Given there is an unauthenticated user
      * @throws BindingResolutionException
