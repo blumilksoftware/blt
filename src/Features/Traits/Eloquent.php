@@ -128,7 +128,7 @@ trait Eloquent
      */
     public function theModelHasExpectedNumberOfRelated(string $model1, string $model2, int $count): void
     {
-        $model1Class = ContextHelper::getClassHelper()->        recognizeObjectClass($model1);
+        $model1Class = ContextHelper::getClassHelper()->recognizeObjectClass($model1);
         $relation = Str::plural($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 

@@ -25,6 +25,7 @@ class ContextHelper
     {
         return new (config("blt.helpers.nullable") ?? NullableHelper::class)();
     }
+
     public static function getUserHelper(): UserHelper
     {
         return new (config("blt.config.user") ?? UserHelper::class)();
