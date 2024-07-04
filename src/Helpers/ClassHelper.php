@@ -28,7 +28,7 @@ class ClassHelper
             return $typeNamespaces[$type] . $objectName;
         }
 
-        return self::getObjectNamespace(Str::singular($objectName), $type) . $objectName;
+        return self::getObjectNamespace($type) . $objectName;
     }
 
     public function getObjectNamespace(string $type): string
