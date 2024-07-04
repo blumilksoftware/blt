@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
-use Blumilk\BLT\Helpers\RecognizeClassHelper;
+use Blumilk\BLT\Helpers\ContextHelper;
 use Blumilk\BLT\LaravelRelations;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -19,7 +19,7 @@ trait Eloquent
      */
     public function seedModelInTheDatabase(string $model, ?TableNode $table = null): void
     {
-        $modelClass = RecognizeClassHelper::recognizeObjectClass($model);
+        $modelClass = ContextHelper::getClassHelper()->recognizeObjectClass($model);
         $attributes = $table ? $table->getRowsHash() : [];
 
         if (method_exists($modelClass, "factory")) {
@@ -34,7 +34,7 @@ trait Eloquent
      */
     public function assertModelExistsInTheDatabase(string $model): void
     {
-        $modelClass = RecognizeClassHelper::recognizeObjectClass($model);
+        $modelClass = ContextHelper::getClassHelper()->recognizeObjectClass($model);
 
         Assert::assertTrue($modelClass::query()->exists(), "The model $model does not exist in the database.");
     }
@@ -45,7 +45,7 @@ trait Eloquent
      */
     public function thereAreModelsInTheDatabase(string $model, int $count): void
     {
-        $modelClass = RecognizeClassHelper::recognizeObjectClass($model);
+        $modelClass = ContextHelper::getClassHelper()->recognizeObjectClass($model);
         $existingCount = $modelClass::query()->count();
 
         if ($existingCount < $count) {
@@ -60,7 +60,7 @@ trait Eloquent
      */
     public function theModelHasMany(string $model1, string $model2): void
     {
-        $model1Class = RecognizeClassHelper::recognizeObjectClass($model1);
+        $model1Class = ContextHelper::getClassHelper()->recognizeObjectClass($model1);
         $relation = Str::plural($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 
@@ -77,7 +77,7 @@ trait Eloquent
      */
     public function theModelBelongsTo(string $model1, string $model2): void
     {
-        $model1Class = RecognizeClassHelper::recognizeObjectClass($model1);
+        $model1Class = ContextHelper::getClassHelper()->recognizeObjectClass($model1);
         $relation = Str::singular($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 
@@ -94,7 +94,7 @@ trait Eloquent
      */
     public function theModelHasOne(string $model1, string $model2): void
     {
-        $model1Class = RecognizeClassHelper::recognizeObjectClass($model1);
+        $model1Class = ContextHelper::getClassHelper()->recognizeObjectClass($model1);
         $relation = Str::singular($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 
@@ -111,7 +111,7 @@ trait Eloquent
      */
     public function theModelBelongsToMany(string $model1, string $model2): void
     {
-        $model1Class = RecognizeClassHelper::recognizeObjectClass($model1);
+        $model1Class = ContextHelper::getClassHelper()->recognizeObjectClass($model1);
         $relation = Str::plural($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 
@@ -128,7 +128,7 @@ trait Eloquent
      */
     public function theModelHasExpectedNumberOfRelated(string $model1, string $model2, int $count): void
     {
-        $model1Class = RecognizeClassHelper::recognizeObjectClass($model1);
+        $model1Class = ContextHelper::getClassHelper()->        recognizeObjectClass($model1);
         $relation = Str::plural($model2);
         $instance = $model1Class::first() ?: $model1Class::factory()->create();
 
