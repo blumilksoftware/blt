@@ -80,17 +80,6 @@ trait HttpResponse
     }
 
     /**
-     * @Then the response should have cookie :name
-     */
-    public function aResponseShouldHaveCookie(string $name): void
-    {
-        Assert::assertTrue($this->response->headers->has("Set-Cookie"));
-        $cookies = $this->response->headers->getCookies();
-        $cookieNames = array_map(fn($cookie) => $cookie->getName(), $cookies);
-        Assert::assertContains($name, $cookieNames);
-    }
-
-    /**
      * @Then the response should have header :header
      */
     public function aResponseShouldHaveHeader(string $header): void

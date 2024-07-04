@@ -19,6 +19,7 @@ use Blumilk\BLT\Features\Traits\Session;
 use Blumilk\BLT\Features\Traits\Testing;
 use Blumilk\BLT\Features\Traits\Translations;
 use Blumilk\BLT\Features\Traits\View;
+use Blumilk\BLT\Features\Traits\Cookies;
 
 class Toolbox implements Context
 {
@@ -36,4 +37,5 @@ class Toolbox implements Context
     use Translations;
     use View;
     use Notification;
+    use Cookies;
 }
