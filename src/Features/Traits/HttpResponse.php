@@ -23,14 +23,6 @@ trait HttpResponse
     }
 
     /**
-     * @Then a response status code should be :status
-     */
-    public function aResponseStatusCodeShouldBe(int $status): void
-    {
-        Assert::assertEquals($status, $this->response->getStatusCode());
-    }
-
-    /**
      * @Given a response HTML should contain :phrase phrase
      */
     public function aResponseHTMLShouldContainPhrase(string $phrase): void
@@ -116,6 +108,7 @@ trait HttpResponse
 
     /**
      * @Then the response should have status :status
+     * @Then a response status code should be :status
      */
     public function aResponseShouldHaveStatus(int $status): void
     {
