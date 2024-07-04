@@ -6,7 +6,7 @@ namespace Blumilk\BLT\Features\Traits\Optional;
 
 use Behat\Gherkin\Node\TableNode;
 use Blumilk\BLT\Features\Traits\Application;
-use Blumilk\BLT\Helpers\RecognizeClassHelper;
+use Blumilk\BLT\Helpers\ContextHelper;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use PHPUnit\Framework\Assert;
 
@@ -21,7 +21,7 @@ trait SpatiePermission
      */
     public function objectCanHaveRoles(string $objectName = "User"): void
     {
-        $objectClass = RecognizeClassHelper::recognizeObjectClass($objectName);
+        $objectClass = ContextHelper::getClassHelper()->recognizeObjectClass($objectName);
         $used_traits = class_uses_recursive($this->getContainer()->make($objectClass));
         Assert::assertTrue(in_array("Spatie\Permission\Traits\HasRoles", $used_traits, true));
     }
@@ -97,7 +97,7 @@ trait SpatiePermission
 
     private function getObjectInstance(string $object, string $value, string $field): object
     {
-        $objectClass = RecognizeClassHelper::recognizeObjectClass($object);
+        $objectClass = ContextHelper::getClassHelper()->recognizeObjectClass($object);
 
         return $objectClass::query()->where($field, $value)->first();
     }
