@@ -108,11 +108,11 @@ class CodeSnippet extends HTMLElement {
                 <div id="default-tab-content">
                     <div class="p-4 bg-black" id="gherkin" role="tabpanel"
                          aria-labelledby="gherkin-tab">
-                        <pre><code class="gherkin bg-black">${gherkinText}</code></pre>
+                        <pre><code class="gherkin bg-black text-white">${gherkinText}</code></pre>
                     </div>
                     <div class="hidden p-4 bg-black" id="php" role="tabpanel"
                          aria-labelledby="php-tab">
-                        <pre><code class="php bg-black">${phpText}</code></pre>
+                        <pre><code class="php bg-black text-white">${phpText}</code></pre>
                     </div>
                 </div>
             </div>
@@ -170,7 +170,7 @@ class CodeBlock extends HTMLElement {
     connectedCallback() {
         const content = this.innerHTML
         this.innerHTML = `
-            <pre><code class="php my-2 bg-black text-sm px-4 py-3 rounded shadow-lg">
+            <pre><code class="php my-2 bg-black text-sm px-4 py-3 text-white rounded shadow-lg">
               ${content}
               </pre></code>
         `
