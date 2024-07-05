@@ -284,9 +284,10 @@
 
 <code-snippet gherkin="Then a response status code should be 200" php="
     /**
+     * @Then the response should have status :status
      * @Then a response status code should be :status
      */
-    public function aResponseStatusCodeShouldBe(int $status): void
+    public function aResponseShouldHaveStatus(int $status): void
 "></code-snippet>
 
 <article-paragraphs>

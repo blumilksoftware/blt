@@ -23,7 +23,6 @@ trait HttpResponse
     }
 
     /**
-
      * @Given a response HTML should contain :phrase phrase
      */
     public function aResponseHTMLShouldContainPhrase(string $phrase): void
@@ -108,7 +107,6 @@ trait HttpResponse
     }
 
     /**
-
      * @Then the response should have status :status
      * @Then a response status code should be :status
      */
