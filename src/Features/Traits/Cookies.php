@@ -67,8 +67,8 @@ trait Cookies
         $request = $this->getContainer()->make(Request::class);
 
         foreach ($table as $row) {
-            $cookieValue = $request->cookie($row['name']);
-            Assert::assertEquals($row['value'], $cookieValue, "Cookie {$row['name']} does not have the expected value {$row['value']}.");
+            $cookieValue = $request->cookie($row["name"]);
+            Assert::assertEquals($row["value"], $cookieValue, "Cookie {$row["name"]} does not have the expected value {$row["value"]}.");
         }
     }
 }

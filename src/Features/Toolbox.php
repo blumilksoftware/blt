@@ -8,6 +8,7 @@ use Behat\Behat\Context\Context;
 use Blumilk\BLT\Features\Traits\Application;
 use Blumilk\BLT\Features\Traits\Authentication;
 use Blumilk\BLT\Features\Traits\Console;
+use Blumilk\BLT\Features\Traits\Cookies;
 use Blumilk\BLT\Features\Traits\Database;
 use Blumilk\BLT\Features\Traits\Dispatcher;
 use Blumilk\BLT\Features\Traits\Eloquent;
@@ -19,7 +20,6 @@ use Blumilk\BLT\Features\Traits\Session;
 use Blumilk\BLT\Features\Traits\Testing;
 use Blumilk\BLT\Features\Traits\Translations;
 use Blumilk\BLT\Features\Traits\View;
-use Blumilk\BLT\Features\Traits\Cookies;
 
 class Toolbox implements Context
 {
