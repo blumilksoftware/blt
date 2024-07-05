@@ -8,14 +8,14 @@ class UserHelper
 {
     public static function getBy(string $field, string $value): ?object
     {
-        $userClass = RecognizeClassHelper::recognizeObjectClass("User");
+        $userClass = ContextHelper::getClassHelper()->recognizeObjectClass("User");
 
         return $userClass::query()->where($field, $value)->first();
     }
 
     public static function getByEmail(string $value): ?object
     {
-        $userClass = RecognizeClassHelper::recognizeObjectClass("User");
+        $userClass = ContextHelper::getClassHelper()->recognizeObjectClass("User");
 
         return $userClass::query()->where("email", $value)->first();
     }

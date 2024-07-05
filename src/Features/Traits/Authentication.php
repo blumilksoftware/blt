@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
-use Blumilk\BLT\Helpers\UserHelper;
+use Blumilk\BLT\Helpers\ContextHelper;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use PHPUnit\Framework\Assert;
@@ -22,7 +22,7 @@ trait Authentication
     public function userIsAuthenticatedInSessionAs(string $value, string $field): void
     {
         $auth = $this->getContainer()->make(Guard::class);
-        $user = UserHelper::getBy($field, $value);
+        $user = ContextHelper::getUserHelper()->getBy($field, $value);
         $auth->login($user);
     }
 
