@@ -60,10 +60,10 @@
 </article-paragraphs>
 
 <code-snippet
-        gherkin=" Then I should see the following phrases:
+        gherkin="Then I should see the following phrases:
             | locale | phrase   |
             | pl     | Ceny     |
-            | fr     | Baguette |"
+            | fr     | Prix     |"
         php="
     /**
      * @Then I should see the following phrases:
@@ -80,15 +80,14 @@
             Given a user is requesting :endpoint
         </code-block>
         before this step.
-
     </p>
 </article-paragraphs>
 
 <code-snippet
-        gherkin=" Then response should be translated as:
+        gherkin="Then response should be translated as:
             | locale | phrase   |
             | pl     | Ceny     |
-            | fr     | Baguette |"
+            | fr     | Prix     |"
         php="
     /**
      * @Then response should be translated as:
