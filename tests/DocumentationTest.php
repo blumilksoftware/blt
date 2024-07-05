@@ -9,14 +9,11 @@ class DocumentationTest extends TestCase
 {
     public function testIfDocumentationContainsAllPublicFunctions(): void
     {
-        exec("php FileCrawler.php");
+        $functions = $this->getPublicFunctions();
 
-        // Read the phrases.json file
-        $jsonContent = file_get_contents("phrases.json");
-        $traits = json_decode($jsonContent, true);
-
-        foreach ($traits as $trait => $functions) {
-            $fileName = Str::slug($trait) . ".html";
+        foreach ($functions as $class => $methods) {
+            $trait = explode("\\", $class );
+            $fileName = Str::slug(end($trait)) . ".html";
             $filePath = "docs/elements/$fileName";
 
             if (!file_exists($filePath)) {
@@ -37,10 +34,58 @@ class DocumentationTest extends TestCase
                 $this->fail("Unable to read the file $filePath.");
             }
 
-            foreach (array_keys($functions) as $function) {
-                $containsFunction = strpos($fileContent, $function) !== false;
-                $this->assertTrue($containsFunction, "Function $function is not documented in $filePath.");
+            foreach ($methods as $method) {
+                $containsFunction = strpos($fileContent, $method) !== false;
+                $this->assertTrue($containsFunction, "Function $method is not documented in $filePath.");
             }
         }
+    }
+
+    public function getClasses()
+    {
+        $classes = include "vendor/composer/autoload_classmap.php";
+        $bltTraits = [];
+
+        foreach (array_keys($classes) as $class) {
+            if (str_contains($class, "Blumilk\BLT\Features\Traits")) {
+                $bltTraits[] = $class;
+            }
+        }
+
+        return $bltTraits;
+    }
+
+    public function getPublicFunctions()
+    {
+        $traitClasses = $this->getClasses();
+        $publicFunctions = [];
+
+        foreach ($traitClasses as $traitClass) {
+            $traitReflection = new ReflectionClass($traitClass);
+            $publicMethods = $traitReflection->getMethods(ReflectionMethod::IS_PUBLIC);
+            $includedTraitNames = $traitReflection->getTraitNames();
+            $includedTraitPublicMethods = [];
+
+            foreach ($includedTraitNames as $includedTraitName) {
+                $includedTraitPublicMethods = array_merge(
+                    (new ReflectionClass($includedTraitName))->getMethods(ReflectionMethod::IS_PUBLIC),
+                    $includedTraitPublicMethods,
+                );
+            }
+
+            $includedTraitMethodNames = [];
+
+            foreach ($includedTraitPublicMethods as $includedTraitMethod) {
+                $includedTraitMethodNames[] = $includedTraitMethod->getName();
+            }
+
+            foreach ($publicMethods as $publicMethod) {
+                if (!in_array($publicMethod->getName(), $includedTraitMethodNames, true)) {
+                    $publicFunctions[$traitClass][] = $publicMethod->getName();
+                }
+            }
+        }
+
+        return $publicFunctions;
     }
 }
