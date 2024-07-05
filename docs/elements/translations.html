@@ -3,9 +3,9 @@
 <article-paragraphs>
     <p>
         Use <br>
-        <code class="underline">Blumilk\BLT\Features\Translations</code> context <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Translations</code> context <br>
         or add <br>
-        <code class="underline">Blumilk\BLT\Features\Traits\Translations</code> trait to test your application's
+        <code class="text-sky-600">Blumilk\BLT\Features\Traits\Translations</code> trait to test your application's
         translations features.
     </p>
 </article-paragraphs>
@@ -60,10 +60,10 @@
 </article-paragraphs>
 
 <code-snippet
-        gherkin=" Then I should see the following phrases:
+        gherkin="Then I should see the following phrases:
             | locale | phrase   |
             | pl     | Ceny     |
-            | fr     | Baguette |"
+            | fr     | Prix     |"
         php="
     /**
      * @Then I should see the following phrases:
@@ -80,15 +80,14 @@
             Given a user is requesting :endpoint
         </code-block>
         before this step.
-
     </p>
 </article-paragraphs>
 
 <code-snippet
-        gherkin=" Then response should be translated as:
+        gherkin="Then response should be translated as:
             | locale | phrase   |
             | pl     | Ceny     |
-            | fr     | Baguette |"
+            | fr     | Prix     |"
         php="
     /**
      * @Then response should be translated as:
