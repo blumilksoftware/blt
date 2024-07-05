@@ -6,12 +6,12 @@ namespace Blumilk\BLT\Features\Traits;
 
 use Behat\Gherkin\Node\TableNode;
 use Illuminate\Contracts\Cookie\QueueingFactory as CookieFactory;
-use Illuminate\Http\Request;
 use PHPUnit\Framework\Assert;
 
 trait Cookies
 {
     use Application;
+    use HttpRequest;
 
     /**
      * @When I set cookie :name with value :value
@@ -31,8 +31,7 @@ trait Cookies
      */
     public function assertCookieValue(string $name, string $value): void
     {
-        $request = $this->getContainer()->make(Request::class);
-        $cookieValue = $this->request->cookie($name);
+        $cookieValue = $this->request->cookies->get($name);
         Assert::assertEquals($value, $cookieValue, "Cookie $name does not have the expected value $value.");
     }
 
@@ -53,8 +52,7 @@ trait Cookies
      */
     public function assertCookieNotExists(string $name): void
     {
-        $request = $this->getContainer()->make(Request::class);
-        $cookieValue = $request->cookie($name);
+        $cookieValue = $this->request->cookies->get($name);
         Assert::assertNull($cookieValue, "Cookie $name should not exist.");
     }
 
@@ -64,10 +62,8 @@ trait Cookies
      */
     public function assertCookiesExist(TableNode $table): void
     {
-        $request = $this->getContainer()->make(Request::class);
-
         foreach ($table as $row) {
-            $cookieValue = $this->request->cookie($row["name"]);
+            $cookieValue = $this->request->cookies->get($row["name"]);
             Assert::assertEquals($row["value"], $cookieValue, "Cookie {$row["name"]} does not have the expected value {$row["value"]}.");
         }
     }
