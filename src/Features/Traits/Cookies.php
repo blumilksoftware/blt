@@ -32,7 +32,7 @@ trait Cookies
     public function assertCookieValue(string $name, string $value): void
     {
         $request = $this->getContainer()->make(Request::class);
-        $cookieValue = $request->cookie($name);
+        $cookieValue = $this->request->cookie($name);
         Assert::assertEquals($value, $cookieValue, "Cookie $name does not have the expected value $value.");
     }
 
@@ -67,7 +67,7 @@ trait Cookies
         $request = $this->getContainer()->make(Request::class);
 
         foreach ($table as $row) {
-            $cookieValue = $request->cookie($row["name"]);
+            $cookieValue = $this->request->cookie($row["name"]);
             Assert::assertEquals($row["value"], $cookieValue, "Cookie {$row["name"]} does not have the expected value {$row["value"]}.");
         }
     }
