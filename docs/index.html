@@ -1,10 +1,11 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
     <title>Behat + Laravel Toolbox documentation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="./index.js" type="text/javascript" defer></script>
@@ -43,11 +44,13 @@
         <sidebar-header>Additional</sidebar-header>
         <sidebar-element href="elements/spatie-permission.html">Spatie permission</sidebar-element>
 
+        <sidebar-header>Helpers</sidebar-header>
+        <sidebar-element href="elements/helpers.html">Helpers</sidebar-element>
+
         <sidebar-header>External links</sidebar-header>
         <sidebar-element href="https://github.com/blumilksoftware/blt" target="_blank">GitHub</sidebar-element>
         <sidebar-element href="https://packagist.org/packages/blumilksoftware/blt" target="_blank">Packagist</sidebar-element>
         <sidebar-element href="https://docs.behat.org/en/latest/" target="_blank">Behat documentation</sidebar-element>
-        <sidebar-element href="https://packagist.org/packages/blumilksoftware/blt" target="_blank">Packagist</sidebar-element>
     </ul>
 </nav>
 <div class="flex-1 p-1 mt-24" id="content"></div>
@@ -71,11 +74,11 @@
         const sidebarElements = document.querySelectorAll('sidebar-element');
         sidebarElements.forEach(el => {
             const anchor = el.querySelector('a');
-            anchor.classList.remove('text-sky-600', 'font-semibold');
+            anchor.classList.remove('text-blue-600', 'font-semibold');
             anchor.textContent = anchor.textContent.replace(/^# /, '');
         });
         const anchor = element.querySelector('a');
-        anchor.classList.add('text-sky-600', 'font-semibold');
+        anchor.classList.add('text-blue-600', 'font-semibold');
         anchor.textContent = `# ${anchor.textContent}`;
     }
 

@@ -72,12 +72,26 @@ class CodeSnippet extends HTMLElement {
         const phpText = this.getAttribute('php');
 
         this.innerHTML = `
-            <div class="my-2 bg-black text-white text-sm px-4 py-3 rounded shadow-lg">
+            <div class="my-2 bg-black text-white text-sm px-4 py-3 rounded shadow-lg relative">
+                <div class="absolute top-2 right-2 flex space-x-2">
+                    <button class="text-xs hover:text-gray-600 dark:hover:text-gray-300 text-white px-2 py-4 rounded flex items-center" onclick="copyToClipboard(\`${gherkinText}\`)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+                    </svg>
+                        Copy Gherkin
+                    </button>
+                    <button class="text-xs hover:text-gray-600 dark:hover:text-gray-300 text-white px-2 py-2 rounded flex items-center" onclick="copyToClipboard(\`${phpText}\`)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+                    </svg>
+                        Copy PHP
+                    </button>
+                </div>
                 <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
                     <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab"
                         data-tabs-toggle="#default-tab-content" role="tablist">
                         <li class="me-2" role="presentation">
-                            <button class="inline-block p-4 border-b-2 rounded-t-lg" id="gherkin-tab"
+                            <button class="inline-block p-4 border-b-2 hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 rounded-t-lg" id="gherkin-tab"
                                     data-tabs-target="#gherkin" type="button" role="tab" aria-controls="gherkin"
                                     aria-selected="true">Gherkin
                             </button>
@@ -92,11 +106,13 @@ class CodeSnippet extends HTMLElement {
                     </ul>
                 </div>
                 <div id="default-tab-content">
-                    <div class="p-4 bg-black" id="gherkin" role="tabpanel" aria-labelledby="gherkin-tab">
-                    <pre><code class="gherkin bg-black ">${gherkinText}</code></pre>
+                    <div class="p-4 bg-black" id="gherkin" role="tabpanel"
+                         aria-labelledby="gherkin-tab">
+                        <pre><code class="gherkin bg-black text-white">${gherkinText}</code></pre>
                     </div>
-                    <div class="hidden p-4 bg-black" id="php" role="tabpanel" aria-labelledby="php-tab">
-                        <pre><code class="php bg-black ">${phpText}</code></pre>
+                    <div class="hidden p-4 bg-black" id="php" role="tabpanel"
+                         aria-labelledby="php-tab">
+                        <pre><code class="php bg-black text-white">${phpText}</code></pre>
                     </div>
                 </div>
             </div>
@@ -154,9 +170,9 @@ class CodeBlock extends HTMLElement {
     connectedCallback() {
         const content = this.innerHTML
         this.innerHTML = `
-            <div class="my-2 bg-black text-white text-sm px-4 py-3 rounded shadow-lg">
-              <pre>${content}</pre>
-            </div>
+            <pre><code class="php my-2 bg-black text-sm px-4 py-3 text-white rounded shadow-lg">
+              ${content}
+              </pre></code>
         `
     }
 }
@@ -183,6 +199,9 @@ function loadContent(page, element) {
         });
 }
 
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text)
+  }
 
 function highlightActive(element) {
     const sidebarElements = document.querySelectorAll('sidebar-element');
