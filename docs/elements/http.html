@@ -142,16 +142,16 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Given request cookies contains:
+<code-snippet
+        gherkin="Given request cookies contains:
             | key    | value          |
             | token  | abc123         |
             | userId | 42             |"
-              php="
+        php="
     /**
      * @Given request cookies contains:
      */
-    public function requestCookiesContains(TableNode $table): void
-"></code-snippet>
+    public function requestCookiesContains(TableNode $table): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -161,16 +161,16 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Given request server params contains:
-            | key       | value               |
+<code-snippet
+        gherkin="Given request server params contains:
+            | key         | value             |
             | SERVER_NAME | example.com       |
             | SERVER_PORT | 8080              |"
-              php="
+        php="
     /**
      * @Given request server params contains:
      */
-    public function requestServerParamsContains(TableNode $table): void
-"></code-snippet>
+    public function requestServerParamsContains(TableNode $table): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -179,12 +179,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Given request has bearer token '1|fQwW..EXAMPLE..8238a'" php="
+<code-snippet
+        gherkin="Given request has bearer token '1|fQwW..EXAMPLE..8238a'"
+        php="
     /**
      * @Given request has bearer token :token
      */
-    public function requestHasBearerToken(string $token): void
-"></code-snippet>
+    public function requestHasBearerToken(string $token): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -193,12 +194,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Given request has Accept Language header set to 'en-US'" php="
+<code-snippet
+        gherkin="Given request has Accept Language header set to 'en-US'"
+        php="
     /**
      * @Given request has Accept Language header set to :language
      */
-    public function requestHasAcceptLanguage(string $language): void
-"></code-snippet>
+    public function requestHasAcceptLanguage(string $language): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -207,12 +209,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Given request has Content Type header set to 'application/json'" php="
+<code-snippet
+        gherkin="Given request has Content Type header set to 'application/json'"
+        php="
     /**
      * @Given request has Content Type header set to :contentType
      */
-    public function requestHasContentType(string $contentType): void
-"></code-snippet>
+    public function requestHasContentType(string $contentType): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -221,12 +224,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Given request has User Agent header set to 'Mozilla/5.0 (Windows...)'" php="
+<code-snippet
+        gherkin="Given request has User Agent header set to 'Mozilla/5.0 (Windows...)'"
+        php="
     /**
      * @Given request has User Agent header set to :userAgent
      */
-    public function requestHasUserAgent(string $userAgent): void
-"></code-snippet>
+    public function requestHasUserAgent(string $userAgent): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -235,12 +239,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Given request has Host header set to 'example.com'" php="
+<code-snippet
+        gherkin="Given request has Host header set to 'example.com'"
+        php="
     /**
      * @Given request has Host header set to :host
      */
-    public function requestHasHost(string $host): void
-"></code-snippet>
+    public function requestHasHost(string $host): void"></code-snippet>
 
 <article-header>HttpResponse</article-header>
 
@@ -268,12 +273,13 @@
         need to verify the response from a specific request.
     </p>
 </article-paragraphs>
-<code-snippet gherkin="When a request is sent" php="
+<code-snippet
+        gherkin="When a request is sent"
+        php="
     /**
      * @When a request is sent
      */
-    public function aRequestIsSent(): void
-"></code-snippet>
+    public function aRequestIsSent(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -282,12 +288,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then a response status code should be 200" php="
+<code-snippet
+        gherkin="Then a response status code should be 200"
+        php="
     /**
      * @Then a response status code should be :status
      */
-    public function aResponseStatusCodeShouldBe(int $status): void
-"></code-snippet>
+    public function aResponseStatusCodeShouldBe(int $status): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -296,12 +303,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Given a response HTML should contain 'Welcome back!' phrase" php="
+<code-snippet
+        gherkin="Given a response HTML should contain 'Welcome back!' phrase"
+        php="
     /**
      * @Given a response HTML should contain :phrase phrase
      */
-    public function aResponseHTMLShouldContainPhrase(string $phrase): void
-"></code-snippet>
+    public function aResponseHTMLShouldContainPhrase(string $phrase): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -310,12 +318,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Given a response HTML should contain CSRF token" php="
+<code-snippet
+        gherkin="Given a response HTML should contain CSRF token"
+        php="
     /**
      * @Given a response HTML should contain CSRF token
      */
-    public function aResponseHTMLShouldContainCSRFToken(): void
-"></code-snippet>
+    public function aResponseHTMLShouldContainCSRFToken(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -324,12 +333,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response should be JSON" php="
+<code-snippet
+        gherkin="Then the response should be JSON"
+        php="
     /**
      * @Then the response should be JSON
      */
-    public function aResponseShouldBeJson(): void
-"></code-snippet>
+    public function aResponseShouldBeJson(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -338,13 +348,14 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="And the response should contain JSON:
-            | message | Language has been changed. |" php="
+<code-snippet
+        gherkin="And the response should contain JSON:
+            | message | Language has been changed. |"
+        php="
     /**
      * @Then the response should contain JSON:
      */
-    public function aResponseShouldContainJson(TableNode $table): void
-"></code-snippet>
+    public function aResponseShouldContainJson(TableNode $table): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -353,14 +364,14 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin=" And the response should contain JSON:
-            | message | Language  |
-" php="
+<code-snippet
+        gherkin=" And the response should contain JSON:
+            | message | Language  |"
+        php="
     /**
      * @Then the response should contain a JSON fragment:
      */
-    public function aResponseShouldContainJsonFragment(TableNode $table): void
-"></code-snippet>
+    public function aResponseShouldContainJsonFragment(TableNode $table): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -369,12 +380,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response should have cookie token" php="
+<code-snippet
+        gherkin="Then the response should have cookie token"
+        php="
     /**
      * @Then the response should have cookie :name
      */
-    public function aResponseShouldHaveCookie(string $name): void
-"></code-snippet>
+    public function aResponseShouldHaveCookie(string $name): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -383,12 +395,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response should have header 'Content-Type'" php="
+<code-snippet
+        gherkin="Then the response should have header 'Content-Type'"
+        php="
     /**
      * @Then the response should have header :header
      */
-    public function aResponseShouldHaveHeader(string $header): void
-"></code-snippet>
+    public function aResponseShouldHaveHeader(string $header): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -397,12 +410,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response should have header 'Content-Type' equal to 'application/json'" php="
+<code-snippet
+        gherkin="Then the response should have header 'Content-Type' equal to 'application/json'"
+        php="
     /**
      * @Then the response should have header :header equal to :value
      */
-    public function aResponseShouldHaveHeaderEqualTo(string $header, string $value): void
-"></code-snippet>
+    public function aResponseShouldHaveHeaderEqualTo(string $header, string $value): void"></code-snippet>
 
 
 <article-paragraphs>
@@ -412,12 +426,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response status should be OK" php="
+<code-snippet
+        gherkin="Then the response status should be OK"
+        php="
     /**
      * @Then the response status should be OK
      */
-    public function aResponseStatusShouldBeOk(): void
-"></code-snippet>
+    public function aResponseStatusShouldBeOk(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -426,12 +441,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response status should be created" php="
+<code-snippet
+        gherkin="Then the response status should be created"
+        php="
     /**
      * @Then the response status should be created
      */
-    public function aResponseStatusShouldBeCreated(): void
-"></code-snippet>
+    public function aResponseStatusShouldBeCreated(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -440,12 +456,14 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response status should be no content" php="
+<code-snippet
+
+        gherkin="Then the response status should be no content"
+        php="
     /**
      * @Then the response status should be no content
      */
-    public function aResponseStatusShouldBeNoContent(): void
-"></code-snippet>
+    public function aResponseStatusShouldBeNoContent(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -454,12 +472,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response status should be bad request" php="
+<code-snippet
+        gherkin="Then the response status should be bad request"
+        php="
     /**
      * @Then the response status should be bad request
      */
-    public function aResponseStatusShouldBeBadRequest(): void
-"></code-snippet>
+    public function aResponseStatusShouldBeBadRequest(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -468,12 +487,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response status should be unauthorized" php="
+<code-snippet
+        gherkin="Then the response status should be unauthorized"
+        php="
     /**
      * @Then the response status should be unauthorized
      */
-    public function aResponseStatusShouldBeUnauthorized(): void
-"></code-snippet>
+    public function aResponseStatusShouldBeUnauthorized(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -482,12 +502,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response status should be forbidden" php="
+<code-snippet
+        gherkin="Then the response status should be forbidden"
+        php="
     /**
      * @Then the response status should be forbidden
      */
-    public function aResponseStatusShouldBeForbidden(): void
-"></code-snippet>
+    public function aResponseStatusShouldBeForbidden(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -498,12 +519,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response status should be not found" php="
+<code-snippet
+        gherkin="Then the response status should be not found"
+        php="
     /**
      * @Then the response status should be not found
      */
-    public function aResponseStatusShouldBeNotFound(): void
-"></code-snippet>
+    public function aResponseStatusShouldBeNotFound(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -512,12 +534,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response status should be conflict" php="
+<code-snippet
+        gherkin="Then the response status should be conflict"
+        php="
     /**
      * @Then the response status should be conflict
      */
-    public function aResponseStatusShouldBeConflict(): void
-"></code-snippet>
+    public function aResponseStatusShouldBeConflict(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -526,12 +549,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response status should be unprocessable" php="
+<code-snippet
+        gherkin="Then the response status should be unprocessable"
+        php="
     /**
      * @Then the response status should be unprocessable
      */
-    public function aResponseStatusShouldBeUnprocessable(): void
-"></code-snippet>
+    public function aResponseStatusShouldBeUnprocessable(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -540,12 +564,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response status should be too many requests" php="
+<code-snippet
+        gherkin="Then the response status should be too many requests"
+        php="
     /**
      * @Then the response status should be too many requests
      */
-    public function aResponseStatusShouldBeTooManyRequests(): void
-"></code-snippet>
+    public function aResponseStatusShouldBeTooManyRequests(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -554,12 +579,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response status should be gone" php="
+<code-snippet
+        gherkin="Then the response status should be gone"
+        php="
     /**
      * @Then the response status should be gone
      */
-    public function aResponseStatusShouldBeGone(): void
-"></code-snippet>
+    public function aResponseStatusShouldBeGone(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -568,12 +594,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response status should be service unavailable" php="
+<code-snippet
+        gherkin="Then the response status should be service unavailable"
+        php="
     /**
      * @Then the response status should be service unavailable
      */
-    public function aResponseStatusShouldBeServiceUnavailable(): void
-"></code-snippet>
+    public function aResponseStatusShouldBeServiceUnavailable(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -582,12 +609,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response status should be found" php="
+<code-snippet
+        gherkin="Then the response status should be found"
+        php="
     /**
      * @Then the response status should be found
      */
-    public function aResponseStatusShouldBeFound(): void
-"></code-snippet>
+    public function aResponseStatusShouldBeFound(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -596,12 +624,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response should be redirected to '/dashboard'" php="
+<code-snippet
+        gherkin="Then the response should be redirected to '/dashboard'"
+        php="
     /**
      * @Then the response should be redirected to :url
      */
-    public function aResponseShouldBeRedirectedTo(string $url): void
-"></code-snippet>
+    public function aResponseShouldBeRedirectedTo(string $url): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -610,12 +639,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response should have a header 'Content-type' containing 'application/json'" php="
+<code-snippet
+        gherkin="Then the response should have a header 'Content-type' containing 'application/json'"
+        php="
     /**
      * @Then the response should have a header :header containing :value
      */
-    public function aResponseShouldHaveHeaderContaining(string $header, string $value): void
-"></code-snippet>
+    public function aResponseShouldHaveHeaderContaining(string $header, string $value): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -624,9 +654,10 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the response should have no content" php="
+<code-snippet
+        gherkin="Then the response should have no content"
+        php="
     /**
      * @Then the response should have no content
      */
-    public function aResponseShouldHaveNoContent(): void
-"></code-snippet>
+    public function aResponseShouldHaveNoContent(): void"></code-snippet>

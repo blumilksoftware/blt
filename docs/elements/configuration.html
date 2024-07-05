@@ -34,10 +34,11 @@
         The configuration allows for specifying default namespaces and types for the package. You can also define custom helpers that are extending existing ones to better fit your application's needs.
     </p>
     <code-block>
-        "types" => [
-        "user" => "App\Models\User",
-        "role" => "Spatie\Permission\Models\Role",
-        //you can define additional namespaces: "model" => "My\App\Namespace\Models\\",
+        "helpers" => [
+        "array" => ArrayHelper::class,
+        "boolean" => BooleanHelper::class,
+        "class" => ClassHelper::class,
+        "nullable" => "App\My|Namespace\MyHelper"
         ],
     </code-block>
 </article-paragraphs>

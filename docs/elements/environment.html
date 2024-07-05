@@ -1,118 +1,92 @@
 <article-header>Environment</article-header>
 <article-paragraphs>
-  <p>
-    Use <br>
-    <code class="underline">Blumilk\BLT\Features\Environment</code> context <br>
-    or add <br>
-    <code class="underline">Blumilk\BLT\Features\Traits\Environment</code> trait to test your application's
-    environment features.
-  </p>
+    <p>
+        Use <br>
+        <code class="underline">Blumilk\BLT\Features\Environment</code> context <br>
+        or add <br>
+        <code class="underline">Blumilk\BLT\Features\Traits\Environment</code> trait to test your application's
+        environment features.
+    </p>
 </article-paragraphs>
 
 <article-paragraphs>
-  <p>
-    In the development and testing of Laravel applications, the environment
-    configuration plays a crucial role. The environment settings determine how
-    your application behaves under different conditions and scenarios. By
-    configuring the environment appropriately, you can simulate production,
-    development, and testing setups to ensure your application is robust and
-    reliable.
-  </p>
-  <p>
-    This chapter covers various aspects of environment configuration in Laravel,
-    including how to change configuration values dynamically during testing with
-    Behat. You will learn how to set up different environments, modify
-    configuration settings for specific test scenarios, and leverage these
-    configurations to catch potential issues early in the development cycle.
-    Understanding and managing environment configurations effectively will help
-    you create more resilient and adaptable applications.
-  </p>
+    <p>
+        In the development and testing of Laravel applications, the environment
+        configuration plays a crucial role. The environment settings determine how
+        your application behaves under different conditions and scenarios. By
+        configuring the environment appropriately, you can simulate production,
+        development, and testing setups to ensure your application is robust and
+        reliable.
+    </p>
+    <p>
+        This chapter covers various aspects of environment configuration in Laravel,
+        including how to change configuration values dynamically during testing with
+        Behat. You will learn how to set up different environments, modify
+        configuration settings for specific test scenarios, and leverage these
+        configurations to catch potential issues early in the development cycle.
+        Understanding and managing environment configurations effectively will help
+        you create more resilient and adaptable applications.
+    </p>
 </article-paragraphs>
 
 <section-header>Changing Laravel configuration values</section-header>
 <article-paragraphs>
-  <p>
-    When working with Laravel applications, you might need to change
-    configuration values during your tests to simulate different environments or
-    settings. This is particularly useful in Behat testing to ensure your
-    application behaves correctly under various configurations.
-  </p>
-  <p>
-    The following examples demonstrate how to modify configuration values for
-    your Laravel application during Behat tests. By setting different
-    configuration parameters, you can test specific scenarios and edge cases
-    more effectively.
-  </p>
+    <p>
+        When working with Laravel applications, you might need to change
+        configuration values during your tests to simulate different environments or
+        settings. This is particularly useful in Behat testing to ensure your
+        application behaves correctly under various configurations.
+    </p>
+    <p>
+        The following examples demonstrate how to modify configuration values for
+        your Laravel application during Behat tests. By setting different
+        configuration parameters, you can test specific scenarios and edge cases
+        more effectively.
+    </p>
 </article-paragraphs>
 
 <code-snippet gherkin="Given application is booted with config:
       | config | value |
       | app.env | local |"
-php="
+              php="
     /**
      * @Given application is booted with config:
      */
-    public function applicationIsBootedWithConfig(array $config): void
-    {
-        $bootstrap = $this->provideBootstraper();
-        $bootstrap->setConfigOverrides($config);
-
-        if (array_key_exists('app.env', $config)) {
-            $bootstrap->setEnvironmentType($config['app.env']);
-        }
-
-        $bootstrap->boot();
-    }
-"></code-snippet>
+    public function applicationIsBootedWithConfig(array $config): void"></code-snippet>
 
 <article-paragraphs>
-  <p>
-    In this example, the application is configured to run in the 'local'
-    environment. This setting is ideal for development and testing purposes. By
-    ensuring that 'app.env' is set to 'local', you can simulate the behavior of
-    your application as it would run on a developer's machine.
-  </p>
-  <p>
-    Adjusting the environment configuration helps in identifying issues that
-    might not be apparent in production but could affect development or testing
-    environments.
-  </p>
+    <p>
+        In this example, the application is configured to run in the 'local'
+        environment. This setting is ideal for development and testing purposes. By
+        ensuring that 'app.env' is set to 'local', you can simulate the behavior of
+        your application as it would run on a developer's machine.
+    </p>
+    <p>
+        Adjusting the environment configuration helps in identifying issues that
+        might not be apparent in production but could affect development or testing
+        environments.
+    </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Given application is booted with config:
+<code-snippet
+        gherkin="Given application is booted with config:
       | config | value |
       | telescope.enabled | true |"
-php="
+        php="
     /**
      * @Transform table:config,value
      */
-    public function castConfigBoolValues(TableNode $configTable): array
-    {
-        $config = [];
-
-        foreach ($configTable as $row) {
-            $key = $row['config'];
-            $value = $row['value'];
-
-            if (in_array($value, ['true', 'false'], true)) {
-                $value = $value === 'true';
-            }
-            $config[$key] = $value;
-        }
-
-        return $config;
-    }
-"></code-snippet>
+    public function castConfigBoolValues(TableNode $configTable): array"></code-snippet>
 
 <article-paragraphs>
-  <p>
-    Here, we enable Laravel Telescope, a debugging assistant for Laravel.
-    Enabling Telescope during tests can help you monitor and debug the actions
-    that your application performs during a Behat scenario.
-  </p>
-  <p>
-    By enabling or disabling certain features like Telescope, you can ensure
-    that your application behaves correctly with different toolsets and
-    configurations, leading to more robust and reliable software.
-  </p>
+    <p>
+        Here, we enable Laravel Telescope, a debugging assistant for Laravel.
+        Enabling Telescope during tests can help you monitor and debug the actions
+        that your application performs during a Behat scenario.
+    </p>
+    <p>
+        By enabling or disabling certain features like Telescope, you can ensure
+        that your application behaves correctly with different toolsets and
+        configurations, leading to more robust and reliable software.
+    </p>
 </article-paragraphs>

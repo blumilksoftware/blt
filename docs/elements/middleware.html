@@ -27,13 +27,13 @@
         You can specify the middleware class to disable it.
     </p>
 </article-paragraphs>
-<code-snippet gherkin="Given there is 'App\Http\Middleware\Authenticate' middleware disabled
-" php="
+<code-snippet
+        gherkin="Given there is 'App\Http\Middleware\Authenticate' middleware disabled"
+        php="
     /**
      * @Given there is :middleware middleware disabled
      */
-    public function disableMiddleware(string $middleware): void
-"></code-snippet>
+    public function disableMiddleware(string $middleware): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -42,16 +42,17 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Given there are middlewares disabled:
+<code-snippet
+        gherkin="Given there are middlewares disabled:
         | middleware                                |
         | App\Http\Middleware\Authenticate          |
         | App\Http\Middleware\VerifyCsrfToken       |
-        | App\Http\Middleware\ThrottleRequests      |" php="
+        | App\Http\Middleware\ThrottleRequests      |"
+        php="
     /**
      * @Given there are middlewares disabled:
      */
-    public function disableMiddlewares(TableNode $table): void
-"></code-snippet>
+    public function disableMiddlewares(TableNode $table): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -60,12 +61,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Given there's throttling middleware disabled" php="
+<code-snippet
+        gherkin="Given there's throttling middleware disabled"
+        php="
     /**
      * @Given there's throttling middleware disabled
      */
-    public function disableThrottling(): void
-"></code-snippet>
+    public function disableThrottling(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -74,12 +76,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Given there's CSRF protection middleware disabled" php="
+<code-snippet
+        gherkin="Given there's CSRF protection middleware disabled"
+        php="
     /**
      * @Given there's CSRF protection middleware disabled
      */
-    public function disableCsrfProtection(): void
-"></code-snippet>
+    public function disableCsrfProtection(): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -88,12 +91,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Given there is a 'App\Http\Middleware\Authenticate' middleware enabled" php="
+<code-snippet
+        gherkin="Given there is a 'App\Http\Middleware\Authenticate' middleware enabled"
+        php="
     /**
      * @Given there is a :middleware middleware enabled
      */
-    public function enableMiddleware(string $middleware): void
-"></code-snippet>
+    public function enableMiddleware(string $middleware): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -102,12 +106,13 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then request object should have an UUID in 'transaction_id' field" php="
+<code-snippet
+        gherkin="Then request object should have an UUID in 'transaction_id' field"
+        php="
     /**
      * @Then request object should have an UUID in :field field
      */
-    public function requestShouldHaveUuidInField(string $field): void
-"></code-snippet>
+    public function requestShouldHaveUuidInField(string $field): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -116,10 +121,10 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="Then the middleware 'App\Http\Middleware\Authenticate' should be applied to the request
-" php="
+<code-snippet
+        gherkin="Then the middleware 'App\Http\Middleware\Authenticate' should be applied to the request"
+        php="
     /**
      * @Then the middleware :middleware should be applied to the request
      */
-    public function middlewareShouldBeAppliedToRequest(string $middleware): void
-"></code-snippet>
+    public function middlewareShouldBeAppliedToRequest(string $middleware): void"></code-snippet>
