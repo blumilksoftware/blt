@@ -1,0 +1,76 @@
+<article-header>View</article-header>
+
+<article-paragraphs>
+    <p>
+        Use <br>
+        <code class="underline">Blumilk\BLT\Features\View</code> context <br>
+        or add <br>
+        <code class="underline">Blumilk\BLT\Features\Traits\View</code> trait to test your application's
+        view features.
+    </p>
+</article-paragraphs>
+
+<section-header>View Methods</section-header>
+<article-paragraphs>
+    <p>
+        The <code>View</code> trait provides several methods to handle views within your Laravel application. These methods help ensure that your application's views are rendered correctly and contain the expected data.
+    </p>
+</article-paragraphs>
+
+<article-paragraphs>
+    <p>
+        This snippet sets the view that the user is looking at, with optional parameters. It allows you to test scenarios where specific views need to be rendered with given parameters.
+        <br>
+        You can specify the view name and optionally pass a table of parameters to the view.
+    </p>
+</article-paragraphs>
+<code-snippet gherkin="Given user is looking at Landing Index view with:
+            | key   | value     |
+            | title | Welcome   |
+            | name  | UserName  |" php="
+    /**
+     * @Given user is looking at :page :view view
+     * @Given user is looking at :view view
+     * @Given user is looking at :page :view view with:
+     * @Given user is looking at :view view with:
+     * @throws BindingResolutionException
+     */
+    public function userIsLookingAtView(string $view, string $page = '', ?TableNode $table = null): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>theViewContains</code> method verifies that the view contains the specified data. This is useful for ensuring that the view has the expected data passed to it.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then view should contain 'UserName'" php="
+    /**
+     * @Then view should contain :data
+     */
+    public function theViewContains(string $data): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>viewResponseContains</code> method verifies that the response view contains the specified data.
+        This is useful for ensuring that the response includes the expected view data.
+    </p>
+    <p>Requires running</p>
+    <code-block>
+        Given a user is requesting :endpoint
+        [...]
+        Given a request is sent
+    </code-block>
+    <p>before in your test scenario.</p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then view response contains:
+            | key   | value     |
+            | title | Welcome   |
+            | name  | UserName  |" php="
+    /**
+     * @Then view response contains:
+     */
+    public function viewResponseContains(TableNode $table): void
+"></code-snippet>
