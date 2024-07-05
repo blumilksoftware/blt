@@ -13,73 +13,84 @@
 <section-header>Translations Methods</section-header>
 <article-paragraphs>
     <p>
-        The <code>Translations</code> trait provides several methods to handle translations within your Laravel application. These methods help ensure that your application's localization and translation features are functioning as expected.
+        The <code>Translations</code> trait provides several methods to handle translations within your Laravel
+        application. These methods help ensure that your application's localization and translation features are
+        functioning as expected.
     </p>
 </article-paragraphs>
 
 <article-paragraphs>
     <p>
-        This snippet sets the application's locale to the specified language. It allows you to test scenarios where different locales need to be set.
+        This snippet sets the application's locale to the specified language. It allows you to test scenarios where
+        different locales need to be set.
         <br>
         You can specify the locale code (e.g., 'en', 'fr', 'es') to change the application's language.
     </p>
 </article-paragraphs>
-<code-snippet gherkin="Given localization is set to 'pl'" php="
+<code-snippet
+        gherkin="Given localization is set to 'pl'"
+        php="
     /**
      * @Given locale is set to :locale
      * @Given localization is set to :locale
      */
-    public function setLocale(string $locale): void
-"></code-snippet>
+    public function setLocale(string $locale): void"></code-snippet>
 
 <article-paragraphs>
     <p>
-        The <code>askToTranslate</code> method sets the input phrase to be translated. This is useful for scenarios where you need to test the translation of specific phrases.
+        The <code>askToTranslate</code> method sets the input phrase to be translated. This is useful for scenarios
+        where you need to test the translation of specific phrases.
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="When I ask for translations of 'Prices'" php="
+<code-snippet
+        gherkin="When I ask for translations of 'Prices'"
+        php="
     /**
      * @When I ask to translate :input
      * @When I ask for translations of :input
      */
-    public function askToTranslate(string $input): void
-"></code-snippet>
+    public function askToTranslate(string $input): void"></code-snippet>
 
 <article-paragraphs>
     <p>
-        The <code>assertTranslationMatches</code> method verifies that the translations match the expected phrases. This is useful for ensuring that the translations are correct for different locales.
+        The <code>assertTranslationMatches</code> method verifies that the translations match the expected phrases. This
+        is useful for ensuring that the translations are correct for different locales.
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin=" Then I should see the following phrases:
+<code-snippet
+        gherkin=" Then I should see the following phrases:
             | locale | phrase   |
             | pl     | Ceny     |
-            | fr     | Baguette |" php="
+            | fr     | Baguette |"
+        php="
     /**
      * @Then I should see the following phrases:
      */
-    public function assertTranslationMatches(?TableNode $table = null): void
-"></code-snippet>
+    public function assertTranslationMatches(?TableNode $table = null): void"></code-snippet>
 
 <article-paragraphs>
     <p>
-        The <code>assertEndpointTranslationMatches</code> method verifies that the response from an endpoint matches the expected translations for different locales. This is useful for ensuring that API responses are correctly translated.
+        The <code>assertEndpointTranslationMatches</code> method verifies that the response from an endpoint matches the
+        expected translations for different locales. This is useful for ensuring that API responses are correctly
+        translated.
         You'll need to run
         <code-block>
-        Given a user is requesting :endpoint
+            Given a user is requesting :endpoint
         </code-block>
         before this step.
 
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin=" Then response should be translated as:
+<code-snippet
+        gherkin=" Then response should be translated as:
             | locale | phrase   |
             | pl     | Ceny     |
-            | fr     | Baguette |" php="
+            | fr     | Baguette |"
+        php="
     /**
      * @Then response should be translated as:
      */
-    public function assertEndpointTranslationMatches(?TableNode $table = null): void
-"></code-snippet>
+    public function assertEndpointTranslationMatches(?TableNode $table = null): void"></code-snippet>

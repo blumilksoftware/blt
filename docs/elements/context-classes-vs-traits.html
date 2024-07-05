@@ -1,21 +1,28 @@
 <article-header>Context Classes vs. Traits</article-header>
 <article-paragraphs>
-<p>
-In this package, both context classes and traits are utilized to extend the functionality and modularity of your Behat tests. While context classes serve as the primary structure for defining test behaviors, traits allow you to encapsulate and reuse common test logic across different contexts.
-</p>
-<p>
-Traits provide predefined methods that can be included in your context classes to perform specific actions. By using traits, you can avoid code duplication and ensure consistency across your test scenarios. For example, the <code class="underline">HttpResponse</code> trait includes methods for asserting the status and content of HTTP responses, while the <code class="underline">Translations</code> trait provides methods for testing translation features in your Laravel application.
-</p>
+    <p>
+        In this package, both context classes and traits are utilized to extend the functionality and modularity of your
+        Behat tests. While context classes serve as the primary structure for defining test behaviors, traits allow you
+        to encapsulate and reuse common test logic across different contexts.
+    </p>
+    <p>
+        Traits provide predefined methods that can be included in your context classes to perform specific actions. By
+        using traits, you can avoid code duplication and ensure consistency across your test scenarios. For example, the
+        <code class="underline">HttpResponse</code> trait includes methods for asserting the status and content of HTTP
+        responses, while the <code class="underline">Translations</code> trait provides methods for testing translation
+        features in your Laravel application.
+    </p>
 </article-paragraphs>
 
 <section-header>Using Traits in Context Classes</section-header>
 <article-paragraphs>
-<p>
-To use a trait in your context class, simply include it using the use keyword. Here is an example of how to include the <code class="underline">HttpResponse</code> trait in a context class:
-</p>
+    <p>
+        To use a trait in your context class, simply include it using the use keyword. Here is an example of how to
+        include the <code class="underline">HttpResponse</code> trait in a context class:
+    </p>
 </article-paragraphs>
 
-<article-paragraph>
+<article-paragraphs>
 
     <code-block>
         &lt;?php
@@ -29,14 +36,15 @@ To use a trait in your context class, simply include it using the use keyword. H
 
         class HttpResponseContext implements Context
         {
-            use HttpResponse;
+        use HttpResponse;
         }
-</code-block>
+    </code-block>
 
-</article-paragraphs>
+    </article-paragraphs>
 
-<article-paragraphs>
-    <p>
-        By leveraging traits, you can streamline your test scenarios and ensure consistent behavior across different contexts. This modular approach helps maintain cleaner and more efficient test code.
-    </p>
-</article-paragraphs>
+    <article-paragraphs>
+        <p>
+            By leveraging traits, you can streamline your test scenarios and ensure consistent behavior across different
+            contexts. This modular approach helps maintain cleaner and more efficient test code.
+        </p>
+    </article-paragraphs>
