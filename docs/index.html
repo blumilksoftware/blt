@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="customHighlight.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
     <title>Behat + Laravel Toolbox documentation</title>
@@ -54,7 +55,16 @@
     </ul>
 </nav>
 <div class="flex-1 p-1 mt-24" id="content"></div>
-</body>
+
+<div id="toast" class="hidden fixed bottom-4 right-4 z-50 flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+    <div id="check.icon-container" class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200"></div>
+    <div id="toast-message" class="ml-3 text-sm font-normal">Text copied to clipboard.</div>
+    <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" onclick="hideToast()">
+        <span class="sr-only">Close</span>
+        <div id="close.icon-container"></div>
+    </button>
+</div>
+
 <script>
     function loadContent(page, element) {
         fetch(page)
@@ -95,6 +105,8 @@
         const defaultElement = document.querySelector('sidebar-element[href="elements/overview.html"]');
         loadContent("elements/overview.html", defaultElement);
         highlightActive(defaultElement);
+        loadSVG('icons/check.icon.svg', 'check.icon-container');
+        loadSVG('icons/close.icon.svg', 'close.icon-container');
     });
 
     document.querySelectorAll('sidebar-element').forEach(element => {
@@ -112,5 +124,38 @@
 
     const currentElement = document.querySelector('sidebar-element[href="elements/overview.html"]');
     loadNextContent(currentElement);
+
+    function copyToClipboard(text, type) {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast(`Copied ${type} to clipboard`);
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+    }
+
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+        toastMessage.textContent = message;
+        toast.classList.remove('hidden');
+        setTimeout(() => {
+            hideToast();
+        }, 3000);
+    }
+
+    function hideToast() {
+        const toast = document.getElementById('toast');
+        toast.classList.add('hidden');
+    }
+
+    function loadSVG(url, containerId) {
+        fetch(url)
+            .then(response => response.text())
+            .then(svg => {
+                document.getElementById(containerId).innerHTML = svg;
+            })
+            .catch(error => console.error('Error loading SVG:', error));
+    }
 </script>
+</body>
 </html>

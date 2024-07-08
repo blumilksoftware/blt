@@ -33,7 +33,7 @@ trait Database
     }
 
     /**
-     * @Given :class seeder has been ran
+     * @Given :class seeder has been run
      */
     public function seederWasRan(string $class): void
     {
