@@ -22,6 +22,9 @@ class DocumentationTest extends TestCase
                 } elseif (str_ends_with($filePath, "httpresponse.html")) {
                     $filePath = str_replace("httpresponse.html", "http.html", $filePath);
                 }
+                if(str_ends_with($filePath, "spatiepermission.html")){
+                    $filePath = str_replace("spatiepermission.html", "spatie-permission.html", $filePath);
+                }
 
                 if (!file_exists($filePath)) {
                     $this->fail("Documentation file $filePath does not exist.");
