@@ -204,7 +204,7 @@ function loadContent(page, element) {
         });
 }
 
-function copyToClipboard(text, type) {
+function copyToClipboard(text, type = 'Text') {
     navigator.clipboard.writeText(text).then(() => {
         showToast(`Copied ${type} to clipboard`);
     }).catch(err => {

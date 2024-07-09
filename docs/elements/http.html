@@ -32,7 +32,7 @@
         You can specify the request method (GET, POST, etc.) and the endpoint URL.
     </p>
 </article-paragraphs>
-<code-snippet gherkin="Given a user is requesting '/login/ using 'POST' method" php="
+<code-snippet gherkin="Given a user is requesting 'login' using 'POST' method" php="
     /**
      * @Given a user is requesting :url
      * @Given a user is requesting :url using :method method
@@ -349,7 +349,7 @@
 </article-paragraphs>
 
 <code-snippet
-        gherkin="And the response should contain JSON:
+        gherkin="Then response should contain JSON fragment:
             | message | Language has been changed. |"
         php="
     /**
@@ -365,7 +365,7 @@
 </article-paragraphs>
 
 <code-snippet
-        gherkin=" And the response should contain JSON:
+        gherkin="Then response should contain JSON fragment:
             | message | Language  |"
         php="
     /**
@@ -661,4 +661,3 @@
      * @Then the response should have no content
      */
     public function aResponseShouldHaveNoContent(): void"></code-snippet>
-    
