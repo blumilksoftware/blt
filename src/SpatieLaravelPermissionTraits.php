@@ -6,5 +6,5 @@ namespace Blumilk\BLT;
 
 class SpatieLaravelPermissionTraits
 {
-public const HAS_ROLES = "Spatie\Permission\Traits\HasRoles";
+    public const HAS_ROLES = "Spatie\Permission\Traits\HasRoles";
 }
