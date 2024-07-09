@@ -1,0 +1,23 @@
+<article-header>Installation</article-header>
+<article-paragraphs>
+    <p>To start using a package if you don't already have Behat initialized in your project:</p>
+    <code-block>
+        composer require blumilksoftware/blt --dev<br>
+        php artisan blt:init
+    </code-block>
+    <p>Or if you want to do that manually:</p>
+    <p>Use Composer to get the package from the Packagist repository:</p>
+    <code-block>
+        composer require blumilksoftware/blt --dev
+    </code-block>
+    <p>Create .env.behat file in your project root directory and set up your environment variables for Behat.</p>
+    <code-block>
+        cp .env.example .env.behat
+    </code-block>
+    <p>Initialize Behat in your project:</p>
+    <code-block>
+        php vendor/bin/behat --init
+    </code-block>
+    <p>To learn more about Behat visit <a href="https://docs.behat.org/en/latest/guides.html"
+                                          class="text-sky-600">Behat</a> documentation.</p>
+</article-paragraphs>

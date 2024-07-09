@@ -1,0 +1,44 @@
+<article-header>Cnfiguration</article-header>
+
+<article-paragraphs>
+  <p>
+      The <code>config</code> file in the BLT package contains the configuration settings for the package. You can customize these settings to suit your application's requirements.</p>
+    <p>Here's default configuration file that is being stored in <code class="text-sky-600">config/blt.php:</code>
+    <code-block>
+        &#60?php
+
+        declare(strict_types=1);
+        use Blumilk\BLT\Helpers\ArrayHelper;
+        use Blumilk\BLT\Helpers\BooleanHelper;
+        use Blumilk\BLT\Helpers\ClassHelper;
+        use Blumilk\BLT\Helpers\NullableHelper;
+
+        return [
+            "namespaces" => [
+              "default" => "App\\",
+              "types" => [
+                "user" => "App\Models\User",
+                "role" => "Spatie\Permission\Models\Role",
+               //you can define additional namespaces: "model" => "My\App\Namespace\Model\\",
+            ],
+            ],
+            "helpers" => [
+               "array" => ArrayHelper::class,
+               "boolean" => BooleanHelper::class,
+               "class" => ClassHelper::class,
+               "nullable" => NullableHelper::class,
+            ],
+        ];
+    </code-block>
+    <p>
+        The configuration allows for specifying default namespaces and types for the package. You can also define custom helpers that are extending existing ones to better fit your application's needs.
+    </p>
+    <code-block>
+        "helpers" => [
+            "array" => ArrayHelper::class,
+         "boolean" => BooleanHelper::class,
+           "class" => ClassHelper::class,
+          "nullable" => "App\My|Namespace\MyHelper"
+        ],
+    </code-block>
+</article-paragraphs>

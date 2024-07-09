@@ -1,0 +1,59 @@
+<section-header>Helpers</section-header>
+
+<article-paragraphs>
+<p>We have a few helpers in use that, if you want, you can replace with your own to better suit your use case.</p>
+
+<p>If you want to use Your helper, just change namespaces in config file at <code class="text-sky-600">config/blt.php</code>.</p>
+
+    <code-block>
+use Blumilk\BLT\Helpers\ArrayHelper;
+use Blumilk\BLT\Helpers\BooleanHelper;
+use Blumilk\BLT\Helpers\ClassHelper;
+use Blumilk\BLT\Helpers\NullableHelper;
+
+        "helpers" => [
+        "array" => ArrayHelper::class,
+        "boolean" => BooleanHelper::class,
+        "class" => ClassHelper::class,
+        "nullable" => NullableHelper::class,
+        "user" => "App\MyHelpers\ReplacementHelper",
+        ],
+    </code-block>
+
+    <p>Your replacement helpers should be inheriting after ours though, ensuring compatibility</p>
+
+    <section-header>Helper functions:</section-header>
+    <p>ArrayHelper.php</p>
+    <code-block>
+    public function toArray(string|array $input, string $separator = " "): array
+
+    public function toString(string|array $input, string $separator = " "): string
+    </code-block>
+
+    <p>BooleanHelper.php</p>
+    <code-block>
+        public function toBoolean(string $value): bool
+    </code-block>
+
+    <p>NullableHelper.php</p>
+    <code-block>
+        public function toNullable(string $nullable): ?string
+    </code-block>
+
+    <p>ClassHelper.php</p>
+    <code-block>
+        public function recognizeObjectClass(string $objectName): string
+
+        public function getObjectNamespace(string $type): string
+
+        public function guessType(string $objectName): string
+    </code-block>
+
+    <p>UserHelper.php</p>
+    <code-block>
+        public function getBy(string $field, string $value): ?object
+
+        public function getByEmail(string $value): ?object
+    </code-block>
+
+</article-paragraphs>

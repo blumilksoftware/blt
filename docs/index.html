@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="customHighlight.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gherkin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
+    <title>Behat + Laravel Toolbox documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./index.js" type="text/javascript" defer></script>
+</head>
+<body class="mx-auto max-w-7xl p-12 flex gap-12">
+<nav class="w-[18%] flex flex-col -mt-12 max-h-screen" aria-label="Sidebar">
+    <ul role="list" class="sticky top-0 pt-12 -mx-2 text-xs text-gray-500">
+        <li class="pl-3 flex flex-col mb-8">
+            <img src="img/BLT.png" alt="BLT Logo" class="w-20 h-20 mx-auto mb-4" />
+            <span class="text-2xl text-gray-900 font-semibold">BLT</span>
+            <span class="mt-0.5 text-sm text-gray-500">Behat + Laravel Toolbox</span>
+        </li>
+        <sidebar-header>General</sidebar-header>
+        <sidebar-element href="elements/overview.html">Overview</sidebar-element>
+        <sidebar-element href="elements/installation.html">Installation</sidebar-element>
+        <sidebar-element href="elements/configuration.html">Configuration</sidebar-element>
+        <sidebar-element href="elements/basic-usage.html">Basic usage</sidebar-element>
+        <sidebar-element href="elements/context-classes-vs-traits.html">Context classes vs. traits</sidebar-element>
+        <sidebar-element href="elements/faq.html">FAQ</sidebar-element>
+        <sidebar-header>Features</sidebar-header>
+        <sidebar-element href="elements/application.html">Application</sidebar-element>
+        <sidebar-element href="elements/authentication.html">Authentication</sidebar-element>
+        <sidebar-element href="elements/database.html">Database</sidebar-element>
+        <sidebar-element href="elements/dispatcher.html">Dispatcher</sidebar-element>
+        <sidebar-element href="elements/eloquent.html">Eloquent</sidebar-element>
+        <sidebar-element href="elements/environment.html">Environment</sidebar-element>
+        <sidebar-element href="elements/http.html">Http</sidebar-element>
+        <sidebar-element href="elements/middleware.html">Middleware</sidebar-element>
+        <sidebar-element href="elements/session.html">Session</sidebar-element>
+        <sidebar-element href="elements/testing.html">Testing</sidebar-element>
+        <sidebar-element href="elements/translations.html">Translations</sidebar-element>
+
+        <sidebar-header>Additional</sidebar-header>
+        <sidebar-element href="elements/spatie-permission.html">Spatie permission</sidebar-element>
+
+        <sidebar-header>Helpers</sidebar-header>
+        <sidebar-element href="elements/helpers.html">Helpers</sidebar-element>
+
+        <sidebar-header>External links</sidebar-header>
+        <sidebar-element href="https://github.com/blumilksoftware/blt" target="_blank">GitHub</sidebar-element>
+        <sidebar-element href="https://packagist.org/packages/blumilksoftware/blt" target="_blank">Packagist</sidebar-element>
+        <sidebar-element href="https://docs.behat.org/en/latest/" target="_blank">Behat documentation</sidebar-element>
+    </ul>
+</nav>
+<div class="flex-1 p-1 mt-24" id="content"></div>
+
+<div id="toast" class="hidden fixed bottom-4 right-4 z-50 flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+    <div id="check.icon-container" class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200"></div>
+    <div id="toast-message" class="ml-3 text-sm font-normal">Text copied to clipboard.</div>
+    <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" onclick="hideToast()">
+        <span class="sr-only">Close</span>
+        <div id="close.icon-container"></div>
+    </button>
+</div>
+
+<script>
+    function loadContent(page, element) {
+        fetch(page)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("content").innerHTML = `
+                    <div class="flex-1 p-1 -mt-4">
+                        ${data}
+                    </div>
+                `;
+                highlightActive(element);
+                hljs.highlightAll();  
+            });
+    }
+
+    function highlightActive(element) {
+        const sidebarElements = document.querySelectorAll('sidebar-element');
+        sidebarElements.forEach(el => {
+            const anchor = el.querySelector('a');
+            anchor.classList.remove('text-blue-600', 'font-semibold');
+            anchor.textContent = anchor.textContent.replace(/^# /, '');
+        });
+        const anchor = element.querySelector('a');
+        anchor.classList.add('text-blue-600', 'font-semibold');
+        anchor.textContent = `# ${anchor.textContent}`;
+    }
+
+    function loadNextContent(currentElement) {
+        const sidebarElements = Array.from(document.querySelectorAll('sidebar-element'));
+        const currentIndex = sidebarElements.indexOf(currentElement);
+        if (currentIndex >= 0 && currentIndex < sidebarElements.length - 1) {
+            const nextElement = sidebarElements[currentIndex + 1];
+            loadContent(nextElement.getAttribute('href'), nextElement);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const defaultElement = document.querySelector('sidebar-element[href="elements/overview.html"]');
+        loadContent("elements/overview.html", defaultElement);
+        highlightActive(defaultElement);
+        loadSVG('icons/check.icon.svg', 'check.icon-container');
+        loadSVG('icons/close.icon.svg', 'close.icon-container');
+    });
+
+    document.querySelectorAll('sidebar-element').forEach(element => {
+        element.addEventListener('click', function (e) {
+            e.preventDefault();
+            const href = this.getAttribute('href');
+            const target = this.getAttribute('target');
+            if (target === '_blank') {
+                window.open(href, '_blank');
+            } else {
+                loadContent(href, this);
+            }
+        });
+    });
+
+    const currentElement = document.querySelector('sidebar-element[href="elements/overview.html"]');
+    loadNextContent(currentElement);
+
+    function copyToClipboard(text, type = 'Text') {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast(`Copied ${type} to clipboard`);
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+    }
+
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+        toastMessage.textContent = message;
+        toast.classList.remove('hidden');
+        setTimeout(() => {
+            hideToast();
+        }, 3000);
+    }
+
+    function hideToast() {
+        const toast = document.getElementById('toast');
+        toast.classList.add('hidden');
+    }
+
+    function loadSVG(url, containerId) {
+        fetch(url)
+            .then(response => response.text())
+            .then(svg => {
+                document.getElementById(containerId).innerHTML = svg;
+            })
+            .catch(error => console.error('Error loading SVG:', error));
+    }
+</script>
+</body>
+</html>

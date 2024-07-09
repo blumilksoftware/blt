@@ -1,0 +1,65 @@
+<article-header>Database</article-header>
+
+<article-paragraphs>
+    <p>
+        Use <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Database</code> context <br>
+        or add <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Traits\Database</code> trait to test your application's
+        database features.
+    </p>
+</article-paragraphs>
+<section-header>Database Methods</section-header>
+<article-paragraphs>
+    <p>
+        The <code>Database</code> trait provides several methods to handle database operations within your Laravel
+        application. These methods help ensure that your application's database state is correctly set up for testing
+        purposes.
+    </p>
+</article-paragraphs>
+
+<article-paragraphs>
+    <p>
+        This snippet refreshes the database. It ensures that the database schema is up-to-date and empty from all
+        records.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Given there's refreshed database"
+        php="
+    /**
+     * @Given there's refreshed database
+     * @throws BindingResolutionException
+     */
+    public function refreshDatabase(bool $seed = false): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>refreshDatabaseWithSeeding</code> method refreshes and seeds the database. This is useful for
+        scenarios where you need both a fresh schema and initial data.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Given there's refreshed and seeded database"
+        php="
+    /**
+     * @Given there's refreshed and seeded database
+     * @throws BindingResolutionException
+     */
+    public function refreshDatabaseWithSeeding(): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>seederWasRan</code> method runs a specified seeder class. This is useful for adding specific data sets
+        to your database as needed for your test scenarios.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Given 'Database\Seeders\RoleSeeder' seeder has been run"
+        php="
+    /**
+     * @Given :class seeder has been run
+     */
+    public function seederWasRan(string $class): void"></code-snippet>
