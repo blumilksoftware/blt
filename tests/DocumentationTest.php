@@ -12,7 +12,7 @@ class DocumentationTest extends TestCase
         $functions = $this->getPublicFunctions();
 
         foreach ($functions as $class => $methods) {
-            $trait = explode("\\", $class );
+            $trait = explode("\\", $class);
             $fileName = Str::slug(end($trait)) . ".html";
             $filePath = "docs/elements/$fileName";
 
@@ -45,7 +45,7 @@ class DocumentationTest extends TestCase
         }
     }
 
-    public function getClasses()
+    protected function getBltTraits(): array
     {
         $classes = include "vendor/composer/autoload_classmap.php";
         $bltTraits = [];
@@ -59,9 +59,9 @@ class DocumentationTest extends TestCase
         return $bltTraits;
     }
 
-    public function getPublicFunctions()
+    protected function getPublicFunctions(): array
     {
-        $traitClasses = $this->getClasses();
+        $traitClasses = $this->getBltTraits();
         $publicFunctions = [];
 
         foreach ($traitClasses as $traitClass) {
@@ -84,7 +84,7 @@ class DocumentationTest extends TestCase
             }
 
             foreach ($publicMethods as $publicMethod) {
-                if (!in_array($publicMethod->getName(), $includedTraitMethodNames, true)) {
+                if (!in_array($publicMethod->getName(), $includedTraitMethodNames, strict: true)) {
                     $publicFunctions[$traitClass][] = $publicMethod->getName();
                 }
             }
