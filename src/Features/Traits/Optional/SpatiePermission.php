@@ -24,7 +24,7 @@ trait SpatiePermission
     {
         $objectClass = ContextHelper::getClassHelper()->recognizeObjectClass($objectName);
         $usedTraits = class_uses_recursive($this->getContainer()->make($objectClass));
-        Assert::assertTrue(in_array(SpatieLaravelPermissionTraits::HAS_ROLES, $usedTraits, true));
+        Assert::assertTrue(in_array(SpatieLaravelPermissionTraits::HAS_ROLES, $usedTraits, strict: true));
     }
 
     /**
