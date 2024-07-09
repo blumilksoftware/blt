@@ -77,16 +77,6 @@ trait HttpRequest
     }
 
     /**
-     * @Given request cookies contains:
-     */
-    public function requestCookiesContains(TableNode $table): void
-    {
-        foreach ($table as $row) {
-            $this->request->cookies->set($row["key"], $row["value"]);
-        }
-    }
-
-    /**
      * @Given request server params contains:
      */
     public function requestServerParamsContains(TableNode $table): void
