@@ -71,7 +71,7 @@ class CodeSnippet extends HTMLElement {
         const phpText = this.getAttribute('php');
 
         this.innerHTML = `
-            <div class="my-2 bg-black text-white text-sm px-4 py-3 rounded shadow-lg relative">
+            <div class="my-2 bg-black text-white text-sm px-4 py-4 rounded shadow-lg relative">
                 <div class="absolute top-2 right-2 flex space-x-2">
                     <button class="text-xs hover:text-gray-600 dark:hover:text-gray-300 text-white px-2 py-4 rounded flex items-center" onclick="copyToClipboard(\`${gherkinText}\`, 'Gherkin')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
