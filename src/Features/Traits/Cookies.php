@@ -36,9 +36,9 @@ trait Cookies
     }
 
     /**
-     * @When I delete cookie :name
-     * @When I remove the cookie :name
-     * @When I clear the cookie :name
+     * @When cookie :name is deleted
+     * @When cookie :name is removed
+     * @When cookie :name is cleared
      */
     public function deleteCookie(string $name): void
     {
