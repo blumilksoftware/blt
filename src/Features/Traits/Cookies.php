@@ -14,9 +14,9 @@ trait Cookies
     use HttpRequest;
 
     /**
-     * @When I set cookie :name with value :value
-     * @When I create a cookie named :name with value :value
-     * @When I add a cookie :name with value :value
+     * @When cookie :name with value :value is set
+     * @When cookie named :name with value :value is created
+     * @When cookie :name with value :value is added
      */
     public function setCookie(string $name, string $value): void
     {
