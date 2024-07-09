@@ -6,9 +6,9 @@ namespace Blumilk\BLT\Helpers;
 
 use Illuminate\Support\Str;
 
-class RecognizeClassHelper
+class ClassHelper
 {
-    public static function recognizeObjectClass(string $objectName): string
+    public function recognizeObjectClass(string $objectName): string
     {
         if (strpos($objectName, "\\")) {
             return $objectName;
@@ -28,10 +28,10 @@ class RecognizeClassHelper
             return $typeNamespaces[$type] . $objectName;
         }
 
-        return self::getObjectNamespace(Str::singular($objectName), $type) . $objectName;
+        return self::getObjectNamespace($type) . $objectName;
     }
 
-    public static function getObjectNamespace(string $objectName, string $type): string
+    public function getObjectNamespace(string $type): string
     {
         $type = Str::plural(Str::ucfirst($type));
         $defaultNamespace = config("blt.namespaces.default") ?? "App\\";
@@ -39,7 +39,7 @@ class RecognizeClassHelper
         return $defaultNamespace . $type . "\\";
     }
 
-    public static function guessType(string $objectName): string
+    public function guessType(string $objectName): string
     {
         $slug = Str::slug($objectName);
 
