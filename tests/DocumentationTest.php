@@ -22,7 +22,8 @@ class DocumentationTest extends TestCase
                 } elseif (str_ends_with($filePath, "httpresponse.html")) {
                     $filePath = str_replace("httpresponse.html", "http.html", $filePath);
                 }
-                if(str_ends_with($filePath, "spatiepermission.html")){
+
+                if (str_ends_with($filePath, "spatiepermission.html")) {
                     $filePath = str_replace("spatiepermission.html", "spatie-permission.html", $filePath);
                 }
 
