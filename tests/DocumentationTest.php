@@ -13,18 +13,14 @@ class DocumentationTest extends TestCase
 
         foreach ($functions as $class => $methods) {
             $trait = explode("\\", $class);
-            $fileName = Str::slug(end($trait)) . ".html";
+            $fileName = Str::kebab(end($trait)) . ".html";
             $filePath = "docs/elements/$fileName";
 
             if (!file_exists($filePath)) {
-                if (str_ends_with($filePath, "httprequest.html")) {
-                    $filePath = str_replace("httprequest.html", "http.html", $filePath);
-                } elseif (str_ends_with($filePath, "httpresponse.html")) {
-                    $filePath = str_replace("httpresponse.html", "http.html", $filePath);
-                }
-
-                if (str_ends_with($filePath, "spatiepermission.html")) {
-                    $filePath = str_replace("spatiepermission.html", "spatie-permission.html", $filePath);
+                if (str_ends_with($filePath, "http-request.html")) {
+                    $filePath = str_replace("http-request.html", "http.html", $filePath);
+                } elseif (str_ends_with($filePath, "http-response.html")) {
+                    $filePath = str_replace("http-response.html", "http.html", $filePath);
                 }
 
                 if (!file_exists($filePath)) {
