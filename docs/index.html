@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
     <link rel="stylesheet" href="customHighlight.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
     <title>Behat + Laravel Toolbox documentation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="./index.js" type="text/javascript" defer></script>
@@ -125,7 +124,7 @@
     const currentElement = document.querySelector('sidebar-element[href="elements/overview.html"]');
     loadNextContent(currentElement);
 
-    function copyToClipboard(text, type) {
+    function copyToClipboard(text, type = 'Text') {
         navigator.clipboard.writeText(text).then(() => {
             showToast(`Copied ${type} to clipboard`);
         }).catch(err => {

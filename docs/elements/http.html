@@ -32,7 +32,7 @@
         You can specify the request method (GET, POST, etc.) and the endpoint URL.
     </p>
 </article-paragraphs>
-<code-snippet gherkin="Given a user is requesting '/login/ using 'POST' method" php="
+<code-snippet gherkin="Given a user is requesting 'login' using 'POST' method" php="
     /**
      * @Given a user is requesting :url
      * @Given a user is requesting :url using :method method
@@ -61,7 +61,8 @@
     </p>
 </article-paragraphs>
 
-<code-snippet gherkin="  Given request body contains:
+<code-snippet gherkin="  
+Given request body contains:
             | key      | value            |
             | email    | user@example.com |
             | password | password         |
@@ -292,10 +293,8 @@
         gherkin="Then a response status code should be 200"
         php="
     /**
-     * @Then the response should have status :status
      * @Then a response status code should be :status
      */
-
     public function aResponseStatusCodeShouldBe(int $status): void"></code-snippet>
 
 <article-paragraphs>
@@ -351,29 +350,13 @@
 </article-paragraphs>
 
 <code-snippet
-        gherkin="And the response should contain JSON:
+        gherkin="Then response should contain JSON fragment:
             | message | Language has been changed. |"
         php="
     /**
      * @Then the response should contain JSON:
      */
     public function aResponseShouldContainJson(TableNode $table): void"></code-snippet>
-
-<article-paragraphs>
-    <p>
-        The <code>aResponseShouldContainJsonFragment</code> method verifies that the response JSON contains specified
-        fragments. This is useful for ensuring that partial data is included in the response.
-    </p>
-</article-paragraphs>
-
-<code-snippet
-        gherkin=" And the response should contain JSON:
-            | message | Language  |"
-        php="
-    /**
-     * @Then the response should contain a JSON fragment:
-     */
-    public function aResponseShouldContainJsonFragment(TableNode $table): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -663,4 +646,3 @@
      * @Then the response should have no content
      */
     public function aResponseShouldHaveNoContent(): void"></code-snippet>
-    

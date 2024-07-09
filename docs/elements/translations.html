@@ -76,10 +76,17 @@
         expected translations for different locales. This is useful for ensuring that API responses are correctly
         translated.
         You'll need to run
-        <code-block>
-            Given a user is requesting :endpoint
-        </code-block>
-        before this step.
+    <code-snippet gherkin="Given a user is requesting :endpoint"
+        php="
+    /**
+     * @Given a user is requesting :url
+     * @Given a user is requesting :url using :method method
+     */
+    public function aUserIsRequesting(string $endpoint, string $method = Request::METHOD_GET): void
+    {
+        $this->request = Request::create($endpoint, $method);
+    }"></code-snippet>
+    before this step.
     </p>
 </article-paragraphs>
 
