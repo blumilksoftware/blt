@@ -16,16 +16,19 @@ class DocumentationTest extends TestCase
             $fileName = Str::kebab(end($trait)) . ".html";
             $filePath = "docs/elements/$fileName";
 
-            if (!file_exists($filePath)) {
-                if (str_ends_with($filePath, "http-request.html")) {
-                    $filePath = str_replace("http-request.html", "http.html", $filePath);
-                } elseif (str_ends_with($filePath, "http-response.html")) {
-                    $filePath = str_replace("http-response.html", "http.html", $filePath);
-                }
+            $replacements = [
+                "http-request.html" => "http.html",
+                "http-response.html" => "http.html",
+            ];
 
-                if (!file_exists($filePath)) {
-                    $this->fail("Documentation file $filePath does not exist.");
+            foreach ($replacements as $search => $replacement) {
+                if (str_contains( $filePath, $search)) {
+                    $filePath = str_replace($search, $replacement, $filePath);
                 }
+            }
+
+            if (!file_exists($filePath)) {
+                $this->fail("Documentation file $filePath does not exist.");
             }
 
             $fileContent = file_get_contents($filePath);
@@ -35,7 +38,7 @@ class DocumentationTest extends TestCase
             }
 
             foreach ($methods as $method) {
-                $containsFunction = strpos($fileContent, $method) !== false;
+                $containsFunction = str_contains($fileContent, $method) !== false;
                 $this->assertTrue($containsFunction, "Function $method is not documented in $filePath.");
             }
         }
