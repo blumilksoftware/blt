@@ -8,7 +8,7 @@ use Behat\Gherkin\Node\TableNode;
 use Blumilk\BLT\Features\Traits\Optional\SpatiePermission;
 use Symfony\Component\HttpFoundation\Response;
 
-trait CodeBlocs
+trait CodeBlocks
 {
     use Eloquent;
     use SpatiePermission;
