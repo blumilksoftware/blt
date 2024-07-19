@@ -1,0 +1,148 @@
+<article-header>Eloquent</article-header>
+
+<article-paragraphs>
+    <p>
+        Use <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Eloquent</code> context <br>
+        or add <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Traits\Eloquent</code> trait to test your application's
+        eloquent features.
+    </p>
+</article-paragraphs>
+<section-header>Eloquent Methods</section-header>
+<article-paragraphs>
+    <p>
+        The <code>Eloquent</code> trait provides several methods to handle Eloquent models and their relationships
+        within your Laravel application. These methods help ensure that your application's database interactions and
+        model relationships are functioning as expected.
+    </p>
+</article-paragraphs>
+
+<article-paragraphs>
+    <p>
+        This snippet seeds a specified model into the database with optional attributes. This is useful for scenarios
+        where you need to ensure that specific models exist in the database for testing.
+        <br>
+        You can specify the model name and optional attributes to create the model.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Given there is a model City in the database:
+            | id         | 121     |
+            | name       | Legnica |
+            | latitude   | 44.543  |
+            | longitude  | -43.122 |
+            | country_id | 12111   |"
+        php="
+    /**
+     * @Given there is a model :model in the database:
+     * @Given there is a :model in the database:
+     */
+    public function seedModelInTheDatabase(string $model, ?TableNode $table = null): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>assertModelExistsInTheDatabase</code> method checks that a specified model exists in the database.
+        This is useful for assertions in your tests to ensure that the expected models are present.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then the model City exists in the database"
+        php="
+    /**
+     * @Then the model :model exists in the database
+     */
+    public function assertModelExistsInTheDatabase(string $model): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>thereAreModelsInTheDatabase</code> method ensures that a specified number of instances of a model
+        exist in the database. This is useful for setting up scenarios where multiple instances of a model are required.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Given there are 3 City objects in the database"
+        php="
+    /**
+     * @Given there are :count :model objects in the database
+     * @Given there are :count :model in the database
+     */
+    public function thereAreModelsInTheDatabase(string $model, int $count): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>theModelHasMany</code> method verifies that a model has a "has many" relationship with another model.
+        This ensures that the relationship methods are correctly defined.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then the model Country has many City"
+        php="
+    /**
+     * @Then the model :model1 has many :model2
+     */
+    public function theModelHasMany(string $model1, string $model2): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>theModelBelongsTo</code> method verifies that a model has a "belongs to" relationship with another
+        model. This ensures that the relationship methods are correctly defined.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then the model City belongs to Country"
+        php="
+    /**
+     * @Then the model :model1 belongs to :model2
+     */
+    public function theModelBelongsTo(string $model1, string $model2): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>theModelHasOne</code> method verifies that a model has a "has one" relationship with another model.
+        This ensures that the relationship methods are correctly defined.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then the model Country has one City"
+        php="
+    /**
+     * @Then the model :model1 has one :model2
+     */
+    public function theModelHasOne(string $model1, string $model2): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>theModelBelongsToMany</code> method verifies that a model has a "belongs to many" relationship with
+        another model. This ensures that the relationship methods are correctly defined.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then the model Role belongs to many User"
+        php="
+    /**
+     * @Then the model :model1 belongs to many :model2
+     */
+    public function theModelBelongsToMany(string $model1, string $model2): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>theModelHasExpectedNumberOfRelated</code> method verifies that a model has a specified number of
+        related models. This ensures that the relationships are correctly established with the expected number of
+        related models.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then the model Country has 25 related City"
+        php="
+    /**
+     * @Then the model :model1 has :count related :model2
+     */
+    public function theModelHasExpectedNumberOfRelated(string $model1, string $model2, int $count): void"></code-snippet>

@@ -1,0 +1,97 @@
+<article-header>Dispatcher</article-header>
+
+<article-paragraphs>
+    <p>
+        Use <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Dispatcher</code> context <br>
+        or add <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Traits\Dispatcher</code> trait to test your application's
+        dispatcher features.
+    </p>
+</article-paragraphs>
+
+<section-header>Dispatcher Methods</section-header>
+<article-paragraphs>
+    <p>
+        The <code>Dispatcher</code> trait provides several methods to handle the dispatching of jobs and events within
+        your Laravel application. These methods ensure that your application's event and job dispatching features are
+        functioning as expected.
+    </p>
+</article-paragraphs>
+
+<article-paragraphs>
+    <p>
+        This snippet starts the bus fake, allowing you to simulate the dispatching of jobs within your tests.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Given bus is running"
+        php="
+    /**
+     * @Given bus is running
+     * @throws BindingResolutionException
+     */
+    public function runBus(): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>fakeEvents</code> method starts the event fake, allowing you to simulate the dispatching of events
+        within your tests.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Given events are faked"
+        php="
+    /**
+     * @Given events are faked
+     * @throws BindingResolutionException
+     */
+    public function fakeEvents(): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>dispatchObject</code> method dispatches a specified number of jobs or events with optional parameters.
+        This is useful for testing scenarios where you need to dispatch multiple instances of a job or event.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Given I dispatch 3 of NewProviderEvent events with parameters:
+            | key           | value        |
+            | name          | new provider |
+            | yearsOnMarket | 3            |"
+        php="
+    /**
+     * @When I dispatch :count :objectName jobs with parameters:
+     * @When I dispatch :count :objectName jobs
+     * @When I dispatch :objectName job
+     * @When I dispatch :count of :objectName events with parameters:
+     * @When I dispatch :count of :objectName events
+     * @When I dispatch :objectName event
+     * @When I dispatch :count of :objectName with parameters:
+     * @When I dispatch :count of :objectName
+     * @When I dispatch :objectName
+     */
+    public function dispatchObject(string $objectName, ?TableNode $table = null, int $count = 1): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>assertDispatched</code> method verifies that a specified number of jobs or events have been
+        dispatched. This is useful for assertions in your tests to ensure that the expected jobs or events have been
+        dispatched.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then I should see 3 of NewProviderEvent events were dispatched"
+        php="
+    /**
+     * @Then I should see :objectName event was dispatched
+     * @Then I should see :count of :objectName events were dispatched
+     * @Then I should see :objectName job was dispatched
+     * @Then I should see :count of :objectName jobs were dispatched
+     * @Then I should see :objectName was dispatched
+     * @Then I should see :count of :objectName were dispatched
+     */
+    public function assertDispatched(string $objectName, int $count = 1): void"></code-snippet>

@@ -1,0 +1,40 @@
+<section-header>Hooks</section-header>
+
+<article-paragraphs>
+    <p>Hooks are special methods that run at specified points in your test suite's lifecycle. They allow you to execute
+        code before and after certain events, providing a powerful mechanism to manage your test environment and ensure
+        consistency across your tests.</p>
+
+    <section-header>
+        Reboot after feature
+    </section-header>
+    <p>The <code class="text-sky-600">Blumilk\BLT\Features\Hooks\RebootAfterFeature</code> hook is designed to ensure that the system under test is reset to a clean state after each
+        feature is executed. </p>
+
+    <section-header>
+        Refresh database before scenario
+    </section-header>
+    <p>
+        The <code class="text-sky-600">Blumilk\BLT\Features\Hooks\RefreshDatabaseBeforeScenario</code> hook is designed to reset the database to a known state before each scenario
+        is executed. This ensures that each test scenario runs with a fresh and consistent database, which is crucial
+        for maintaining the integrity and reliability of your test results.
+    </p>
+
+    <p class="font-semibold">To use hooks simply include them in your feature context</p>
+
+    <code-block>
+        use Blumilk\BLT\Features\Hooks\RefreshDatabaseBeforeScenario;
+
+        class FeatureContext extends Toolbox implements Context
+        {
+        use RefreshDatabaseBeforeScenario;
+
+        public function __construct()
+        {
+        $bootstrapper = new LaravelBootstrapper();
+        $bootstrapper->boot();
+        }
+        }
+    </code-block>
+
+</article-paragraphs>

@@ -1,0 +1,149 @@
+<article-header>Spatie Permission</article-header>
+
+<article-paragraphs>
+    <p>
+        Use <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\SpatiePermission</code> context
+        <br> or add <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Traits\SpatiePermission</code> trait to test your application's
+        roles and permissions.
+    </p>
+</article-paragraphs>
+
+<section-header>Role and Permission Checks</section-header>
+<article-paragraphs>
+    <p>
+        The <code>SpatiePermission</code> trait provides several methods to check and manipulate roles and permissions
+        for various objects within your Laravel application. These methods ensure that your application's security
+        features are functioning as expected.
+    </p>
+</article-paragraphs>
+
+<article-paragraphs>
+    <p>
+        This snippet checks if a given object can have roles by verifying that the object uses the <code class="text-sky-600">Spatie\Permission\Traits\HasRoles</code>
+        trait. This is useful for ensuring that your objects are correctly configured to handle roles.
+        <br>
+        You can insert any model name here instead of user.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="When user can have permission"
+        php="
+    /**
+     * @When :objectName can have role
+     * @When user can have role
+     * @throws BindingResolutionException
+     */
+    public function objectCanHaveRoles(string $objectName = 'User'): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>assignRoleTo</code> method assigns a specified role to an object identified by a value in a specified
+        field. This helps in setting up your test scenarios where specific roles need to be assigned to users or other
+        objects.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Given user with 'admin@example.com' value in email field has admin role"
+        php="
+    /**
+     * @Given :object with :value value in :field field has :role role
+     */
+    public function assignRoleTo(string $role, string $object, string $value, string $field): void"></code-snippet>
+
+
+<article-paragraphs>
+    <p>
+        The <code>givePermissionTo</code> method assigns a specified permission to an object. This is essential for
+        setting up scenarios where certain permissions need to be granted dynamically.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Given user with 'admin@example.com' value in email field has 'edit posts' permission"
+        php="
+    /**
+     * @Given :object with :value value in :field field has :permission permission
+     */
+    public function givePermissionTo(string $permission, string $value, string $field, string $object): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>assertHasRole</code> method checks if an object has a specified role. This is useful for assertions in
+        your tests to verify that roles are correctly assigned.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then user with 'admin@example.com' value in email field should have admin role"
+        php="
+    /**
+     * @Then :object with :value value in :field field should have :role role
+     */
+    public function assertHasRole(string $object, string $field, string $value, string $role): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>assertHasPermission</code> method checks if an object has a specified permission. This helps ensure
+        that your permission settings are correctly applied and verified during testing.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then user with 'admin@example.com' value in email field should have 'edit posts' permission"
+        php="
+    /**
+     * @Then :object with :value value in :field field should have :permission permission
+     */
+    public function assertHasPermission(string $object, string $field, string $value, string $permission): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>assertHas</code> method allows for a table of key-value pairs to be checked against an object. This is
+        particularly useful for verifying multiple roles and permissions in a single test scenario.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="
+Then user with 'admin@example.com' value in email field should have:
+        | key       | value        |
+        | role      | admin        |
+        | permission| edit posts   |"
+        php="
+    /**
+     * @Then :object with :value value in :field field should have:
+     */
+    public function assertHas(string $object, string $field, string $value, TableNode $table): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>revokePermissionTo</code> method revokes a specified permission from an object. This is useful for
+        testing scenarios where permissions need to be dynamically removed.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Given user with 'admin@example.com' value in email field 'edit posts' permission has been revoked"
+        php="
+    /**
+     * @Given :object with :value value in :field field :permission permission has been revoked
+     */
+    public function revokePermissionTo(string $permission, string $value, string $field, string $object): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>revokeRoleTo</code> method removes a specified role from an object. This is particularly useful for
+        scenarios where you need to test the behavior of your application when roles are removed.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Given user with 'admin@example.com' value in email field admin role has been removed"
+        php="
+    /**
+     * @Given :object with :value value in :field field :role role has been removed
+     */
+    public function revokeRoleTo(string $role, string $object, string $value, string $field): void"></code-snippet>
