@@ -22,7 +22,7 @@ class DocumentationTest extends TestCase
             ];
 
             foreach ($replacements as $search => $replacement) {
-                if (str_contains( $filePath, $search)) {
+                if (str_ends_with($filePath, $search)) {
                     $filePath = str_replace($search, $replacement, $filePath);
                 }
             }
@@ -50,7 +50,7 @@ class DocumentationTest extends TestCase
         $bltTraits = [];
 
         foreach (array_keys($classes) as $class) {
-            if (str_contains($class, "Blumilk\BLT\Features\Traits")) {
+            if (str_starts_with($class, "Blumilk\BLT\Features\Traits")) {
                 $bltTraits[] = $class;
             }
         }
