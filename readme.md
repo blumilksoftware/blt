@@ -6,7 +6,7 @@ BLT for PHP developers: Behat+Laravel toolbox
 > Package is still under development.
 
 ### Usage
-Please refer to our [documentation](docs/index.html).
+Please refer to our [documentation](https://blumilksoftware.github.io/blt/).
 
 ### Development
 
