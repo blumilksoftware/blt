@@ -28,4 +28,4 @@ composer csf
 ```
 ### Contributing
 
-Please refer to our [contributing](CONTRIBUTING.md) guidelines.
+Please refer to our [contributing](contributing.md) guidelines.
