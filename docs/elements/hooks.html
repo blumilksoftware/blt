@@ -10,6 +10,16 @@
     </section-header>
     <p>The <code class="text-sky-600">Blumilk\BLT\Features\Hooks\RebootAfterFeature</code> hook is designed to ensure that the system under test is reset to a clean state after each
         feature is executed. </p>
+    <code-block>
+        /**
+        * @afterFeature
+        */
+        public static function rebootAfterFeature(): void
+        {
+        $bootstrapper = static::getRebootAfterFeatureBootstrapper();
+        $bootstrapper->boot();
+        }
+    </code-block>
 
     <section-header>
         Refresh database before scenario
@@ -19,6 +29,12 @@
         is executed. This ensures that each test scenario runs with a fresh and consistent database, which is crucial
         for maintaining the integrity and reliability of your test results.
     </p>
+    <code-block>
+        public function refreshDatabaseBeforeScenario(): void
+        {
+        $this->refreshDatabase();
+        }
+    </code-block>
 
     <p class="font-semibold">To use hooks simply include them in your feature context</p>
 

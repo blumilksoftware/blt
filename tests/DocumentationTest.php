@@ -19,6 +19,8 @@ class DocumentationTest extends TestCase
             $replacements = [
                 "http-request.html" => "http.html",
                 "http-response.html" => "http.html",
+                "reboot-after-feature.html" => "hooks.html",
+                "refresh-database-before-scenario.html" => "hooks.html",
             ];
 
             foreach ($replacements as $search => $replacement) {
@@ -42,20 +44,6 @@ class DocumentationTest extends TestCase
                 $this->assertTrue($containsFunction, "Function $method is not documented in $filePath.");
             }
         }
-    }
-
-    protected function getBltTraits(): array
-    {
-        $classes = include "vendor/composer/autoload_classmap.php";
-        $bltTraits = [];
-
-        foreach (array_keys($classes) as $class) {
-            if (str_starts_with($class, "Blumilk\BLT\Features\Traits")) {
-                $bltTraits[] = $class;
-            }
-        }
-
-        return $bltTraits;
     }
 
     protected function getPublicFunctions(): array
@@ -90,5 +78,19 @@ class DocumentationTest extends TestCase
         }
 
         return $publicFunctions;
+    }
+
+    protected function getBltTraits(): array
+    {
+        $classes = include "vendor/composer/autoload_classmap.php";
+        $bltTraits = [];
+
+        foreach (array_keys($classes) as $class) {
+            if (str_starts_with($class, "Blumilk\BLT\Features\Traits") || str_starts_with($class, "Blumilk\BLT\Features\Hooks")) {
+                $bltTraits[] = $class;
+            }
+        }
+
+        return $bltTraits;
     }
 }
