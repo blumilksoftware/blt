@@ -1,0 +1,188 @@
+<article-header>Authentication</article-header>
+
+<article-paragraphs>
+    <p>
+        Use <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Authentication</code> context <br>
+        or add <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Traits\Authentication</code> trait to test your application's
+        authentication features.
+    </p>
+</article-paragraphs>
+
+<section-header>Authentication Checks and Operations</section-header>
+<article-paragraphs>
+    <p>
+        The <code>Authentication</code> trait provides several methods to manage and verify authentication states for
+        various objects within your Laravel application. These methods ensure that your application's authentication
+        features are functioning as expected.
+    </p>
+</article-paragraphs>
+
+<article-paragraphs>
+    <p>
+        This snippet authenticates a user by a specified value in a given field and logs them into the session.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Given user is authenticated in session as 'admin@example.com' in email field"
+        php="
+     /**
+     * @Given user is authenticated in session as :value in :field field
+     * @throws BindingResolutionException
+     */
+    public function userIsAuthenticatedInSessionAs(string $value, string $field): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        This snippet logs out any authenticated user from the session.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Given there is no user authenticated in session"
+        php="
+    /**
+     * @Given there is no user authenticated in session
+     * @throws BindingResolutionException
+     */
+    public function thereIsNoUserAuthenticatedInSession(): void"></code-snippet>
+<article-paragraphs>
+    <p>
+        This snippet authenticates a user with the specified attributes.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Given the user is authenticated with attributes:
+        |email|admin@example.com|
+        |name |admin            |"
+        php="
+    /**
+     * @Given the user is authenticated with attributes:
+     */
+    public function userIsAuthenticatedWithAttributes(TableNode $table): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        This snippet logs out any authenticated user, ensuring no user is authenticated.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Given there is an unauthenticated user"
+        php="
+    /**
+     * @Given there is an unauthenticated user
+     * @throws BindingResolutionException
+     */
+    public function thereIsAnUnauthenticatedUser(): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        This snippet authenticates a user with a specified email.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Given there is an authenticated user with email 'admin@example.com'"
+        php="
+    /**
+     * @Given there is an authenticated user with email :email
+     * @throws BindingResolutionException
+     */
+    public function thereIsAuthenticatedUserWithEmail(string $email): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        This snippet asserts that no user is authenticated in the session.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Then no user is authenticated in session"
+        php="
+    /**
+     * @Then no user is authenticated in session
+     * @throws BindingResolutionException
+     */
+    public function noUserAuthenticatedInSession(): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        This snippet asserts that the authenticated user in the session has a specific value in a given field.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Then user authenticated in session has 'admin@example.com' value in email field"
+        php="
+    /**
+     * @Then user authenticated in session has :value value in :field field
+     * @throws BindingResolutionException
+     */
+    public function userAuthenticatedInSessionIs(string $value, string $field): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        This snippet asserts that the authenticated user's email matches the specified value.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Then the authenticated user email should be 'admin@example.com'"
+        php="
+    /**
+     * @Then the authenticated user email should be :email
+     * @throws BindingResolutionException
+     */
+    public function authenticatedUsersEmailShouldBe(string $email): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        This snippet asserts that the authenticated user has a specific attribute with a given value.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Then the authenticated user should have the attribute email with value 'admin@example.com'"
+        php="
+    /**
+     * @Then the authenticated user should have the attribute :attribute with value :value
+     * @throws BindingResolutionException
+     */
+    public function authenticatedUserShouldHaveAttribute(string $attribute, $value): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        This snippet logs out the authenticated user and asserts that no user is authenticated.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Then the user should be able to logout"
+        php="
+    /**
+     * @Then the user should be able to logout
+     * @throws BindingResolutionException
+     */
+    public function userShouldBeAbleToLogout(): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        This snippet asserts that the authenticated user is redirected to a specified URL.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Then the authenticated user should be redirected to '/dashboard'"
+        php="
+    /**
+     * @Then the authenticated user should be redirected to :url
+     * @throws BindingResolutionException
+     */
+    public function authenticatedUserShouldBeRedirectedTo(string $url): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        This snippet asserts that a user with a specified email cannot access a given URL.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Then the user with email 'user@example.com' should not be able to access '/dashboard'"
+        php="
+    /**
+     * @Then the user with email :email should not be able to access :url
+     * @throws BindingResolutionException
+     */
+    public function userWithEmailShouldNotBeAbleToAccess(string $email, string $url): void"></code-snippet>

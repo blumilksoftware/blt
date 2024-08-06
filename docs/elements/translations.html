@@ -1,0 +1,102 @@
+<article-header>Translations</article-header>
+
+<article-paragraphs>
+    <p>
+        Use <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Translations</code> context <br>
+        or add <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Traits\Translations</code> trait to test your application's
+        translations features.
+    </p>
+</article-paragraphs>
+
+<section-header>Translations Methods</section-header>
+<article-paragraphs>
+    <p>
+        The <code>Translations</code> trait provides several methods to handle translations within your Laravel
+        application. These methods help ensure that your application's localization and translation features are
+        functioning as expected.
+    </p>
+</article-paragraphs>
+
+<article-paragraphs>
+    <p>
+        This snippet sets the application's locale to the specified language. It allows you to test scenarios where
+        different locales need to be set.
+        <br>
+        You can specify the locale code (e.g., 'en', 'fr', 'es') to change the application's language.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Given localization is set to 'pl'"
+        php="
+    /**
+     * @Given locale is set to :locale
+     * @Given localization is set to :locale
+     */
+    public function setLocale(string $locale): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>askToTranslate</code> method sets the input phrase to be translated. This is useful for scenarios
+        where you need to test the translation of specific phrases.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="When I ask for translations of 'Prices'"
+        php="
+    /**
+     * @When I ask to translate :input
+     * @When I ask for translations of :input
+     */
+    public function askToTranslate(string $input): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>assertTranslationMatches</code> method verifies that the translations match the expected phrases. This
+        is useful for ensuring that the translations are correct for different locales.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then I should see the following phrases:
+            | locale | phrase   |
+            | pl     | Ceny     |
+            | fr     | Prix     |"
+        php="
+    /**
+     * @Then I should see the following phrases:
+     */
+    public function assertTranslationMatches(?TableNode $table = null): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>assertEndpointTranslationMatches</code> method verifies that the response from an endpoint matches the
+        expected translations for different locales. This is useful for ensuring that API responses are correctly
+        translated.
+        You'll need to run
+    <code-snippet gherkin="Given a user is requesting :endpoint"
+        php="
+    /**
+     * @Given a user is requesting :url
+     * @Given a user is requesting :url using :method method
+     */
+    public function aUserIsRequesting(string $endpoint, string $method = Request::METHOD_GET): void
+    {
+        $this->request = Request::create($endpoint, $method);
+    }"></code-snippet>
+    before this step.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then response should be translated as:
+            | locale | phrase   |
+            | pl     | Ceny     |
+            | fr     | Prix     |"
+        php="
+    /**
+     * @Then response should be translated as:
+     */
+    public function assertEndpointTranslationMatches(?TableNode $table = null): void"></code-snippet>

@@ -23,14 +23,6 @@ trait HttpResponse
     }
 
     /**
-     * @Then a response status code should be :status
-     */
-    public function aResponseStatusCodeShouldBe(int $status): void
-    {
-        Assert::assertEquals($status, $this->response->getStatusCode());
-    }
-
-    /**
      * @Given a response HTML should contain :phrase phrase
      */
     public function aResponseHTMLShouldContainPhrase(string $phrase): void
@@ -88,17 +80,6 @@ trait HttpResponse
     }
 
     /**
-     * @Then the response should have cookie :name
-     */
-    public function aResponseShouldHaveCookie(string $name): void
-    {
-        Assert::assertTrue($this->response->headers->has("Set-Cookie"));
-        $cookies = $this->response->headers->getCookies();
-        $cookieNames = array_map(fn($cookie) => $cookie->getName(), $cookies);
-        Assert::assertContains($name, $cookieNames);
-    }
-
-    /**
      * @Then the response should have header :header
      */
     public function aResponseShouldHaveHeader(string $header): void
@@ -116,6 +97,7 @@ trait HttpResponse
 
     /**
      * @Then the response should have status :status
+     * @Then a response status code should be :status
      */
     public function aResponseShouldHaveStatus(int $status): void
     {
