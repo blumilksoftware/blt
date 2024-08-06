@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Blumilk\BLT;
 
-use Illuminate\Routing\Middleware\ThrottleRequests;
-
 class LaravelContracts
 {
     public const THROTTLING_MIDDLEWARE_CLASS = "Illuminate\Routing\Middleware\ThrottleRequests";
