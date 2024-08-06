@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Blumilk\BLT\Features\Traits;
 
+use Behat\Gherkin\Node\TableNode;
 use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Routing\Router;
 use PHPUnit\Framework\Assert;
@@ -65,5 +66,22 @@ trait Routing
     {
         $this->aResponseStatusCodeShouldBe($status);
         $this->responseShouldContainJsonWithKeyAndValue($key, $value);
+    }
+
+    /**
+     * @Then the route :routeName should exist with the following methods:
+     */
+    public function routeShouldExistWithMethods(string $routeName, TableNode $methodsTable): void
+    {
+        $router = $this->getContainer()->make(Router::class);
+        $route = $router->getRoutes()->getByName($routeName);
+        Assert::assertNotNull($route, "Route $routeName does not exist.");
+
+        $supportedMethods = $route->methods();
+
+        foreach ($methodsTable as $row) {
+            $method = strtoupper($row["method"]);
+            Assert::assertContains($method, $supportedMethods, "Route $routeName does not support the method $method.");
+        }
     }
 }
