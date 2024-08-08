@@ -1,0 +1,103 @@
+<article-header>Routing</article-header>
+
+<article-paragraphs>
+    <p>
+        Use <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Routing</code> context <br>
+        or add <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Traits\Routing</code> trait to test your application's routing features.
+    </p>
+</article-paragraphs>
+
+<section-header>Routing Methods</section-header>
+<article-paragraphs>
+    <p>
+        The <code>Routing</code> trait provides several methods to handle routing operations within your Laravel application. These methods help ensure that your application's routes are correctly set up and functioning for testing purposes.
+    </p>
+</article-paragraphs>
+
+<article-paragraphs>
+    <p>
+        This snippet simulates a user accessing a named route, allowing you to test route access and response handling.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Given user is accessing route named :routeName"
+        php="
+    /**
+     * @Given user is accessing route named :routeName
+     */
+    public function userIsAccessingRouteNamed(string $routeName): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>routeShouldExist</code> method verifies the existence of a specified route. This is useful for ensuring that routes are correctly registered in your application.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then the route :routeName should exist"
+        php="
+    /**
+     * @Then the route :routeName should exist
+     */
+    public function routeShouldExist(string $routeName, Router $router): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>userShouldBeRedirectedToRouteNamed</code> method checks if the user is redirected to a specified named route. This ensures that route redirections are functioning correctly.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then the user should be redirected to the route named :routeName"
+        php="
+    /**
+     * @Then the user should be redirected to the route named :routeName
+     */
+    public function userShouldBeRedirectedToRouteNamed(string $routeName, Router $router): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>responseShouldContainJsonWithKeyAndValue</code> method ensures that the response contains JSON with a specified key and value, useful for validating API responses.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then the response should contain JSON with key :key and value :value"
+        php="
+    /**
+     * @Then the response should contain JSON with key :key and value :value
+     */
+    public function responseShouldContainJsonWithKeyAndValue(string $key, string $value): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>responseShouldHaveStatusAndContainJson</code> method verifies that the response has a specific status and contains JSON with a specified key and value.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then the response should have status :status and contain JSON with key :key and value :value"
+        php="
+    /**
+     * @Then the response should have status :status and contain JSON with key :key and value :value
+     */
+    public function responseShouldHaveStatusAndContainJson(int $status, string $key, string $value): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>routeShouldExistWithMethods</code> method verifies that a route supports the specified HTTP methods. This is useful for ensuring routes handle different HTTP verbs as expected.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then the route :routeName should exist with the following methods:
+            | method |
+            | GET    |
+            | POST   |"
+        php="
+    /**
+     * @Then the route :routeName should exist with the following methods:
+     */
+    public function routeShouldExistWithMethods(string $routeName, TableNode $methodsTable): void"></code-snippet>
