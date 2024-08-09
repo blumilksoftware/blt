@@ -1,1 +1,105 @@
 <article-header>Console</article-header>
+
+<article-paragraphs>
+    <p>
+        Use <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Console</code> context <br>
+        or add <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Traits\Console</code> trait to test your application's
+        console features.
+    </p>
+</article-paragraphs>
+
+<section-header>Console Methods</section-header>
+<article-paragraphs>
+    <p>
+        The <code>Console</code> trait provides several methods to handle console commands within your Laravel application. These methods help ensure that your application's command-line interface is functioning as expected and can be tested effectively.
+    </p>
+</article-paragraphs>
+
+<article-paragraphs>
+    <p>
+        This snippet runs a specified Artisan command. It allows you to test scenarios where specific console commands need to be executed.
+        <br>
+        You can specify the command to run and capture its output and exit code.
+    </p>
+</article-paragraphs>
+<code-snippet gherkin="Given a command 'blt:init' is ran" php="
+    /**
+     * @Given a command :command is ran
+     * @Given a command :command is ran in console
+     * @throws BindingResolutionException
+     */
+    public function runArtisanCommand(string $command): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>runCommandWithOptionsAndArguments</code> method runs a specified Artisan command with options and arguments provided in a table. This is useful for testing scenarios where commands require additional parameters.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Given a command 'make:notification' is ran with:
+            | argument | NoParamsNotification |
+            | option   | force                |" php="
+    /**
+     * @Given a command :command is ran with:
+     * @throws BindingResolutionException
+     */
+    public function runCommandWithOptionsAndArguments(string $command, TableNode $table): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>seeInConsole</code> method verifies that the console output contains a specified string. This is useful for ensuring that the command's output includes expected messages or results.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then console output contains 'created successfully'"
+              php="
+    /**
+     * @Then console output contains :output
+     * @Then console output should contain :output
+     */
+    public function seeInConsole(string $output): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>consoleOutputIsNotEmpty</code> method verifies that the console output is not empty. This is useful for ensuring that the command produces output.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then console output is not empty" php="
+    /**
+     * @Then console output is not empty
+     */
+    public function consoleOutputIsNotEmpty(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>consoleOutputIsEmpty</code> method verifies that the console output is empty. This is useful for ensuring that the command produces no output.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then console output is empty" php="
+    /**
+     * @Then console output is empty
+     */
+    public function consoleOutputIsEmpty(): void
+"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        The <code>consoleExitCodeIs</code> method verifies that the console exit code matches the expected code. This is useful for ensuring that the command exits with the correct status.
+    </p>
+</article-paragraphs>
+
+<code-snippet gherkin="Then console exit code is 0" php="
+    /**
+     * @Then console exit code is :code
+     * @Then console exit code should be :code
+     */
+    public function consoleExitCodeIs(int $code): void
+"></code-snippet>

@@ -67,16 +67,6 @@ trait Authentication
     }
 
     /**
-     * @Given there are users in the database:
-     */
-    public function thereAreUsersInTheDatabase(TableNode $table): void
-    {
-        foreach ($table->getColumnsHash() as $userData) {
-            $this->getUserModel()::firstOrCreate($userData);
-        }
-    }
-
-    /**
      * @Given there is an unauthenticated user
      * @throws BindingResolutionException
      */

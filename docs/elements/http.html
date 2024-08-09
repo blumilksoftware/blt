@@ -356,7 +356,7 @@ Given request body contains:
     /**
      * @Then the response should contain JSON:
      */
-    public function aResponseShouldContainJson(TableNode $table): void"></code-snippet>
+    public function aResponseShouldContainJsonFragment(TableNode $table): void"></code-snippet>
 
 <article-paragraphs>
     <p>
@@ -403,6 +403,20 @@ Given request body contains:
      */
     public function aResponseShouldHaveHeaderEqualTo(string $header, string $value): void"></code-snippet>
 
+<article-paragraphs>
+    <p>
+        The <code>aResponseShouldHaveStatus</code> method verifies that the response status is equal to desired one. This is
+        useful for ensuring that the request has desired code.
+    </p>
+</article-paragraphs>
+
+<code-snippet
+        gherkin="Then the response should have status 200"
+        php="
+    /**
+     * @hen the response should have status :code
+     */
+    public function aResponseShouldHaveStatus(): void"></code-snippet>
 
 <article-paragraphs>
     <p>

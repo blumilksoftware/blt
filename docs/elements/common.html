@@ -1,0 +1,49 @@
+<article-header>Common</article-header>
+
+<article-paragraphs>
+    <p>
+       Add <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Traits\Common</code> trait to use ready complex functions from Common.
+    </p>
+</article-paragraphs>
+
+<section-header>Authentication Checks and Operations</section-header>
+<article-paragraphs>
+    <p>
+        The <code>Common</code> trait provides several methods to manage and verify authentication states for
+        various objects within your Laravel application. These methods ensure that your application's authentication
+        features are functioning as expected.
+    </p>
+</article-paragraphs>
+
+<article-paragraphs>
+    <p>
+        This snippet authenticates a user by a specified value in a given field and logs them into the session.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Given user is authenticated in session as 'admin@example.com' in email field"
+        php="
+    /**
+     * @Given user is in session as admin
+     * @Given user in session has role :role
+     */
+    public function sessionHasUserWithRole(string $role = 'admin'): void"></code-snippet>
+
+<article-paragraphs>
+    <p>
+        This snippet authenticates a user by a specified value in a given field and logs them into the session.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Given admin user is getting OK response from '/dashboard'"
+        php="
+     /**
+     * @Given admin user is getting OK response from :url
+     * @Given admin user is getting :status status code response from :url
+     * @Given user with :role role is getting OK response from :url
+     * @Given user with :role role is getting :status response from :url
+     * @Given user with :role role is getting OK response from :url using :method method
+     * @Given user with :role role is getting :status response from :url using :method method
+     */
+    public function adminUserIsGettingResponse(string $url, string $method = 'GET', int $status = Response::HTTP_OK, string $role = 'admin'): void"></code-snippet>
