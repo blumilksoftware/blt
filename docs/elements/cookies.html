@@ -1,0 +1,106 @@
+<article-header>Cookies</article-header>
+<article-paragraphs>
+    <p>
+        Use <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Cookies</code> context <br>
+        or add <br>
+        <code class="text-sky-600">Blumilk\BLT\Features\Traits\Cookies</code> trait to test your application's cookie features.
+    </p>
+</article-paragraphs>
+
+<section-header>Cookies Methods</section-header>
+<article-paragraphs>
+<p>
+The <code>Cookies</code> trait provides several methods to handle cookie operations within your Laravel application. These methods help ensure that your application's cookies are correctly set up and managed for testing purposes.
+</p>
+</article-paragraphs>
+<article-paragraphs>
+    <p>
+        This snippet sets a cookie with a specified name and value. It allows you to simulate setting cookies in your application.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="When cookie :name with value :value is set"
+        php="
+    /**
+     * @When cookie :name with value :value is set
+     * @When cookie named :name with value :value is created
+     * @When cookie :name with value :value is added
+     */
+    public function setCookie(string $name, string $value): void
+    {
+        \$cookieFactory = \$this->getContainer()->make(CookieFactory::class);
+        \$cookieFactory->queue(\$name, \$value);
+    }"></code-snippet>
+<article-paragraphs>
+    <p>
+        The <code>assertCookieValue</code> method verifies that a cookie with the specified name has the expected value. This is useful for ensuring that cookies are set correctly in your application.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Then cookie :name should have value :value"
+        php="
+    /**
+     * @Then cookie :name should have value :value
+     */
+    public function assertCookieValue(string $name, string $value): void
+    {
+        \$cookieValue = \$this->request->cookies->get(\$name);
+        Assert::assertEquals(\$value, \$cookieValue, 'Cookie \$name does not have the expected value \$value.');
+    }"></code-snippet>
+<article-paragraphs>
+    <p>
+        The <code>deleteCookie</code> method removes a cookie with the specified name. This is useful for testing scenarios where you need to clear cookies.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="When cookie :name is deleted"
+        php="
+    /**
+     * @When cookie :name is deleted
+     * @When cookie :name is removed
+     * @When cookie :name is cleared
+     */
+    public function deleteCookie(string \$name): void
+    {
+        \$cookieFactory = \$this->getContainer()->make(CookieFactory::class);
+        \$cookieFactory->queue(\$cookieFactory->forget(\$name));
+    }"></code-snippet>
+<article-paragraphs>
+    <p>
+        The <code>assertCookieNotExists</code> method verifies that a cookie with the specified name does not exist. This is useful for ensuring that cookies are properly deleted or not set.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Then the cookie :name should be missing"
+        php="
+    /**
+     * @Then the cookie :name should be missing
+     * @Then the cookie named :name should not be present
+     */
+    public function assertCookieNotExists(string \$name): void
+    {
+        \$cookieValue = \$this->request->cookies->get(\$name);
+        Assert::assertNull(\$cookieValue, 'Cookie \$name should not exist.');
+    }"></code-snippet>
+<article-paragraphs>
+    <p>
+        The <code>assertCookiesExist</code> method verifies that multiple cookies with specified names and values are present. This is useful for checking the state of several cookies in your application.
+    </p>
+</article-paragraphs>
+<code-snippet
+        gherkin="Then the following cookies should be present:
+            | name  | value  |
+            | foo   | bar    |"
+        php="
+    /**
+     * @Then the following cookies should be present:
+     * @Then the cookies should be set to:
+     */
+    public function assertCookiesExist(TableNode \$table): void
+    {
+        foreach (\$table as \$row) {
+            \$cookieValue = \$this->request->cookies->get(\$row['name']);
+            Assert::assertEquals(\$row['value'], \$cookieValue, 'Cookie {\$row['name']} does not have the expected value {\$row['value']}.');
+        }
+    }"></code-snippet>
