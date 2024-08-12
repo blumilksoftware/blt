@@ -17,7 +17,7 @@ First off, thank you for considering contributing to our project. Your help is g
 
 ### Reporting Bugs
 
-If you find a bug, please open an issue [here](https://github.com/yourusername/yourproject/issues) and include as much detail as possible. Before creating a new issue, please check to see if the bug has already been reported.
+If you find a bug, please open an issue [here](https://github.com/blumilksoftware/blt/issues) and include as much detail as possible. Before creating a new issue, please check to see if the bug has already been reported.
 
 **A good bug report should include:**
 - A clear and descriptive title.
