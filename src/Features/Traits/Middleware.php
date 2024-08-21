@@ -12,7 +12,6 @@ use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Request;
-
 use Symfony\Component\HttpFoundation\Response;
 
 trait Middleware
