@@ -7,11 +7,11 @@ namespace Blumilk\BLT\Features\Traits;
 use Behat\Gherkin\Node\TableNode;
 use Blumilk\BLT\LaravelContracts;
 use Closure;
-use Illuminate\Foundation\Http\Kernel;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 trait Middleware
 {
