@@ -1,6 +1,6 @@
 services:
   php:
-    image: ghcr.io/blumilksoftware/php:8.3
+    image: ghcr.io/blumilksoftware/php:8.4
     container_name: blt-php
     working_dir: /application
     user: ${CURRENT_UID}

@@ -32,7 +32,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@a4e22b60bbb9c1021113f2860347b0759f66fe5d # v2.30.0
         with:
-          php-version: 8.3
+          php-version: 8.4
           coverage: none
 
       - name: Install Composer dependencies
